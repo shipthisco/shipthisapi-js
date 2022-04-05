@@ -2,9 +2,8 @@
   "name": "shipthisapi-js",
   "version": "0.0.1",
   "description": "Wrapper for shipthis api",
-  "type": "module",
   "engines": {
-    "node": ">= 16.13 <17"
+    "node": ">= 14.15 <17"
   },
   "devDependencies": {
     "@types/jest": "~27.4",
@@ -36,6 +35,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "axios": "^0.26.1",
+    "qs": "^6.10.3",
     "tslib": "~2.3.1"
   },
   "volta": {
