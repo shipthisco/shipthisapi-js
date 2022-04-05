@@ -13,10 +13,11 @@ export default {
   transform: {
     "^.+\\.ts$": "ts-jest"
   },
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts$',
+  testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.ts$',
   coverageDirectory: 'coverage',
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.d.ts',
   ],
+  testTimeout: 30000
 };
