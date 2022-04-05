@@ -1,6 +1,9 @@
-name: Node.js CI
+name: Deploy CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -8,11 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: volta-cli/action@v1
-    - run: npm ci --no-audit
-    - run: npm run lint --if-present
-    - run: npm test
-    - run: npm run build --if-present
-      env:
-        CI: true
+      - uses: actions/checkout@v2
+      - uses: volta-cli/action@v1
+      - run: npm install
+      - run: npm test -- main.spec.ts
+      - run: npm run build
+        env:
+          CI: true
+      - run: npm test -- build.spec.ts
+      - run: touch ./dist/simple-timeout/.npmignore
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: "./dist/shipthisapi-js/package.json"
