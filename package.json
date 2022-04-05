@@ -27,7 +27,7 @@
     "prebuild": "node ./scripts/pre-build && npm run lint",
     "build": "tsc -p tsconfig.prod.json",
     "postbuild": "node ./scripts/pre-publish",
-    "build:watch": "tsc -w -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.prod.json",
     "lint": "eslint ./src --ext .ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch"

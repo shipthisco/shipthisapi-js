@@ -19,4 +19,5 @@ export default {
     'src/**/*.ts',
     '!src/**/*.d.ts',
   ],
+  testTimeout: 30000
 };
