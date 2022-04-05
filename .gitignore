@@ -11,6 +11,11 @@ coverage
 
 # Transpiled files
 build/
+dist/
+
+# Temporary files
+temp/
+tmp/
 
 # VS Code
 .vscode

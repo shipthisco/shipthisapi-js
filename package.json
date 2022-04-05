@@ -5,6 +5,7 @@
   "engines": {
     "node": ">= 14.15 <17"
   },
+  "type": "module",
   "devDependencies": {
     "@types/jest": "~27.4",
     "@types/node": "~16.11",
@@ -23,11 +24,11 @@
   "scripts": {
     "start": "node build/src/main.js",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "npm run lint",
-    "build": "tsc -p tsconfig.json",
+    "prebuild": "node ./scripts/pre-build && npm run lint",
+    "build": "tsc -p tsconfig.prod.json",
+    "postbuild": "node ./scripts/pre-publish",
     "build:watch": "tsc -w -p tsconfig.json",
-    "build:release": "npm run clean && tsc -p tsconfig.release.json",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint ./src --ext .ts",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
@@ -35,7 +36,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "axios": "^0.26.1",
-    "qs": "^6.10.3",
     "tslib": "~2.3.1"
   },
   "volta": {

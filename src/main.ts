@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
-import { ApiOptions, RequestOptions } from './api.interface';
+import { ApiOptions, RequestOptions } from './interfaces/api.interface';
 import { CollectionParams } from './interfaces/collection-params.interface';
 import { CollectionResponse } from './interfaces/collection.interface';
 import { InfoData, Region, ShipthisApiResponse, ShipthisLocation } from './interfaces/info.interface';
@@ -22,6 +22,9 @@ export class ShipthisAPI {
 
   get location_id() {
     return this._location_id;
+  }
+  set location_id(value: string) {
+    this._location_id = value;
   }
 
   constructor(init: ApiOptions) {
@@ -54,7 +57,6 @@ export class ShipthisAPI {
     const data: any = _data?.data;
 
     if (data?.organisation?.regions > this._regions) {
-      console.log('here')
       this._regions = data?.organisation?.regions;
       this._locations = this._regions?.reduce((acc, region) => {
         if (region?.locations) {

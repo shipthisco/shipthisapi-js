@@ -12,6 +12,7 @@ export interface ApiOptions {
   x_api_key: string,
   organisation_id: string,
   user_type: UserType,
+  location_id?: string,
 }
 
 export interface RequestOptions {
