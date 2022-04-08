@@ -18,8 +18,7 @@ jobs:
       - run: npm run build
         env:
           CI: true
-      - run: npm test -- build.spec.ts
-      - run: touch ./dist/simple-timeout/.npmignore
+      - run: touch ./dist/shipthisapi-js/.npmignore
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}

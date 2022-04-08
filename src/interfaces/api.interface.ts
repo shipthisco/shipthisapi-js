@@ -9,10 +9,11 @@ export interface ApiEssentials {
 export type UserType = 'employee' | 'customer' | 'vendor';
 
 export interface ApiOptions {
-  x_api_key: string,
-  organisation_id: string,
-  user_type: UserType,
-  location_id?: string,
+  xApiKey: string,
+  organisationId: string,
+  userType: UserType,
+  locationId?: string,
+  regionId?: string;
 }
 
 export interface RequestOptions {
