@@ -1,9 +1,6 @@
 name: Deploy CI
 
-on:
-  push:
-    branches:
-      - develop
+on: [workflow_dispatch]
 
 jobs:
   build:
