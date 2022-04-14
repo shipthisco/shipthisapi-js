@@ -18,7 +18,7 @@ Install my-project with npm
 
 #### Javascript Injectable Script
 
-    <script scr="https://cdn.jsdelivr.net/gh/shipthisco/shipthisapi-js@tree/develop/dist/shipthisapi-js/main.js">
+    <script scr="https://cdn.jsdelivr.net/gh/shipthisco/shipthisapi-js@develop/dist/shipthisapi-js/main.js">
     </script>
 
   
