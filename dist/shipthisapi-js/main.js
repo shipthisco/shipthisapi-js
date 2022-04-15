@@ -83,9 +83,6 @@ class ShipthisAPI {
                 .then((data) => {
                 if (data.user) {
                     resolve(data.user);
-                    console.log('is array');
-                    console.log(typeof data.user.auth_token);
-                    console.log(Array.isArray(data.user.auth_token));
                     if (Array.isArray(data.user.auth_token)) {
                         this.authToken = data.user.auth_token[0];
                     }

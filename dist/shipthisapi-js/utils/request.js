@@ -7,6 +7,8 @@ const internalRequest = async (obj, method, path, options) => {
         path = path.substring(1);
     }
     const headers = {
+        "Access-Control-Allow-Origin": '*',
+        "Access-Control-Allow-Credentials": true,
         "organisation": obj.organisationId,
         "user_type": obj.userType,
         "region": obj.selectedRegion || '',

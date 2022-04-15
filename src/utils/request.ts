@@ -6,8 +6,9 @@ const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, op
     if (path.charAt(0) === '/') {
         path = path.substring(1);
       }
-      const headers: Record<string, string> = {
+      const headers: Record<string, any> = {
         "Access-Control-Allow-Origin" : '*',
+        "Access-Control-Allow-Credentials":true,
         "organisation": obj.organisationId,
         "user_type": obj.userType,
         "region": obj.selectedRegion || '',
