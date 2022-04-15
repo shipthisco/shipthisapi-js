@@ -14,9 +14,9 @@ class ShipthisAPI {
         this.createGenericCollectionItem = generic_1.createGenericCollectionItem;
         this.updateGenericCollectionItem = generic_1.updateGenericCollectionItem;
         this.deleteGenericCollectionItem = generic_1.deleteGenericCollectionItem;
-        this.xApiKey = init.xApiKey;
         this.organisationId = init.organisationId;
         this.userType = init.userType;
+        this.xApiKey = init.xApiKey;
         this.selectedRegion = init.regionId || '';
         this.selectedLocation = init.locationId || '';
         this.getInfo()
@@ -56,6 +56,47 @@ class ShipthisAPI {
                 }
                 this.setObjectReferences();
                 resolve({ 'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation });
+            });
+        });
+    }
+    async loginViaPassword(email, password) {
+        return new Promise((resolve, reject) => {
+            let basePath = '';
+            if (this.userType === 'employee') {
+                basePath = '/auth';
+            }
+            else if (this.userType === 'customer') {
+                basePath = '/customer/auth';
+            }
+            else if (this.userType === 'vendor') {
+                basePath = '/vendor/auth';
+            }
+            basePath += '/login';
+            console.log(basePath);
+            console.log('ogin vith pasword');
+            this.internalRequest(this, 'POST', basePath, {
+                requestData: {
+                    email: email.toLowerCase(),
+                    password: password
+                }
+            })
+                .then((data) => {
+                if (data.user) {
+                    resolve(data.user);
+                    console.log('is array');
+                    console.log(typeof data.user.auth_token);
+                    console.log(Array.isArray(data.user.auth_token));
+                    if (Array.isArray(data.user.auth_token)) {
+                        this.authToken = data.user.auth_token[0];
+                    }
+                    else {
+                        this.authToken = data.user.auth_token;
+                    }
+                    this.setObjectReferences();
+                }
+            })
+                .catch((err) => {
+                reject(err);
             });
         });
     }

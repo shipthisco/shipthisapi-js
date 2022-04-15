@@ -7,12 +7,18 @@ const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, op
         path = path.substring(1);
       }
       const headers: Record<string, string> = {
-        'x-api-key': obj.xApiKey,
         "organisation": obj.organisationId,
         "user_type": obj.userType,
         "region": obj.selectedRegion || '',
         "location": obj.selectedLocation || '',
       };
+      if(obj.authToken) {
+        headers['authorization'] = obj.authToken;
+      }
+      if (obj.xApiKey){
+        headers['x-api-key'] = obj.xApiKey || '';
+      }
+
       const query_params = options?.queryParams || null;
       const config: AxiosRequestConfig = {
         method,
@@ -23,7 +29,6 @@ const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, op
       if (['post', 'POST', 'put', 'PUT', 'patch', 'PATCH'].includes(method)) {
         config.data = options?.requestData || {};
       }
-      console.log(config);
       const result: AxiosResponse = await axios.request(config);
       if(result.status === 200 && result?.data?.success) {
         return result?.data?.data;

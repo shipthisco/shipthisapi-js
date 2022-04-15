@@ -7,12 +7,17 @@ const internalRequest = async (obj, method, path, options) => {
         path = path.substring(1);
     }
     const headers = {
-        'x-api-key': obj.xApiKey,
         "organisation": obj.organisationId,
         "user_type": obj.userType,
         "region": obj.selectedRegion || '',
         "location": obj.selectedLocation || '',
     };
+    if (obj.authToken) {
+        headers['authorization'] = obj.authToken;
+    }
+    if (obj.xApiKey) {
+        headers['x-api-key'] = obj.xApiKey || '';
+    }
     const query_params = options?.queryParams || null;
     const config = {
         method,

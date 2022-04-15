@@ -7,14 +7,14 @@ export interface ApiEssentials {
 }
 export declare type UserType = 'employee' | 'customer' | 'vendor';
 export interface ApiOptions {
-    xApiKey: string;
     organisationId: string;
     userType: UserType;
+    xApiKey?: string;
     locationId?: string;
     regionId?: string;
 }
 export interface RequestOptions {
     queryParams?: string;
-    requestData?: string;
+    requestData?: any;
     params?: any;
 }

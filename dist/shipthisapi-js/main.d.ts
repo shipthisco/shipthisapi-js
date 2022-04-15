@@ -6,6 +6,7 @@ export declare class ShipthisAPI {
     serverUrl: string;
     base_api_endpoint: string;
     xApiKey: string;
+    authToken: string;
     organisationId: string;
     organisation: Organisation;
     userType: string;
@@ -21,6 +22,7 @@ export declare class ShipthisAPI {
     Invoice: Invoice;
     constructor(init: ApiOptions);
     connect(locationId?: any): Promise<unknown>;
+    loginViaPassword(email: string, password: string): Promise<unknown>;
     getSelectedRegion(): string;
     setRegionAndLocation(regionId: string, locationId: string): void;
     setObjectReferences(): void;
