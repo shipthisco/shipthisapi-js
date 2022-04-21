@@ -43,10 +43,6 @@ const deleteGenericCollectionItem = async(obj, collectionName: string, objectId:
   );
 }
 
-const getRelatedMeta = async(obj, collectionName: string) => {
-  return obj.internalRequest(obj, 'GET', '')
-}
-
 export {
   getOneGenericCollectionItem,
   getListGenericCollection,

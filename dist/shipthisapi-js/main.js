@@ -81,15 +81,39 @@ class ShipthisAPI {
             })
                 .then((data) => {
                 if (data.user) {
+                    this.onAuthSuccess(data.user);
                     resolve(data.user);
-                    if (Array.isArray(data.user.auth_token)) {
-                        this.authorization = data.user.auth_token[0];
-                    }
-                    else {
-                        this.authorization = data.user.auth_token;
-                    }
-                    this.setObjectReferences();
                 }
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        });
+    }
+    onAuthSuccess(user) {
+        if (Array.isArray(user.auth_token)) {
+            this.authorization = user.auth_token[0];
+        }
+        else {
+            this.authorization = user.auth_token;
+        }
+        this.setObjectReferences();
+    }
+    async customerUserRegistration(email, password, firstName, lastName, companyName, acceptTermsAndConditions) {
+        return new Promise((resolve, reject) => {
+            (0, request_1.internalRequest)(this, 'POST', '/customer/auth/register', {
+                requestData: {
+                    email: email,
+                    password: password,
+                    first_name: firstName,
+                    last_name: lastName,
+                    company_name: companyName,
+                    accept_terms_and_condition: acceptTermsAndConditions
+                }
+            })
+                .then((data) => {
+                this.onAuthSuccess(data.user);
+                resolve(data.user);
             })
                 .catch((err) => {
                 reject(err);

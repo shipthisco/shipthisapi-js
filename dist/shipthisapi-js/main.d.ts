@@ -23,6 +23,8 @@ export declare class ShipthisAPI {
     constructor(init: ApiOptions);
     connect(locationId?: any): Promise<unknown>;
     loginViaPassword(email: string, password: string): Promise<unknown>;
+    onAuthSuccess(user: any): void;
+    customerUserRegistration(email: string, password: string, firstName: string, lastName: string, companyName: string, acceptTermsAndConditions: boolean): Promise<any>;
     getSelectedRegion(): string;
     setRegionAndLocation(regionId: string, locationId: string): void;
     setObjectReferences(): void;
