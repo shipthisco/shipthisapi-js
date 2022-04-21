@@ -6,7 +6,7 @@ export declare class ShipthisAPI {
     serverUrl: string;
     base_api_endpoint: string;
     xApiKey: string;
-    authToken: string;
+    authorization: string;
     organisationId: string;
     organisation: Organisation;
     userType: string;

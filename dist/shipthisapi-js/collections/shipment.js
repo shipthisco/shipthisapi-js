@@ -4,7 +4,9 @@ exports.Shipment = void 0;
 class Shipment {
     constructor(obj) {
         this.obj = obj;
-        console.log('this is shipment');
+    }
+    getAllShipment() {
+        return this.obj.getListGenericCollection(this.obj, 'shipment_v2');
     }
     getAirShipment() {
         return this.obj.getListGenericCollection(this.obj, 'air_shipment');

@@ -10,6 +10,7 @@ export interface ApiOptions {
     organisationId: string;
     userType: UserType;
     xApiKey?: string;
+    authorization?: string;
     locationId?: string;
     regionId?: string;
 }

@@ -10,12 +10,12 @@ const internalRequest = async (obj, method, path, options) => {
         "Access-Control-Allow-Origin": '*',
         "Access-Control-Allow-Credentials": true,
         "organisation": obj.organisationId,
-        "user_type": obj.userType,
+        "usertype": obj.userType,
         "region": obj.selectedRegion || '',
         "location": obj.selectedLocation || '',
     };
-    if (obj.authToken) {
-        headers['authorization'] = obj.authToken;
+    if (obj.authorization) {
+        headers['authorization'] = obj.authorization;
     }
     if (obj.xApiKey) {
         headers['x-api-key'] = obj.xApiKey || '';

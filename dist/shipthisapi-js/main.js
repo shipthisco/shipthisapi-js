@@ -17,6 +17,7 @@ class ShipthisAPI {
         this.organisationId = init.organisationId;
         this.userType = init.userType;
         this.xApiKey = init.xApiKey;
+        this.authorization = init.authorization;
         this.selectedRegion = init.regionId || '';
         this.selectedLocation = init.locationId || '';
         this.getInfo()
@@ -25,7 +26,7 @@ class ShipthisAPI {
             this.serverUrl = infoResponse.api_endpoint;
         });
     }
-    async connect(locationId = null) {
+    connect(locationId = null) {
         return new Promise((resolve) => {
             this.getInfo()
                 .then((resp) => {
@@ -72,8 +73,6 @@ class ShipthisAPI {
                 basePath = '/vendor/auth';
             }
             basePath += '/login';
-            console.log(basePath);
-            console.log('ogin vith pasword');
             this.internalRequest(this, 'POST', basePath, {
                 requestData: {
                     email: email.toLowerCase(),
@@ -84,10 +83,10 @@ class ShipthisAPI {
                 if (data.user) {
                     resolve(data.user);
                     if (Array.isArray(data.user.auth_token)) {
-                        this.authToken = data.user.auth_token[0];
+                        this.authorization = data.user.auth_token[0];
                     }
                     else {
-                        this.authToken = data.user.auth_token;
+                        this.authorization = data.user.auth_token;
                     }
                     this.setObjectReferences();
                 }
@@ -108,7 +107,17 @@ class ShipthisAPI {
         this.Shipment = new shipment_1.Shipment(this);
     }
     getInfo() {
-        return this.internalRequest(this, 'GET', '/auth/info');
+        let basePath = '';
+        if (this.userType === 'employee') {
+            basePath = '/auth';
+        }
+        else if (this.userType === 'customer') {
+            basePath = '/customer/auth';
+        }
+        else if (this.userType === 'vendor') {
+            basePath = '/vendor/auth';
+        }
+        return this.internalRequest(this, 'GET', basePath + '/info');
     }
 }
 exports.ShipthisAPI = ShipthisAPI;

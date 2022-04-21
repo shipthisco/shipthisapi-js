@@ -16,7 +16,7 @@ export class ShipthisAPI {
 
   base_api_endpoint = 'https://api.shipthis.co/api/v3/';
   xApiKey: string;
-  authToken: string;
+  authorization: string;
   organisationId: string;
   organisation: Organisation;
   userType: string;
@@ -46,16 +46,18 @@ export class ShipthisAPI {
     this.organisationId = init.organisationId;
     this.userType = init.userType;
     this.xApiKey = init.xApiKey;
+    this.authorization = init.authorization;
     this.selectedRegion = init.regionId || '';
     this.selectedLocation = init.locationId || '';
     this.getInfo()
       .then((infoResponse) => {
         this.organisation = infoResponse.organisation;
         this.serverUrl = infoResponse.api_endpoint;
+        // this.setObjectReferences();
       });
   }
 
-  public async connect(locationId = null) {
+  public connect(locationId = null) {
     return new Promise((resolve) => {
       this.getInfo()
         .then((resp: any) => {
@@ -90,6 +92,13 @@ export class ShipthisAPI {
     })
   }
 
+  // Session
+
+  /**
+   * Login Via Password
+   * @param email
+   * @param password
+   */
   public async loginViaPassword(email: string, password: string) {
     return new Promise((resolve, reject) => {
       // TODO remove this on backend update
@@ -102,8 +111,6 @@ export class ShipthisAPI {
         basePath = '/vendor/auth'
       }
       basePath += '/login'
-      console.log(basePath);
-      console.log('ogin vith pasword')
       this.internalRequest(this, 'POST', basePath, {
         requestData: {
           email: email.toLowerCase(),
@@ -112,19 +119,55 @@ export class ShipthisAPI {
       })
         .then((data: any) => {
           if (data.user) {
+            this.onAuthSuccess(data.user);
             resolve(data.user);
-            if (Array.isArray(data.user.auth_token)) {
-              this.authToken = data.user.auth_token[0];
-            } else {
-              this.authToken = data.user.auth_token;
-            }
-            this.setObjectReferences();
           }
         })
         .catch((err) => {
           reject(err);
         })
     })
+  }
+
+  onAuthSuccess(user) {
+    if (Array.isArray(user.auth_token)) {
+      this.authorization = user.auth_token[0];
+    } else {
+      this.authorization = user.auth_token;
+    }
+    this.setObjectReferences();
+  }
+
+  /**
+   * Customer User Registration
+   * @param email
+   * @param password
+   * @param firstName
+   * @param lastName
+   * @param companyName
+   * @param acceptTermsAndConditions
+   */
+  public async customerUserRegistration(email: string, password: string, firstName: string, lastName: string, companyName: string, acceptTermsAndConditions: boolean) {
+    return new Promise<any>((resolve, reject) => {
+      internalRequest(this, 'POST', '/customer/auth/register', {
+        requestData: {
+          email: email,
+          password: password,
+          first_name: firstName,
+          last_name: lastName,
+          company_name: companyName,
+          accept_terms_and_condition: acceptTermsAndConditions
+        }
+      })
+        .then((data: any) => {
+          this.onAuthSuccess(data.user);
+          resolve(data.user);
+        })
+        .catch((err) => {
+          reject(err)
+        })
+    })
+
   }
 
   public getSelectedRegion() {
@@ -146,6 +189,14 @@ export class ShipthisAPI {
    * @returns {Promise<AxiosResponse<ShipthisApiResponse<InfoData>>>}
    */
   public getInfo() {
-    return this.internalRequest(this, 'GET', '/auth/info');
+    let basePath = '';
+    if (this.userType === 'employee') {
+      basePath = '/auth'
+    } else if (this.userType === 'customer') {
+      basePath = '/customer/auth'
+    } else if (this.userType === 'vendor') {
+      basePath = '/vendor/auth'
+    }
+    return this.internalRequest(this, 'GET', basePath + '/info');
   }
 }
