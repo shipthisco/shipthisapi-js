@@ -8,7 +8,7 @@ let param = {
 }
 let shipthisApi = new ShipthisAPI(param)
 await shipthisApi.connect();
-await shipthisApi.loginViaPassword('demo@gmail.com', 'password')
+await shipthisApi.loginViaPassword('demo@gmail.com', 'password');
 // console.log(shipthisApi.organisation);
 //
 shipthisApi.Shipment.getAirShipment()

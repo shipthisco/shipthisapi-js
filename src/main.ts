@@ -6,7 +6,7 @@ import {
   updateGenericCollectionItem
 } from './collections/generic';
 import { ApiOptions } from './interfaces/api.interface';
-import { internalRequest } from './utils/request';
+import { internalRequest, uploadFile } from './utils/request';
 import { Shipment } from './collections/shipment';
 import { Organisation } from './interfaces/info.interface';
 import { Invoice } from './collections/invoice';
@@ -15,6 +15,7 @@ export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co'
 
   base_api_endpoint = 'https://api.shipthis.co/api/v3/';
+  file_upload_api_endpoint = 'https://upload.shipthis.co/file_upload';
   xApiKey: string;
   authorization: string;
   organisationId: string;
@@ -25,6 +26,7 @@ export class ShipthisAPI {
 
 
   public internalRequest = internalRequest;
+  public uploadFile = uploadFile
   public getListGenericCollection = getListGenericCollection;
   public getOneGenericCollectionItem = getOneGenericCollectionItem;
   public createGenericCollectionItem = createGenericCollectionItem;
