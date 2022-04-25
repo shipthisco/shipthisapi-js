@@ -5,6 +5,7 @@ import { Invoice } from './collections/invoice';
 export declare class ShipthisAPI {
     serverUrl: string;
     base_api_endpoint: string;
+    file_upload_api_endpoint: string;
     xApiKey: string;
     authorization: string;
     organisationId: string;
@@ -13,6 +14,7 @@ export declare class ShipthisAPI {
     selectedRegion: string;
     selectedLocation: string;
     internalRequest: (obj: ShipthisAPI, method: import("axios").Method, path: string, options?: import("./interfaces/api.interface").RequestOptions) => Promise<any>;
+    uploadFile: (obj: ShipthisAPI, imagefile: any) => Promise<any>;
     getListGenericCollection: (obj: ShipthisAPI, collectionName: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: any, objectId: string) => Promise<any>;
     createGenericCollectionItem: (obj: any, collectionName: string, itemData: any) => Promise<any>;

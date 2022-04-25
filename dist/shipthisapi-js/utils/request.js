@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.internalRequest = void 0;
+exports.uploadFile = exports.internalRequest = void 0;
 const axios_1 = require("axios");
 const internalRequest = async (obj, method, path, options) => {
     if (path.charAt(0) === '/') {
@@ -40,3 +40,25 @@ const internalRequest = async (obj, method, path, options) => {
     }
 };
 exports.internalRequest = internalRequest;
+const uploadFile = async (obj, imagefile) => {
+    const headers = {
+        'Content-Type': 'multipart/form-data'
+    };
+    if (obj.authorization) {
+        headers['authorization'] = obj.authorization;
+        headers['authToken'] = obj.authorization;
+    }
+    const formData = new FormData();
+    formData.append("image", imagefile.files[0]);
+    const result = await axios_1.default.post('upload_file', formData, {
+        headers: headers
+    });
+    if (result.status === 200 && result?.data?.success) {
+        return result?.data?.data;
+    }
+    else {
+        console.log(result.data);
+        throw new Error('File Upload Error');
+    }
+};
+exports.uploadFile = uploadFile;
