@@ -7,8 +7,9 @@ const shipment_1 = require("./collections/shipment");
 class ShipthisAPI {
     constructor(init) {
         this.serverUrl = 'https://api.shipthis.co';
-        this.base_api_endpoint = 'https://api.shipthis.co/api/v3/';
+        this.base_api_endpoint = 'http://localhost:8000/api/v3/';
         this.file_upload_api_endpoint = 'https://upload.shipthis.co/file_upload';
+        this.profiles = [];
         this.internalRequest = request_1.internalRequest;
         this.uploadFile = request_1.uploadFile;
         this.getListGenericCollection = generic_1.getListGenericCollection;
@@ -24,16 +25,14 @@ class ShipthisAPI {
         this.selectedLocation = init.locationId || '';
         this.getInfo()
             .then((infoResponse) => {
-            this.organisation = infoResponse.organisation;
-            this.serverUrl = infoResponse.api_endpoint;
+            this.onInfoChange(infoResponse);
         });
     }
     connect(locationId = null) {
         return new Promise((resolve) => {
             this.getInfo()
                 .then((resp) => {
-                this.organisation = resp.organisation;
-                this.serverUrl = resp.api_endpoint;
+                this.onInfoChange(resp);
                 if (!locationId) {
                     this.selectedRegion = resp?.organisation?.regions[0]?.region_id;
                     this.selectedLocation = resp?.organisation?.regions[0]?.locations[0]?.location_id;
@@ -83,7 +82,7 @@ class ShipthisAPI {
             })
                 .then((data) => {
                 if (data.user) {
-                    this.onAuthSuccess(data.user);
+                    this.onInfoChange(data);
                     resolve(data.user);
                 }
             })
@@ -92,13 +91,20 @@ class ShipthisAPI {
             });
         });
     }
-    onAuthSuccess(user) {
-        if (Array.isArray(user.auth_token)) {
-            this.authorization = user.auth_token[0];
+    onInfoChange(response) {
+        if (response?.user?.auth_token) {
+            if (Array.isArray(response.user.auth_token)) {
+                this.authorization = response.user.auth_token[0];
+            }
+            else {
+                this.authorization = response.user.auth_token;
+            }
         }
-        else {
-            this.authorization = user.auth_token;
+        if (response?.profiles) {
+            this.selectedProfile = response.profiles[0];
         }
+        this.organisation = response.organisation;
+        this.serverUrl = response.api_endpoint;
         this.setObjectReferences();
     }
     async customerUserRegistration(email, password, firstName, lastName, companyName, acceptTermsAndConditions) {
@@ -114,7 +120,7 @@ class ShipthisAPI {
                 }
             })
                 .then((data) => {
-                this.onAuthSuccess(data.user);
+                this.onInfoChange(data.user);
                 resolve(data.user);
             })
                 .catch((err) => {

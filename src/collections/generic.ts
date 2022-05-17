@@ -24,7 +24,7 @@ const createGenericCollectionItem = async(obj, collectionName: string, itemData:
   return obj.internalRequest(obj,
     'POST',
     `/incollection/${collectionName}`,
-    {requestData: itemData}
+    {requestData: {reqbody: itemData}}
   )
 }
 

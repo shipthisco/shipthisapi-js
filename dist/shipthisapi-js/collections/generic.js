@@ -13,7 +13,7 @@ const getOneGenericCollectionItem = async (obj, collectionName, objectId) => {
 };
 exports.getOneGenericCollectionItem = getOneGenericCollectionItem;
 const createGenericCollectionItem = async (obj, collectionName, itemData) => {
-    return obj.internalRequest(obj, 'POST', `/incollection/${collectionName}`, { requestData: itemData });
+    return obj.internalRequest(obj, 'POST', `/incollection/${collectionName}`, { requestData: { reqbody: itemData } });
 };
 exports.createGenericCollectionItem = createGenericCollectionItem;
 const updateGenericCollectionItem = async (obj, collectionName, objectId, updatedData) => {

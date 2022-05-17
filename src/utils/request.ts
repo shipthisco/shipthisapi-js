@@ -1,14 +1,9 @@
-import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
+import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, Method } from 'axios';
 import { RequestOptions } from '../interfaces/api.interface';
 import { ShipthisAPI } from '../main';
 
-const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, options?: RequestOptions) => {
-  if (path.charAt(0) === '/') {
-    path = path.substring(1);
-  }
-  const headers: Record<string, any> = {
-    "Access-Control-Allow-Origin": '*',
-    "Access-Control-Allow-Credentials": true,
+const prepareHeaders = async(obj: ShipthisAPI) => {
+  const headers: AxiosRequestHeaders = {
     "organisation": obj.organisationId,
     "usertype": obj.userType,
     "region": obj.selectedRegion || '',
@@ -16,11 +11,21 @@ const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, op
   };
   if (obj.authorization) {
     headers['authorization'] = obj.authorization;
+    headers['authToken'] = obj.authorization;
   }
   if (obj.xApiKey) {
     headers['x-api-key'] = obj.xApiKey || '';
   }
+  return headers;
+}
 
+const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, options?: RequestOptions) => {
+  if (path.charAt(0) === '/') {
+    path = path.substring(1);
+  }
+  const headers = await prepareHeaders(obj);
+  headers["Access-Control-Allow-Origin"] = '*';
+  headers["Access-Control-Allow-Credentials"] = true;
   const query_params = options?.queryParams || null;
   const config: AxiosRequestConfig = {
     method,
@@ -40,21 +45,21 @@ const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, op
   }
 }
 
-const uploadFile = async(obj: ShipthisAPI, imagefile: any) => {
-  const headers: Record<string, any> = {
-    'Content-Type': 'multipart/form-data'
-  }
-  if (obj.authorization) {
-    headers['authorization'] = obj.authorization;
-    headers['authToken'] = obj.authorization;
-  }
+/**
+ * Upload file
+ * @param obj Shipthis Object
+ * @param file File to be uploaded
+ */
+const uploadFile = async(obj: ShipthisAPI, file: File) => {
+  const headers = await prepareHeaders(obj);
+  headers['Content-Type'] = 'multipart/form-data';
   const formData = new FormData();
-  formData.append("image", imagefile.files[0]);
-  const result = await axios.post('upload_file', formData, {
+  formData.append("image", file);
+  const result = await axios.post(obj.file_upload_api_endpoint, formData, {
     headers: headers
   })
-  if (result.status === 200 && result?.data?.success) {
-    return result?.data?.data;
+  if (result.status === 200) {
+    return result?.data;
   } else {
     console.log(result.data);
     throw new Error('File Upload Error');

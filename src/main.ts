@@ -23,6 +23,8 @@ export class ShipthisAPI {
   userType: string;
   selectedRegion: string;
   selectedLocation: string;
+  profiles = [];
+  selectedProfile;
 
 
   public internalRequest = internalRequest;
@@ -53,9 +55,7 @@ export class ShipthisAPI {
     this.selectedLocation = init.locationId || '';
     this.getInfo()
       .then((infoResponse) => {
-        this.organisation = infoResponse.organisation;
-        this.serverUrl = infoResponse.api_endpoint;
-        // this.setObjectReferences();
+        this.onInfoChange(infoResponse);
       });
   }
 
@@ -63,8 +63,7 @@ export class ShipthisAPI {
     return new Promise((resolve) => {
       this.getInfo()
         .then((resp: any) => {
-          this.organisation = resp.organisation;
-          this.serverUrl = resp.api_endpoint;
+          this.onInfoChange(resp);
           if (!locationId) {
             this.selectedRegion = resp?.organisation?.regions[0]?.region_id;
             this.selectedLocation = resp?.organisation?.regions[0]?.locations[0]?.location_id;
@@ -121,7 +120,7 @@ export class ShipthisAPI {
       })
         .then((data: any) => {
           if (data.user) {
-            this.onAuthSuccess(data.user);
+            this.onInfoChange(data);
             resolve(data.user);
           }
         })
@@ -131,12 +130,19 @@ export class ShipthisAPI {
     })
   }
 
-  onAuthSuccess(user) {
-    if (Array.isArray(user.auth_token)) {
-      this.authorization = user.auth_token[0];
-    } else {
-      this.authorization = user.auth_token;
+  onInfoChange(response: any) {
+    if (response?.user?.auth_token) {
+      if (Array.isArray(response.user.auth_token)) {
+        this.authorization = response.user.auth_token[0];
+      } else {
+        this.authorization = response.user.auth_token;
+      }
     }
+    if (response?.profiles) {
+      this.selectedProfile = response.profiles[0];
+    }
+    this.organisation = response.organisation;
+    this.serverUrl = response.api_endpoint;
     this.setObjectReferences();
   }
 
@@ -162,7 +168,7 @@ export class ShipthisAPI {
         }
       })
         .then((data: any) => {
-          this.onAuthSuccess(data.user);
+          this.onInfoChange(data.user);
           resolve(data.user);
         })
         .catch((err) => {

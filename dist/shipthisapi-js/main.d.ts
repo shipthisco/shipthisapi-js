@@ -13,8 +13,10 @@ export declare class ShipthisAPI {
     userType: string;
     selectedRegion: string;
     selectedLocation: string;
+    profiles: any[];
+    selectedProfile: any;
     internalRequest: (obj: ShipthisAPI, method: import("axios").Method, path: string, options?: import("./interfaces/api.interface").RequestOptions) => Promise<any>;
-    uploadFile: (obj: ShipthisAPI, imagefile: any) => Promise<any>;
+    uploadFile: (obj: ShipthisAPI, file: File) => Promise<any>;
     getListGenericCollection: (obj: ShipthisAPI, collectionName: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: any, objectId: string) => Promise<any>;
     createGenericCollectionItem: (obj: any, collectionName: string, itemData: any) => Promise<any>;
@@ -25,7 +27,7 @@ export declare class ShipthisAPI {
     constructor(init: ApiOptions);
     connect(locationId?: any): Promise<unknown>;
     loginViaPassword(email: string, password: string): Promise<unknown>;
-    onAuthSuccess(user: any): void;
+    onInfoChange(response: any): void;
     customerUserRegistration(email: string, password: string, firstName: string, lastName: string, companyName: string, acceptTermsAndConditions: boolean): Promise<any>;
     getSelectedRegion(): string;
     setRegionAndLocation(regionId: string, locationId: string): void;
