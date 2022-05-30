@@ -207,4 +207,10 @@ export class ShipthisAPI {
     }
     return this.internalRequest(this, 'GET', basePath + '/info');
   }
+
+  public searchLocation(query: string) {
+    return this.internalRequest(this, 'GET', 'thirdparty/search-place-autocomplete?query-level=undefined&query=' + query);
+  }
+
+
 }

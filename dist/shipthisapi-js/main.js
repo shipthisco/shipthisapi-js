@@ -7,7 +7,7 @@ const shipment_1 = require("./collections/shipment");
 class ShipthisAPI {
     constructor(init) {
         this.serverUrl = 'https://api.shipthis.co';
-        this.base_api_endpoint = 'http://localhost:8000/api/v3/';
+        this.base_api_endpoint = 'https://api.shipthis.co/api/v3/';
         this.file_upload_api_endpoint = 'https://upload.shipthis.co/file_upload';
         this.profiles = [];
         this.internalRequest = request_1.internalRequest;
@@ -150,6 +150,9 @@ class ShipthisAPI {
             basePath = '/vendor/auth';
         }
         return this.internalRequest(this, 'GET', basePath + '/info');
+    }
+    searchLocation(query) {
+        return this.internalRequest(this, 'GET', 'thirdparty/search-place-autocomplete?query-level=undefined&query=' + query);
     }
 }
 exports.ShipthisAPI = ShipthisAPI;

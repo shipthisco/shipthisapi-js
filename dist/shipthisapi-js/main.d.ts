@@ -33,4 +33,5 @@ export declare class ShipthisAPI {
     setRegionAndLocation(regionId: string, locationId: string): void;
     setObjectReferences(): void;
     getInfo(): Promise<any>;
+    searchLocation(query: string): Promise<any>;
 }

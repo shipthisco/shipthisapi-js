@@ -40,8 +40,10 @@ const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, op
   if (result.status === 200 && result?.data?.success) {
     return result?.data?.data;
   } else {
-    console.log(result.data)
-    throw new Error('Some errror');
+    console.log(result.data.errors);
+    if (result.data.errors) {
+      throw new Error(result?.data?.errors[0]?.message);
+    }
   }
 }
 

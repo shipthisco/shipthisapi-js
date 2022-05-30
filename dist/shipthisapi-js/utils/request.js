@@ -35,14 +35,15 @@ const internalRequest = async (obj, method, path, options) => {
     if (['post', 'POST', 'put', 'PUT', 'patch', 'PATCH'].includes(method)) {
         config.data = options?.requestData || {};
     }
-    console.log(obj);
     const result = await axios_1.default.request(config);
     if (result.status === 200 && result?.data?.success) {
         return result?.data?.data;
     }
     else {
-        console.log(result.data);
-        throw new Error('Some errror');
+        console.log(result.data.errors);
+        if (result.data.errors) {
+            throw new Error(result?.data?.errors[0]?.message);
+        }
     }
 };
 exports.internalRequest = internalRequest;
