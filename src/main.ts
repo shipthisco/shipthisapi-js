@@ -164,7 +164,8 @@ export class ShipthisAPI {
           first_name: firstName,
           last_name: lastName,
           company_name: companyName,
-          accept_terms_and_condition: acceptTermsAndConditions
+          accept_terms_and_condition: acceptTermsAndConditions,
+          skip_recaptcha: true
         }
       })
         .then((data: any) => {
