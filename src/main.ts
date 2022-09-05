@@ -103,15 +103,7 @@ export class ShipthisAPI {
   public async loginViaPassword(email: string, password: string) {
     return new Promise((resolve, reject) => {
       // TODO remove this on backend update
-      let basePath = '';
-      if (this.userType === 'employee') {
-        basePath = '/auth'
-      } else if (this.userType === 'customer') {
-        basePath = '/customer/auth'
-      } else if (this.userType === 'vendor') {
-        basePath = '/vendor/auth'
-      }
-      basePath += '/login'
+      const basePath = '/user-auth'
       this.internalRequest(this, 'POST', basePath, {
         requestData: {
           email: email.toLowerCase(),
@@ -198,20 +190,10 @@ export class ShipthisAPI {
    * @returns {Promise<AxiosResponse<ShipthisApiResponse<InfoData>>>}
    */
   public getInfo() {
-    let basePath = '';
-    if (this.userType === 'employee') {
-      basePath = '/auth'
-    } else if (this.userType === 'customer') {
-      basePath = '/customer/auth'
-    } else if (this.userType === 'vendor') {
-      basePath = '/vendor/auth'
-    }
-    return this.internalRequest(this, 'GET', basePath + '/info');
+    return this.internalRequest(this, 'GET', 'user-auth' + '/info');
   }
 
   public searchLocation(query: string) {
     return this.internalRequest(this, 'GET', 'thirdparty/search-place-autocomplete?query-level=undefined&query=' + query);
   }
-
-
 }

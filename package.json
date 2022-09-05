@@ -22,7 +22,7 @@
     "typescript": "~4.6"
   },
   "scripts": {
-    "start": "node build/src/main.js",
+    "start": "node dist/shipthisapi-js/main.js",
     "clean": "rimraf coverage build tmp",
     "prebuild": "node ./scripts/pre-build && npm run lint",
     "build": "tsc -p tsconfig.prod.json",
