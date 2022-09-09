@@ -17,6 +17,9 @@ class ShipthisAPI {
         this.createGenericCollectionItem = generic_1.createGenericCollectionItem;
         this.updateGenericCollectionItem = generic_1.updateGenericCollectionItem;
         this.deleteGenericCollectionItem = generic_1.deleteGenericCollectionItem;
+        this.getExchangeRateForCurrency = generic_1.getExchangeRateForCurrency;
+        this.getGenericAutoComplete = generic_1.getGenericAutoComplete;
+        this.getLocation = generic_1.getLocation;
         this.organisationId = init.organisationId;
         this.userType = init.userType;
         this.xApiKey = init.xApiKey;
@@ -63,17 +66,7 @@ class ShipthisAPI {
     }
     async loginViaPassword(email, password) {
         return new Promise((resolve, reject) => {
-            let basePath = '';
-            if (this.userType === 'employee') {
-                basePath = '/auth';
-            }
-            else if (this.userType === 'customer') {
-                basePath = '/customer/auth';
-            }
-            else if (this.userType === 'vendor') {
-                basePath = '/vendor/auth';
-            }
-            basePath += '/login';
+            const basePath = '/user-auth';
             this.internalRequest(this, 'POST', basePath, {
                 requestData: {
                     email: email.toLowerCase(),
@@ -140,17 +133,7 @@ class ShipthisAPI {
         this.Shipment = new shipment_1.Shipment(this);
     }
     getInfo() {
-        let basePath = '';
-        if (this.userType === 'employee') {
-            basePath = '/auth';
-        }
-        else if (this.userType === 'customer') {
-            basePath = '/customer/auth';
-        }
-        else if (this.userType === 'vendor') {
-            basePath = '/vendor/auth';
-        }
-        return this.internalRequest(this, 'GET', basePath + '/info');
+        return this.internalRequest(this, 'GET', 'user-auth' + '/info');
     }
     searchLocation(query) {
         return this.internalRequest(this, 'GET', 'thirdparty/search-place-autocomplete?query-level=undefined&query=' + query);

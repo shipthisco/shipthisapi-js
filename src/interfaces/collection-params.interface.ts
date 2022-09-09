@@ -1,4 +1,5 @@
 export interface CollectionParams {
+  only?: string;
   count?:           number;
   page?:            number;
   multi_sort?:      MultiSort[];
@@ -8,6 +9,8 @@ export interface CollectionParams {
   general_filter?:  GeneralFilter;
   location?:        string;
   region_override?: boolean;
+  query? : string;
+  query_level?: string;
 }
 
 export interface GeneralFilter {

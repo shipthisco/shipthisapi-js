@@ -1,8 +1,11 @@
 import { CollectionParams } from "../interfaces/collection-params.interface";
 import { ShipthisAPI } from "../main";
-declare const getListGenericCollection: (obj: ShipthisAPI, collectionName: any, params?: CollectionParams) => Promise<any>;
-declare const getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: any, objectId: string) => Promise<any>;
-declare const createGenericCollectionItem: (obj: any, collectionName: string, itemData: any) => Promise<any>;
-declare const updateGenericCollectionItem: (obj: any, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
-declare const deleteGenericCollectionItem: (obj: any, collectionName: string, objectId: string) => Promise<any>;
-export { getOneGenericCollectionItem, getListGenericCollection, createGenericCollectionItem, updateGenericCollectionItem, deleteGenericCollectionItem };
+declare const getListGenericCollection: (obj: ShipthisAPI, collectionName: string, params?: CollectionParams) => Promise<any>;
+declare const getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, objectId: string) => Promise<any>;
+declare const createGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, itemData: any) => Promise<any>;
+declare const updateGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
+declare const deleteGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, objectId: string) => Promise<any>;
+declare const getExchangeRateForCurrency: (obj: ShipthisAPI, currency: string) => Promise<any>;
+declare const getGenericAutoComplete: (obj: ShipthisAPI, referenceName: string, data: any) => Promise<any>;
+declare const getLocation: (obj: ShipthisAPI, collectionName: string, params?: CollectionParams) => Promise<any>;
+export { getOneGenericCollectionItem, getListGenericCollection, createGenericCollectionItem, updateGenericCollectionItem, deleteGenericCollectionItem, getExchangeRateForCurrency, getGenericAutoComplete, getLocation };

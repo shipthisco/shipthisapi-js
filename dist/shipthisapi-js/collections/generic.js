@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteGenericCollectionItem = exports.updateGenericCollectionItem = exports.createGenericCollectionItem = exports.getListGenericCollection = exports.getOneGenericCollectionItem = void 0;
+exports.getLocation = exports.getGenericAutoComplete = exports.getExchangeRateForCurrency = exports.deleteGenericCollectionItem = exports.updateGenericCollectionItem = exports.createGenericCollectionItem = exports.getListGenericCollection = exports.getOneGenericCollectionItem = void 0;
 const getListGenericCollection = async (obj, collectionName, params) => {
     if (!params) {
         params = {};
@@ -24,3 +24,18 @@ const deleteGenericCollectionItem = async (obj, collectionName, objectId) => {
     return obj.internalRequest(obj, 'DELETE', `/incollection/${collectionName}/${objectId}`);
 };
 exports.deleteGenericCollectionItem = deleteGenericCollectionItem;
+const getExchangeRateForCurrency = async (obj, currency) => {
+    return obj.internalRequest(obj, 'GET', `thirdparty/currency?source=${currency}&target=USD&date=${new Date().getTime()}`);
+};
+exports.getExchangeRateForCurrency = getExchangeRateForCurrency;
+const getGenericAutoComplete = async (obj, referenceName, data) => {
+    return obj.internalRequest(obj, 'POST', `autocomplete-reference/${referenceName}`, { requestData: data });
+};
+exports.getGenericAutoComplete = getGenericAutoComplete;
+const getLocation = async (obj, collectionName, params) => {
+    if (!params) {
+        params = {};
+    }
+    return obj.internalRequest(obj, 'GET', `thirdparty/${collectionName}`, { params });
+};
+exports.getLocation = getLocation;

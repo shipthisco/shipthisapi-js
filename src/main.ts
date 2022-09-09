@@ -3,7 +3,10 @@ import {
   deleteGenericCollectionItem,
   getListGenericCollection,
   getOneGenericCollectionItem,
-  updateGenericCollectionItem
+  updateGenericCollectionItem,
+  getExchangeRateForCurrency,
+  getGenericAutoComplete,
+  getLocation
 } from './collections/generic';
 import { ApiOptions } from './interfaces/api.interface';
 import { internalRequest, uploadFile } from './utils/request';
@@ -34,6 +37,9 @@ export class ShipthisAPI {
   public createGenericCollectionItem = createGenericCollectionItem;
   public updateGenericCollectionItem = updateGenericCollectionItem;
   public deleteGenericCollectionItem = deleteGenericCollectionItem;
+  public getExchangeRateForCurrency = getExchangeRateForCurrency
+  public getGenericAutoComplete = getGenericAutoComplete
+  public getLocation = getLocation
 
   /**
    * Collection Definition
