@@ -1,7 +1,16 @@
-import { ShipthisAPI } from "../main";
-import { RequestData , requiredData, referencePortPayload, referenceCustomerPayload, requiredShipmentType, requiredShpmentClass} from "./request-body"
-import { managePayload } from "../utils/commonUtils";
-
+import { ShipthisAPI } from '../main';
+import {
+  requestAirShipment,
+  requiredData,
+  referencePortPayload,
+  referenceCustomerPayload,
+  requiredShipmentType,
+  requiredShipmentClass,
+  requestSeaShipement,
+  requestLandShipment,
+} from './request-body';
+import { managePayload } from '../utils/commonUtils';
+import { ConversationPayload } from '../interfaces/conversation.interface';
 
 // const updateObject = {
 //         _id: {
@@ -323,7 +332,6 @@ import { managePayload } from "../utils/commonUtils";
 export class Shipment {
   public obj: ShipthisAPI;
 
-
   constructor(obj: ShipthisAPI) {
     this.obj = obj;
   }
@@ -333,243 +341,430 @@ export class Shipment {
     return this.obj.getListGenericCollection(this.obj, 'shipment_v2');
   }
   public getAirShipments() {
-    return this.obj.getListGenericCollection(this.obj, 'air_shipment')
+    return this.obj.getListGenericCollection(this.obj, 'air_shipment');
   }
   public getSeaShipments() {
-    return this.obj.getListGenericCollection(this.obj, 'sea_shipment')
+    return this.obj.getListGenericCollection(this.obj, 'sea_shipment');
   }
   public getLandShipments() {
-    return this.obj.getListGenericCollection(this.obj, 'land_shipment')
+    return this.obj.getListGenericCollection(this.obj, 'land_shipment');
   }
 
   // Get single shipment with jobid
   public getAirShipment(ObjectId: string) {
-    return this.obj.getOneGenericCollectionItem(this.obj, 'air_shipment', ObjectId);
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'air_shipment',
+      ObjectId,
+    );
   }
   public getSeaShipment(ObjectId: string) {
-    return this.obj.getOneGenericCollectionItem(this.obj, 'sea_shipment', ObjectId);
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'sea_shipment',
+      ObjectId,
+    );
   }
   public getLandShipment(ObjectId: string) {
-    return this.obj.getOneGenericCollectionItem(this.obj, 'land_shipment', ObjectId);
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'land_shipment',
+      ObjectId,
+    );
   }
 
   // Update
   public updateAirShipment(ObjectId: string, updatedData: any) {
-    const allKeys = Object.keys(updatedData)
+    const allKeys = Object.keys(updatedData);
     for (const item in requiredData) {
       if (!allKeys.includes(item)) {
-        throw new Error("fill all the required fields") 
+        throw new Error('fill all the required fields');
       }
     }
-    const Data = {...requiredData, ...updatedData}
-    Data.reqbody.__events.opened__date.$date = new Date().getTime()
-    return this.obj.updateGenericCollectionItem(this.obj, 'air_shipment', ObjectId, Data);
+    const Data = { ...requiredData, ...updatedData };
+    Data.reqbody.__events.opened__date.$date = new Date().getTime();
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'air_shipment',
+      ObjectId,
+      Data,
+    );
   }
   public updateSeaShipment(ObjectId: string, updatedData: any) {
-    return this.obj.updateGenericCollectionItem(this.obj, 'sea_shipment', ObjectId, updatedData);
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'sea_shipment',
+      ObjectId,
+      updatedData,
+    );
   }
   public updateLandShipment(ObjectId: string, updatedData: any) {
-    return this.obj.updateGenericCollectionItem(this.obj, 'land_shipment', ObjectId, updatedData);
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'land_shipment',
+      ObjectId,
+      updatedData,
+    );
   }
-
 
   // Create
-  public createAirShipment(data : any) {
-    const allKeys = Object.keys(data)
-    console.log(allKeys)
+  public createAirShipment(data: any) {
+    const allKeys = Object.keys(data);
     for (let i = 0; i < requiredData.length; i++) {
-      console.log(requiredData[i])
       if (!allKeys.includes(requiredData[i])) {
-        console.log(requiredData[i])
-        throw new Error("fill all the required fields")
+        throw new Error('fill all the required fields');
       }
     }
-    if (!requiredShipmentType.includes(data.shipment_term) || !requiredShpmentClass.includes(data.shipment_class)) {
-      throw new Error("fill all the fields with correct values")
+    if (
+      !requiredShipmentType.includes(data.shipment_type) ||
+      !requiredShipmentClass.includes(data.shipment_class)
+    ) {
+      throw new Error('fill all the fields with correct values');
     }
-    const Data = {...RequestData, ...data}
-    return this.obj.createGenericCollectionItem(this.obj, 'air_shipment', Data)
+    const Data = { ...requestAirShipment, ...data };
+    return this.obj.createGenericCollectionItem(this.obj, 'air_shipment', Data);
   }
+
+  // create Sea shipment
   public createSeaShipment(data: any) {
-    const allKeys = Object.keys(data)
-    console.log(allKeys)
-    for (let i = 0; i < requiredData.length; i++) {
-      console.log(requiredData[i])
-      if (!allKeys.includes(requiredData[i])) {
-        console.log(requiredData[i])
-        throw new Error("fill all the required fields")
+    const allKeys = Object.keys(data);
+    const slicedData = requiredData.slice(0, -3);
+    for (let i = 0; i < slicedData.length; i++) {
+      if (!allKeys.includes(slicedData[i])) {
+        throw new Error('fill all the required fields');
       }
     }
-    if (!requiredShipmentType.includes(data.shipment_term) || !requiredShpmentClass.includes(data.shipment_class)) {
-      throw new Error("fill all the fields with correct values")
+    const requshipTypeUpdated = [...requiredShipmentType];
+    requshipTypeUpdated.push('clearance');
+    if (
+      !requshipTypeUpdated.includes(data.shipment_type) ||
+      !requiredShipmentClass.includes(data.shipment_class)
+    ) {
+      throw new Error('fill all the fields with correct values');
     }
-    const Data = {...RequestData, ...data}
-    return this.obj.createGenericCollectionItem(this.obj, 'sea_shipment', Data)
+    const Data = { ...requestSeaShipement, ...data };
+    return this.obj.createGenericCollectionItem(this.obj, 'sea_shipment', Data);
   }
-  public createLandShipment(data : any) {
-    const allKeys = Object.keys(data)
-    console.log(allKeys)
-    for (let i = 0; i < requiredData.length; i++) {
-      console.log(requiredData[i])
-      if (!allKeys.includes(requiredData[i])) {
-        console.log(requiredData[i])
-        throw new Error("fill all the required fields")
+  public createLandShipment(data: any) {
+    const allKeys = Object.keys(data);
+    const slicedData = requiredData.slice(0, -3);
+    for (let i = 0; i < slicedData.length; i++) {
+      if (!allKeys.includes(slicedData[i])) {
+        throw new Error('fill all the required fields');
       }
     }
-    if (!requiredShipmentType.includes(data.shipment_term) || !requiredShpmentClass.includes(data.shipment_class)) {
-      throw new Error("fill all the fields with correct values")
+    const reqshipTypeUpdated = [...requiredShipmentType];
+    reqshipTypeUpdated.push('clearance');
+    if (
+      !reqshipTypeUpdated.includes(data.shipment_type) ||
+      !requiredShipmentClass.includes(data.shipment_class)
+    ) {
+      throw new Error('fill all the fields with correct values');
     }
-    const Data = {...RequestData, ...data}
-    return this.obj.createGenericCollectionItem(this.obj, 'land_shipment', Data)
+    const Data = { ...requestLandShipment, ...data };
+    return this.obj.createGenericCollectionItem(
+      this.obj,
+      'land_shipment',
+      Data,
+    );
   }
 
   // Delete
   public deleteAirShipment(ObjectId: string) {
-    return this.obj.deleteGenericCollectionItem(this.obj, 'air_shipment', ObjectId);
+    return this.obj.deleteGenericCollectionItem(
+      this.obj,
+      'air_shipment',
+      ObjectId,
+    );
   }
   public deleteSeaShipment(ObjectId: string) {
-    return this.obj.deleteGenericCollectionItem(this.obj, 'sea_shipment', ObjectId);
+    return this.obj.deleteGenericCollectionItem(
+      this.obj,
+      'sea_shipment',
+      ObjectId,
+    );
   }
   public deleteLandShipment(ObjectId: string) {
-    return this.obj.deleteGenericCollectionItem(this.obj, 'land_shipment', ObjectId);
+    return this.obj.deleteGenericCollectionItem(
+      this.obj,
+      'land_shipment',
+      ObjectId,
+    );
   }
-
 
   // Miscellaneous Fuctions
   // based on the user input filter the port
   // for the filter
-  public getAirPort(data = ""){ 
-    const updatedData = {...referencePortPayload}
-    updatedData.filter_txt = data
+  public getAirPort(data = '') {
+    const updatedData = { ...referencePortPayload };
+    updatedData.filter_txt = data;
     return this.obj.getGenericAutoComplete(this.obj, 'airport', updatedData);
   }
 
   // get customer list
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/autocomplete-reference/customer?location=new_york
-  public getCustomers(data = ""){
-    const updatedData = {...referenceCustomerPayload}
-    updatedData.filter_txt = data
+  public getCustomers(data = '') {
+    const updatedData = { ...referenceCustomerPayload };
+    updatedData.filter_txt = data;
     return this.obj.getGenericAutoComplete(this.obj, 'customer', updatedData);
   }
 
   // get shipment terms
-  public getShipmentTerms(){
-    return this.obj.getListGenericCollection(this.obj, 'shipment_term', {only: "name,code,order", general_filter:{}});
+  public getShipmentTerms() {
+    return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
+      only: 'name,code,order',
+      general_filter: {},
+    });
   }
 
   // get quotation_reference
-  public getQuotationReference(data = null){
-    const updatedData = managePayload(data, ["quotation_number"], ["quotation_number"])
+  public getQuotationReference(data = null) {
+    const updatedData = managePayload(
+      data,
+      ['quotation_number'],
+      ['quotation_number'],
+    );
     return this.obj.getGenericAutoComplete(this.obj, 'quotation', updatedData);
   }
 
   // get master shipment
 
-  public getMasterShipment(data = null){  
-    const fields = ["company.name", "full_address", "address", "tin_no"]
-    const display_fields = ["company.name"]
-    const updatedData = managePayload(data, fields, display_fields)
-    return this.obj.getGenericAutoComplete(this.obj, 'sea_shipment', updatedData);
+  public getMasterShipment(data = null) {
+    const fields = ['company.name', 'full_address', 'address', 'tin_no'];
+    const display_fields = ['company.name'];
+    const updatedData = managePayload(data, fields, display_fields);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'sea_shipment',
+      updatedData,
+    );
   }
 
   // get Shipper Name and Consignee
-  public getShipperNConsignee(data = ""){
-    const fields = [
-      "job_id",
-      "shipper_name",
-      "consignee_name"
-  ]
-    const display_fields = [
-      "job_id"
-  ]
-    const updatedData = managePayload(data, fields, display_fields)
-    return this.obj.getGenericAutoComplete(this.obj, 'customer_party', updatedData);
+  public getShipperNConsignee(data = '') {
+    const fields = ['job_id', 'shipper_name', 'consignee_name'];
+    const display_fields = ['job_id'];
+    const updatedData = managePayload(data, fields, display_fields);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'customer_party',
+      updatedData,
+    );
   }
   // get pickup name
-  public getPickUpNDelivery(data = ""){
-    const fields = ["full_address", "address", "company", "tin_no"]
-    const display_fields = ["company.name"]
-    const updatedData = managePayload(data, fields, display_fields)
-    return this.obj.getGenericAutoComplete(this.obj, 'customer_party', updatedData);
+  public getPickUpNDelivery(data = '') {
+    const fields = ['full_address', 'address', 'company', 'tin_no'];
+    const display_fields = ['company.name'];
+    const updatedData = managePayload(data, fields, display_fields);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'customer_party',
+      updatedData,
+    );
   }
 
   // get notify party and also for also notify party
-  public getNotifyParty(data = ""){
-    return this.getShipperNConsignee(data)
+  public getNotifyParty(data = '') {
+    const fields = ['company.name', 'full_address', 'address', 'tin_no'];
+    const display_fields = ['company.name'];
+    const updatedData = managePayload(data, fields, display_fields);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'customer_party',
+      updatedData,
+    );
   }
 
   // get location with google
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/thirdparty/search-place-autocomplete?query-level=undefined&query=d
-  public getGoogleLocation(data = ""){
-    return this.obj.getLocation(this.obj, "search-place-autocomplete", {query_level:undefined,query:data})
+  public getGoogleLocation(data = '') {
+    return this.obj.getLocation(this.obj, 'search-place-autocomplete', {
+      query_level: undefined,
+      query: data,
+    });
   }
 
   // get forwording Agent Name
-  public getForwordingAgent(data = ""){
+  public getForwordingAgent(data = '') {
     const fields = [
-      "full_address",
-      "address",
-      "company",
-      "primary_contact_person",
-      "tin_no"
-  ]
-    const display_fields = ["company.name"]
-    const updatedData = managePayload(data, fields, display_fields)
+      'full_address',
+      'address',
+      'company',
+      'primary_contact_person',
+      'tin_no',
+    ];
+    const display_fields = ['company.name'];
+    const updatedData = managePayload(data, fields, display_fields);
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
 
   // get consolidator
-  public getConsolidator(data = ""){
-    const fields = ["company.name", "full_address", "address", "tin_no"]  
-    const display_fields = ["company.name"]
-    const general_filters = "{\n    \"company.vendor_type\":\"consolidator\"\n}"
-    const updatedData = managePayload(data, fields, display_fields, general_filters)
+  public getConsolidator(data = '') {
+    const fields = ['company.name', 'full_address', 'address', 'tin_no'];
+    const display_fields = ['company.name'];
+    const general_filters = '{\n    "company.vendor_type":"consolidator"\n}';
+    const updatedData = managePayload(
+      data,
+      fields,
+      display_fields,
+      general_filters,
+    );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
 
   // get place of consolidation
-  public getPlaceOfConsolidation(data = ""){
-    const fields = ["company.name", "full_address", "address", "tin_no"]  
-    const display_fields = ["company.name"]
-    const general_filters = "{\n    \"company.vendor_type\":\"place_of_consolidation\"\n}"
-    const updatedData = managePayload(data, fields, display_fields, general_filters)
+  public getPlaceOfConsolidation(data = '') {
+    const fields = ['company.name', 'full_address', 'address', 'tin_no'];
+    const display_fields = ['company.name'];
+    const general_filters =
+      '{\n    "company.vendor_type":"place_of_consolidation"\n}';
+    const updatedData = managePayload(
+      data,
+      fields,
+      display_fields,
+      general_filters,
+    );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
-    }
+  }
 
   // get the operation_executive and sales executive
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/employee?&only=_id,name&general_filter={}
-  public getOperationExecutive(){
-    return this.obj.getListGenericCollection(this.obj, 'employee', {only: "_id,name", general_filter:{}});
+  public getOperationExecutive() {
+    return this.obj.getListGenericCollection(this.obj, 'employee', {
+      only: '_id,name',
+      general_filter: {},
+    });
   }
 
-  // get airline name 
+  // get airline name
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/airline?&only=name,cbsa_code,prefix_code&general_filter={}
-  public getAirlineName(){
-    return this.obj.getListGenericCollection(this.obj, 'airline', {only: "name,cbsa_code,prefix_code", general_filter:{}});
+  public getAirlineName() {
+    return this.obj.getListGenericCollection(this.obj, 'airline', {
+      only: 'name,cbsa_code,prefix_code',
+      general_filter: {},
+    });
   }
 
   // get currency
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/currency?&only=_id,name&general_filter={}
-  public getCurrency(){
-    return this.obj.getListGenericCollection(this.obj, 'currency', {only: "name", general_filter:{}});
+  public getCurrency() {
+    return this.obj.getListGenericCollection(this.obj, 'currency', {
+      only: 'name',
+      general_filter: {},
+    });
   }
 
   // get cartage By and custom clearance by
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/autocomplete-reference/vendor?location=new_york
-  public CartageByAndCustomClearance(data=""){
-    const fields = [
-      "company",
-      "address",
-      "primary_contact_person"
-  ]
-    const display_fields = ["company.name"]
-    const general_filters = "{\n    \"company.vendor_type\":\"place_of_consolidation\"\n}"
-    const updatedData = managePayload(data, fields, display_fields, general_filters)
+  public CartageByAndCustomClearance(data = '') {
+    const fields = ['company', 'address', 'primary_contact_person'];
+    const display_fields = ['company.name'];
+    const general_filters =
+      '{\n    "company.vendor_type":"place_of_consolidation"\n}';
+    const updatedData = managePayload(
+      data,
+      fields,
+      display_fields,
+      general_filters,
+    );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
 
   // get Product type for sea
-  public getProductType(){
-    return this.obj.getListGenericCollection(this.obj, 'product_type', {only: "_id,name", general_filter:{}});
+  public getProductType() {
+    return this.obj.getListGenericCollection(this.obj, 'product_type', {
+      only: '_id,name',
+      general_filter: {},
+    });
+  }
+
+  // get airline name
+  // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/shipping_line?&only=name,carrier_code,cbsa_code,shipthis_code&general_filter={}&location=new_york&region_override=null
+  public getShippingLineName() {
+    return this.obj.getListGenericCollection(this.obj, 'shipping_line', {
+      only: 'name,carrier_code,cbsa_code,shipthis_code',
+      general_filter: {},
+    });
+  }
+
+  // get vessel name
+  // url : https://asia-south1.gcp.api.shipthis.co/api/v3/autocomplete-reference/vessel?location=new_york
+  public getVesselName(data = '') {
+    const fields = ['_id', 'name'];
+    const display_fields = ['name'];
+    const updatedData = managePayload(data, fields, display_fields);
+    return this.obj.getGenericAutoComplete(this.obj, 'vessel', updatedData);
+  }
+
+  public getSeaPort(data = '') {
+    const updatedData = { ...referencePortPayload };
+    updatedData.filter_txt = data;
+    return this.obj.getGenericAutoComplete(this.obj, 'sea', updatedData);
+  }
+
+  // get pickup and delivery place both same
+  public getPickup(data = '') {
+    const fields = ['company', 'full_address', 'address', 'tin_no'];
+    const display_fields = ['company.name'];
+    const updatedData = managePayload(data, fields, display_fields);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'customer_party',
+      updatedData,
+    );
+  }
+
+  // get custom clearance
+  public getCustomClearance(data = '') {
+    const fields = [
+      'company.name',
+      'full_address',
+      'address',
+      'tin_no',
+      'company.vendor_type',
+    ];
+    const display_fields = ['company.name'];
+    const general_filters = '{\n    "company.vendor_type":"customs_agent"\n}';
+    const updatedData = managePayload(
+      data,
+      fields,
+      display_fields,
+      general_filters,
+    );
+    return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
+  }
+
+  // land shipments
+  // get Carrier
+  public getLandCarrier(data = '') {
+    const fields = [
+      'company',
+      'address',
+      'primary_contact_person',
+      'full_address',
+    ];
+    const display_fields = ['company.name'];
+    const general_filters = '{\n    "company.vendor_type":"carrier"\n}';
+    const updatedData = managePayload(
+      data,
+      fields,
+      display_fields,
+      general_filters,
+    );
+    return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
+  }
+
+  // conversationpayload : {
+  //   "conversation": {
+  //       "type": "status",
+  //       "body": "check "
+  //   },
+  //   "document_id": "63202dac74590f45be1b480c",
+  //   "view_name": "sea_shipment",
+  //   "message_type": "status"
+  // }
+
+  public initiaConversation(data: ConversationPayload) {
+    return this.obj.conversation(this.obj, 'conversation', data);
   }
 }

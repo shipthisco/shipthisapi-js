@@ -25,6 +25,7 @@ export declare class ShipthisAPI {
     getExchangeRateForCurrency: (obj: ShipthisAPI, currency: string) => Promise<any>;
     getGenericAutoComplete: (obj: ShipthisAPI, referenceName: string, data: any) => Promise<any>;
     getLocation: (obj: ShipthisAPI, collectionName: string, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
+    conversation: (obj: ShipthisAPI, collectionName: string, data: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     Shipment: Shipment;
     Invoice: Invoice;
     constructor(init: ApiOptions);
