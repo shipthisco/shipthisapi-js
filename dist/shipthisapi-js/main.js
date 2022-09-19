@@ -20,25 +20,25 @@ class ShipthisAPI {
         this.getExchangeRateForCurrency = generic_1.getExchangeRateForCurrency;
         this.getGenericAutoComplete = generic_1.getGenericAutoComplete;
         this.getLocation = generic_1.getLocation;
+        this.conversation = generic_1.conversation;
         this.organisationId = init.organisationId;
         this.userType = init.userType;
         this.xApiKey = init.xApiKey;
         this.authorization = init.authorization;
         this.selectedRegion = init.regionId || '';
         this.selectedLocation = init.locationId || '';
-        this.getInfo()
-            .then((infoResponse) => {
+        this.getInfo().then((infoResponse) => {
             this.onInfoChange(infoResponse);
         });
     }
     connect(locationId = null) {
         return new Promise((resolve) => {
-            this.getInfo()
-                .then((resp) => {
+            this.getInfo().then((resp) => {
                 this.onInfoChange(resp);
                 if (!locationId) {
                     this.selectedRegion = resp?.organisation?.regions[0]?.region_id;
-                    this.selectedLocation = resp?.organisation?.regions[0]?.locations[0]?.location_id;
+                    this.selectedLocation =
+                        resp?.organisation?.regions[0]?.locations[0]?.location_id;
                 }
                 else {
                     let foundLocation = false;
@@ -46,7 +46,8 @@ class ShipthisAPI {
                         for (let j = 0; j < this.organisation.regions[i].locations.length; j++) {
                             if (this.organisation.regions[i][j].location_id === locationId) {
                                 this.selectedRegion = this.organisation.regions[i].region_id;
-                                this.selectedLocation = this.organisation.regions[i].locations[j].location_id;
+                                this.selectedLocation =
+                                    this.organisation.regions[i].locations[j].location_id;
                                 foundLocation = true;
                                 break;
                             }
@@ -60,7 +61,10 @@ class ShipthisAPI {
                     }
                 }
                 this.setObjectReferences();
-                resolve({ 'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation });
+                resolve({
+                    selectedRegion: this.selectedRegion,
+                    selectedLocation: this.selectedLocation,
+                });
             });
         });
     }
@@ -70,8 +74,8 @@ class ShipthisAPI {
             this.internalRequest(this, 'POST', basePath, {
                 requestData: {
                     email: email.toLowerCase(),
-                    password: password
-                }
+                    password: password,
+                },
             })
                 .then((data) => {
                 if (data.user) {
@@ -110,8 +114,8 @@ class ShipthisAPI {
                     last_name: lastName,
                     company_name: companyName,
                     accept_terms_and_condition: acceptTermsAndConditions,
-                    skip_recaptcha: true
-                }
+                    skip_recaptcha: true,
+                },
             })
                 .then((data) => {
                 this.onInfoChange(data.user);
@@ -136,7 +140,8 @@ class ShipthisAPI {
         return this.internalRequest(this, 'GET', 'user-auth' + '/info');
     }
     searchLocation(query) {
-        return this.internalRequest(this, 'GET', 'thirdparty/search-place-autocomplete?query-level=undefined&query=' + query);
+        return this.internalRequest(this, 'GET', 'thirdparty/search-place-autocomplete?query-level=undefined&query=' +
+            query);
     }
 }
 exports.ShipthisAPI = ShipthisAPI;

@@ -1,4 +1,6 @@
-import { ShipthisAPI } from "../main";
+import { ShipthisAPI } from '../main';
+import { ConversationPayload } from '../interfaces/conversation.interface';
+import { AirShipment, LandShipment, SeaShipment } from '../interfaces/collection.interface';
 export declare class Shipment {
     obj: ShipthisAPI;
     constructor(obj: ShipthisAPI);
@@ -9,12 +11,12 @@ export declare class Shipment {
     getAirShipment(ObjectId: string): Promise<any>;
     getSeaShipment(ObjectId: string): Promise<any>;
     getLandShipment(ObjectId: string): Promise<any>;
-    updateAirShipment(ObjectId: string, updatedData: any): Promise<any>;
-    updateSeaShipment(ObjectId: string, updatedData: any): Promise<any>;
-    updateLandShipment(ObjectId: string, updatedData: any): Promise<any>;
-    createAirShipment(data: any): Promise<any>;
-    createSeaShipment(data: any): Promise<any>;
-    createLandShipment(data: any): Promise<any>;
+    updateAirShipment(ObjectId: string, updatedData: AirShipment): Promise<any>;
+    updateSeaShipment(ObjectId: string, updatedData: SeaShipment): Promise<any>;
+    updateLandShipment(ObjectId: string, updatedData: LandShipment): Promise<any>;
+    createAirShipment(data: AirShipment): Promise<any>;
+    createSeaShipment(data: SeaShipment): Promise<any>;
+    createLandShipment(data: LandShipment): Promise<any>;
     deleteAirShipment(ObjectId: string): Promise<any>;
     deleteSeaShipment(ObjectId: string): Promise<any>;
     deleteLandShipment(ObjectId: string): Promise<any>;
@@ -23,9 +25,10 @@ export declare class Shipment {
     getShipmentTerms(): Promise<any>;
     getQuotationReference(data?: any): Promise<any>;
     getMasterShipment(data?: any): Promise<any>;
-    getShipperNConsignee(data?: string): Promise<any>;
-    getPickUpNDelivery(data?: string): Promise<any>;
-    getNotifyParty(data?: string): Promise<any>;
+    getConsigneeName(data: string, id: string): Promise<any>;
+    getShipperName(data: string, id: string): Promise<any>;
+    getPickUpNDelivery(data: string, id: string): Promise<any>;
+    getNotifyParty(data: string, id: string): Promise<any>;
     getGoogleLocation(data?: string): Promise<any>;
     getForwordingAgent(data?: string): Promise<any>;
     getConsolidator(data?: string): Promise<any>;
@@ -35,4 +38,11 @@ export declare class Shipment {
     getCurrency(): Promise<any>;
     CartageByAndCustomClearance(data?: string): Promise<any>;
     getProductType(): Promise<any>;
+    getShippingLineName(): Promise<any>;
+    getVesselName(data?: string): Promise<any>;
+    getSeaPort(data?: string): Promise<any>;
+    getPickup(data?: string): Promise<any>;
+    getCustomClearance(data?: string): Promise<any>;
+    getLandCarrier(data?: string): Promise<any>;
+    initiaConversation(data: ConversationPayload): Promise<any>;
 }

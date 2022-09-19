@@ -63,11 +63,11 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 // Create Air Shipments Details
 // url : 
-const options1 = {
+const requiredFieldsAir = {
         "port_of_loading": {},
         "port_of_discharge": {},
         "job_id": "",
-        "shipment_name": "This is a test",
+        "shipment_name": "This is a test for Air Shipments",
         "shipment_class": "house",
         "customer_name": {},
         "shipment_type": "import",
@@ -75,35 +75,80 @@ const options1 = {
         "carrier_code": "994",
         "operation_executive": {}
 }
-// const airPorts = await shipthisApi.Shipment.getAirPort()
+const airPorts = await shipthisApi.Shipment.getAirPort()
+const getCustomers = await shipthisApi.Shipment.getCustomers()
+const shipTerms = await shipthisApi.Shipment.getShipmentTerms()
+const getExecutive = await shipthisApi.Shipment.getOperationExecutive()
+const getQuotationReference = await shipthisApi.Shipment.getQuotationReference()
+const getAirPort = await shipthisApi.Shipment.getAirPort()
+const getShipmentTerms = await shipthisApi.Shipment.getShipmentTerms()
+const getShipperName= await shipthisApi.Shipment.getShipperName("", "62f43e1ebca73696c1ac45d4")
+const getConsigneeName= await shipthisApi.Shipment.getConsigneeName("", "62f43e1ebca73696c1ac45d4")
+const getPickUpNDelivery = await shipthisApi.Shipment.getPickUpNDelivery("", "62f43e1ebca73696c1ac45d4")
+const getNotifyParty = await shipthisApi.Shipment.getNotifyParty("", "62f43e1ebca73696c1ac45d4")
+const getGoogleLocation = await shipthisApi.Shipment.getGoogleLocation()
+const getForwordingAgent = await shipthisApi.Shipment.getForwordingAgent()
+const getConsolidator = await shipthisApi.Shipment.getConsolidator("", "62f43e1ebca73696c1ac45d4")
+const getPlaceOfConsolidation = await shipthisApi.Shipment.getPlaceOfConsolidation()
+const getOperationExecutive = await shipthisApi.Shipment.getOperationExecutive()
+const getAirlineName = await shipthisApi.Shipment.getAirlineName()
+const getCurrency = await shipthisApi.Shipment.getCurrency()
+requiredFieldsAir.port_of_loading.port = airPorts.items[0]
+requiredFieldsAir.port_of_discharge.port = airPorts.items[1]
+requiredFieldsAir.customer_name = getCustomers.items[0]
+requiredFieldsAir.shipment_term = getShipmentTerms.items[0]
+requiredFieldsAir.operation_executive = getOperationExecutive.items[0]
+requiredFieldsAir.quotation_reference = getQuotationReference.items[0]
+const res = shipthisApi.Shipment.createAirShipment(requiredFieldsAir)
+console.log(res)
+
+
+
+// Create Sea Shipment
+// const requiredFieldsSea = {
+//     "job_id": "",
+//     "shipment_name": "This is a test for sea shipment",
+//     "shipment_class": "house",
+//     "customer_name": "",
+//     "shipment_type": "import",
+//     "shipment_term": {},
+//     "operation_executive": {}
+// }
 // const getCustomers = await shipthisApi.Shipment.getCustomers()
-// const shipTerms = await shipthisApi.Shipment.getShipmentTerms()
-// const getExecutive = await shipthisApi.Shipment.getOperationExecutive()
-// const getQuotationReference = await shipthisApi.Shipment.getQuotationReference()
-// const getAirPort = await shipthisApi.Shipment.getAirPort()
 // const getShipmentTerms = await shipthisApi.Shipment.getShipmentTerms()
-// const getShipperNConsignee = await shipthisApi.Shipment.getShipperNConsignee()
-// const getPickUpNDelivery = await shipthisApi.Shipment.getPickUpNDelivery()
-// const getNotifyParty = await shipthisApi.Shipment.getNotifyParty()
-// const getGoogleLocation = await shipthisApi.Shipment.getGoogleLocation()
-// const getForwordingAgent = await shipthisApi.Shipment.getForwordingAgent()
-// const getConsolidator = await shipthisApi.Shipment.getConsolidator()
-// const getPlaceOfConsolidation = await shipthisApi.Shipment.getPlaceOfConsolidation()
 // const getOperationExecutive = await shipthisApi.Shipment.getOperationExecutive()
-// const getAirlineName = await shipthisApi.Shipment.getAirlineName()
-// const getCurrency = await shipthisApi.Shipment.getCurrency()
-// options1.port_of_loading.port = airPorts.items[0]
-// options1.port_of_discharge.port = airPorts.items[1]
-// options1.customer_name = getCustomers.items[0]
-// options1.shipment_term = shipTerms.items[0]
-// options1.operation_executive = getExecutive.items[0]
-// options1.quotation_reference = getQuotationReference.items[0]
-//done => const res = shipthisApi.Shipment.createAirShipment(options1)
+// requiredFieldsSea.customer_name = getCustomers.items[0]
+// requiredFieldsSea.shipment_term = getShipmentTerms.items[0]
+// requiredFieldsSea.operation_executive = getOperationExecutive.items[0]
+// url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/shipping_line?&only=name,carrier_code,cbsa_code,shipthis_code&general_filter={}&location=new_york&region_override=null
+// const getShippingLineName  = await shipthisApi.Shipment.getShippingLineName()
+// const res = shipthisApi.Shipment.createSeaShipment(requiredFieldsSea)
+// console.log(res)
+
+
+// create land shipment
+// const requiredFieldsLand = {
+//     "job_id": "",
+//     "shipment_name": "This is a test for land shipment",
+//     "shipment_class": "house",
+//     "customer_name": "",
+//     "shipment_type": "import",
+//     "shipment_term": {},
+//     "operation_executive": {}
+// }
+// const getCustomers = await shipthisApi.Shipment.getCustomers()
+// const getShipmentTerms = await shipthisApi.Shipment.getShipmentTerms()
+// const getOperationExecutive = await shipthisApi.Shipment.getOperationExecutive()
+// requiredFieldsLand.customer_name = getCustomers.items[0]
+// requiredFieldsLand.shipment_term = getShipmentTerms.items[0]
+// requiredFieldsLand.operation_executive = getOperationExecutive.items[0]
+// const res = shipthisApi.Shipment.createLandShipment(requiredFieldsLand)
+// console.log(res)
+
+
 
 // get Quotation reference
-shipthisApi.Shipment.getQuotationReference().then((data) => console.log(data)).catch((err) => console.log(err));
-
-
+// shipthisApi.Shipment.getQuotationReference().then((data) => console.log(data)).catch((err) => console.log(err));
 
 // Miscellaneous functions
 // shipthisApi.Shipment.getCustomers("mar").then((data) => console.log(data)).catch((err) => console.log(err.message))
