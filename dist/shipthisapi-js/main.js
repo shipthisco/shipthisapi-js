@@ -63,17 +63,7 @@ class ShipthisAPI {
     }
     async loginViaPassword(email, password) {
         return new Promise((resolve, reject) => {
-            let basePath = '';
-            if (this.userType === 'employee') {
-                basePath = '/auth';
-            }
-            else if (this.userType === 'customer') {
-                basePath = '/customer/auth';
-            }
-            else if (this.userType === 'vendor') {
-                basePath = '/vendor/auth';
-            }
-            basePath += '/login';
+            const basePath = '/user-auth/login';
             this.internalRequest(this, 'POST', basePath, {
                 requestData: {
                     email: email.toLowerCase(),
@@ -140,17 +130,7 @@ class ShipthisAPI {
         this.Shipment = new shipment_1.Shipment(this);
     }
     getInfo() {
-        let basePath = '';
-        if (this.userType === 'employee') {
-            basePath = '/auth';
-        }
-        else if (this.userType === 'customer') {
-            basePath = '/customer/auth';
-        }
-        else if (this.userType === 'vendor') {
-            basePath = '/vendor/auth';
-        }
-        return this.internalRequest(this, 'GET', basePath + '/info');
+        return this.internalRequest(this, 'GET', 'user-auth' + '/info');
     }
     searchLocation(query) {
         return this.internalRequest(this, 'GET', 'thirdparty/search-place-autocomplete?query-level=undefined&query=' + query);
