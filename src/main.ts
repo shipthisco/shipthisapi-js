@@ -5,11 +5,11 @@ import {
   getOneGenericCollectionItem,
   updateGenericCollectionItem
 } from './collections/generic';
-import { ApiOptions } from './interfaces/api.interface';
-import { internalRequest, uploadFile } from './utils/request';
-import { Shipment } from './collections/shipment';
-import { Organisation } from './interfaces/info.interface';
-import { Invoice } from './collections/invoice';
+import {ApiOptions} from './interfaces/api.interface';
+import {internalRequest, uploadFile} from './utils/request';
+import {Shipment} from './collections/shipment';
+import {Organisation} from './interfaces/info.interface';
+import {Invoice} from './collections/invoice';
 
 export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co'
@@ -25,6 +25,7 @@ export class ShipthisAPI {
   selectedLocation: string;
   profiles = [];
   selectedProfile;
+  isSessionValid:boolean;
 
 
   public internalRequest = internalRequest;
@@ -86,11 +87,14 @@ export class ShipthisAPI {
               new Error('Location id does not exist , check available location ids');
             }
           }
-          this.setObjectReferences();
           resolve({'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation})
         });
-
     })
+  }
+
+  public disconnect() {
+    this.xApiKey = null;
+    this.authorization = null;
   }
 
   // Session
@@ -129,6 +133,7 @@ export class ShipthisAPI {
       } else {
         this.authorization = response.user.auth_token;
       }
+      this.isSessionValid = true;
     }
     if (response?.profiles) {
       this.selectedProfile = response.profiles[0];
