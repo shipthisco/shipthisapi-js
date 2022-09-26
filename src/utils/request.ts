@@ -59,7 +59,7 @@ const uploadFile = async (obj: ShipthisAPI, file: File) => {
   const headers = await prepareHeaders(obj);
   headers['Content-Type'] = 'multipart/form-data';
   const formData = new FormData();
-  formData.append("image", file);
+  formData.append("file", file);
   const result = await axios.post(obj.file_upload_api_endpoint, formData, {
     headers: headers
   })
