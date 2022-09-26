@@ -1,6 +1,8 @@
 import axios, {AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, Method} from 'axios';
 import {RequestOptions} from '../interfaces/api.interface';
 import {ShipthisAPI} from '../main';
+import {FormData} from "formdata-node"
+
 
 const prepareHeaders = async (obj: ShipthisAPI) => {
   const headers: AxiosRequestHeaders = {
@@ -58,6 +60,7 @@ const internalRequest = async (obj: ShipthisAPI, method: Method, path: string, o
 const uploadFile = async (obj: ShipthisAPI, file: File) => {
   const headers = await prepareHeaders(obj);
   headers['Content-Type'] = 'multipart/form-data';
+  headers['accept'] = '*/*';
   const formData = new FormData();
   formData.append("file", file);
   const result = await axios.post(obj.file_upload_api_endpoint, formData, {
@@ -71,6 +74,7 @@ const uploadFile = async (obj: ShipthisAPI, file: File) => {
   }
 
 }
+
 
 export {
   internalRequest,
