@@ -4,17 +4,25 @@ import {ShipthisAPI} from "./dist/shipthisapi-js/main.js";
 
 let param = {
     'userType': 'customer',
-    'organisationId': 'demo'
+    'organisationId': 'shipbeaconexpress'
 }
 let shipthisApi = new ShipthisAPI(param)
 // const a = await shipthisApi.connect();
-const a = await shipthisApi.loginViaPassword('alex@kline.com', 'password');
+// const a = await shipthisApi.loginViaPassword('alex@kline.com', 'password');
 
 // console.log(shipthisApi.organisation);
 
-shipthisApi.Shipment.getAirShipment()
-.then((data) => {
-    console.log(data);
-})
+shipthisApi.customerUserRegistration("mayur@shipthis.co", 'abc12345', 'Mayur', 'rawte', 'Mayur', true)
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log('in err')
+    console.log(err);
+  })
+// shipthisApi.Shipment.getAirShipment()
+// .then((data) => {
+//     console.log(data);
+// })
 
 

@@ -1,8 +1,8 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, Method } from 'axios';
-import { RequestOptions } from '../interfaces/api.interface';
-import { ShipthisAPI } from '../main';
+import axios, {AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, Method} from 'axios';
+import {RequestOptions} from '../interfaces/api.interface';
+import {ShipthisAPI} from '../main';
 
-const prepareHeaders = async(obj: ShipthisAPI) => {
+const prepareHeaders = async (obj: ShipthisAPI) => {
   const headers: AxiosRequestHeaders = {
     "organisation": obj.organisationId,
     "usertype": obj.userType,
@@ -19,7 +19,7 @@ const prepareHeaders = async(obj: ShipthisAPI) => {
   return headers;
 }
 
-const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, options?: RequestOptions) => {
+const internalRequest = async (obj: ShipthisAPI, method: Method, path: string, options?: RequestOptions) => {
   if (path.charAt(0) === '/') {
     path = path.substring(1);
   }
@@ -36,14 +36,16 @@ const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, op
   if (['post', 'POST', 'put', 'PUT', 'patch', 'PATCH'].includes(method)) {
     config.data = options?.requestData || {};
   }
-  console.log(config)
   const result: AxiosResponse = await axios.request(config);
   if (result.status === 200 && result?.data?.success) {
     return result?.data?.data;
   } else {
-    console.log(result.data.errors);
     if (result.data.errors) {
-      throw new Error(result?.data?.errors[0]?.message);
+      if (typeof result?.data?.errors[0]?.message === 'string') {
+        throw new Error(result?.data?.errors[0]?.message);
+      } else {
+        throw new Error(JSON.stringify(result?.data?.errors[0]?.message));
+      }
     }
   }
 }
@@ -53,7 +55,7 @@ const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, op
  * @param obj Shipthis Object
  * @param file File to be uploaded
  */
-const uploadFile = async(obj: ShipthisAPI, file: File) => {
+const uploadFile = async (obj: ShipthisAPI, file: File) => {
   const headers = await prepareHeaders(obj);
   headers['Content-Type'] = 'multipart/form-data';
   const formData = new FormData();
