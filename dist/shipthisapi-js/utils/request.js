@@ -45,7 +45,6 @@ const internalRequest = async (obj, method, path, options) => {
                 throw new Error(result?.data?.errors[0]?.message);
             }
             else {
-                console.log(JSON.stringify(result?.data?.errors[0]));
                 throw new Error(JSON.stringify(result?.data?.errors[0]));
             }
         }

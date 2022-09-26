@@ -3,6 +3,7 @@ import {
   deleteGenericCollectionItem,
   getListGenericCollection,
   getOneGenericCollectionItem,
+  getReportView,
   updateGenericCollectionItem
 } from './collections/generic';
 import {ApiOptions} from './interfaces/api.interface';
@@ -35,7 +36,7 @@ export class ShipthisAPI {
   public createGenericCollectionItem = createGenericCollectionItem;
   public updateGenericCollectionItem = updateGenericCollectionItem;
   public deleteGenericCollectionItem = deleteGenericCollectionItem;
-
+  public getReportView = getReportView
   /**
    * Collection Definition
    */

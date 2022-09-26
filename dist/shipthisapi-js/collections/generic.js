@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteGenericCollectionItem = exports.updateGenericCollectionItem = exports.createGenericCollectionItem = exports.getListGenericCollection = exports.getOneGenericCollectionItem = void 0;
+exports.getReportView = exports.deleteGenericCollectionItem = exports.updateGenericCollectionItem = exports.createGenericCollectionItem = exports.getListGenericCollection = exports.getOneGenericCollectionItem = void 0;
 const getListGenericCollection = async (obj, collectionName, params) => {
     if (!params) {
         params = {};
@@ -24,3 +24,10 @@ const deleteGenericCollectionItem = async (obj, collectionName, objectId) => {
     return obj.internalRequest(obj, 'DELETE', `/incollection/${collectionName}/${objectId}`);
 };
 exports.deleteGenericCollectionItem = deleteGenericCollectionItem;
+const getReportView = async (obj, report_name, start_date, end_date, location, output_type = 'json', skip_meta = 'true', post_data) => {
+    return obj.internalRequest(obj, 'POST', `/report-view/${report_name}`, {
+        params: { start_date, end_date, output_type, skip_meta, location },
+        requestData: post_data
+    });
+};
+exports.getReportView = getReportView;
