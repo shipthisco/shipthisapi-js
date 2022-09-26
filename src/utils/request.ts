@@ -44,7 +44,8 @@ const internalRequest = async (obj: ShipthisAPI, method: Method, path: string, o
       if (typeof result?.data?.errors[0]?.message === 'string') {
         throw new Error(result?.data?.errors[0]?.message);
       } else {
-        throw new Error(JSON.stringify(result?.data?.errors[0]?.message));
+        console.log(JSON.stringify(result?.data?.errors[0]));
+        throw new Error(JSON.stringify(result?.data?.errors[0]));
       }
     }
   }

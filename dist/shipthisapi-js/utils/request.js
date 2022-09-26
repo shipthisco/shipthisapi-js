@@ -35,15 +35,19 @@ const internalRequest = async (obj, method, path, options) => {
     if (['post', 'POST', 'put', 'PUT', 'patch', 'PATCH'].includes(method)) {
         config.data = options?.requestData || {};
     }
-    console.log(config);
     const result = await axios_1.default.request(config);
     if (result.status === 200 && result?.data?.success) {
         return result?.data?.data;
     }
     else {
-        console.log(result.data.errors);
         if (result.data.errors) {
-            throw new Error(result?.data?.errors[0]?.message);
+            if (typeof result?.data?.errors[0]?.message === 'string') {
+                throw new Error(result?.data?.errors[0]?.message);
+            }
+            else {
+                console.log(JSON.stringify(result?.data?.errors[0]));
+                throw new Error(JSON.stringify(result?.data?.errors[0]));
+            }
         }
     }
 };
