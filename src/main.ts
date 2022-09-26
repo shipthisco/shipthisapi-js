@@ -25,7 +25,7 @@ export class ShipthisAPI {
   selectedLocation: string;
   profiles = [];
   selectedProfile;
-  isSessionValid:boolean;
+  isSessionValid: boolean;
 
 
   public internalRequest = internalRequest;
@@ -54,6 +54,7 @@ export class ShipthisAPI {
     this.authorization = init.authorization;
     this.selectedRegion = init.regionId || '';
     this.selectedLocation = init.locationId || '';
+    this.isSessionValid = false;
     this.getInfo()
       .then((infoResponse) => {
         this.onInfoChange(infoResponse);
@@ -95,6 +96,7 @@ export class ShipthisAPI {
   public disconnect() {
     this.xApiKey = null;
     this.authorization = null;
+    this.isSessionValid = false;
   }
 
   // Session
