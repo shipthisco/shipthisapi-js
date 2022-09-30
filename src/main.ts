@@ -117,7 +117,7 @@ export class ShipthisAPI {
   public async loginViaPassword(email: string, password: string) {
     return new Promise((resolve, reject) => {
       // TODO remove this on backend update
-      const basePath = '/user-auth';
+      const basePath = '/user-auth/login';
       this.internalRequest(this, 'POST', basePath, {
         requestData: {
           email: email.toLowerCase(),

@@ -196,7 +196,6 @@ export class Shipment {
       display_fields,
       input_filters,
     );
-    console.log(updatedData);
     return this.obj.getGenericAutoComplete(
       this.obj,
       'customer_party',
@@ -213,7 +212,6 @@ export class Shipment {
       display_fields,
       input_filters,
     );
-    console.log(updatedData);
     return this.obj.getGenericAutoComplete(
       this.obj,
       'customer_party',
@@ -294,7 +292,6 @@ export class Shipment {
       null,
       general_filters,
     );
-    console.log(updatedData);
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
 

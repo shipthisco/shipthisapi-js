@@ -70,7 +70,7 @@ class ShipthisAPI {
     }
     async loginViaPassword(email, password) {
         return new Promise((resolve, reject) => {
-            const basePath = '/user-auth';
+            const basePath = '/user-auth/login';
             this.internalRequest(this, 'POST', basePath, {
                 requestData: {
                     email: email.toLowerCase(),

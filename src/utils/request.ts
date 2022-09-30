@@ -1,13 +1,18 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, Method } from 'axios';
+import axios, {
+  AxiosRequestConfig,
+  AxiosRequestHeaders,
+  AxiosResponse,
+  Method,
+} from 'axios';
 import { RequestOptions } from '../interfaces/api.interface';
 import { ShipthisAPI } from '../main';
 
-const prepareHeaders = async(obj: ShipthisAPI) => {
+const prepareHeaders = async (obj: ShipthisAPI) => {
   const headers: AxiosRequestHeaders = {
-    "organisation": obj.organisationId,
-    "usertype": obj.userType,
-    "region": obj.selectedRegion || '',
-    "location": obj.selectedLocation || '',
+    organisation: obj.organisationId,
+    usertype: obj.userType,
+    region: obj.selectedRegion || '',
+    location: obj.selectedLocation || '',
   };
   if (obj.authorization) {
     headers['authorization'] = obj.authorization;
@@ -17,61 +22,63 @@ const prepareHeaders = async(obj: ShipthisAPI) => {
     headers['x-api-key'] = obj.xApiKey || '';
   }
   return headers;
-}
+};
 
-const internalRequest = async(obj: ShipthisAPI, method: Method, path: string, options?: RequestOptions) => {
+const internalRequest = async (
+  obj: ShipthisAPI,
+  method: Method,
+  path: string,
+  options?: RequestOptions,
+) => {
   if (path.charAt(0) === '/') {
     path = path.substring(1);
   }
   const headers = await prepareHeaders(obj);
-  headers["Access-Control-Allow-Origin"] = '*';
-  headers["Access-Control-Allow-Credentials"] = true;
+  headers['Access-Control-Allow-Origin'] = '*';
+  headers['Access-Control-Allow-Credentials'] = true;
   const query_params = options?.queryParams || null;
   const config: AxiosRequestConfig = {
     method,
-    url: obj.base_api_endpoint + path + ((query_params) ? '?' + query_params : ''),
+    url:
+      obj.base_api_endpoint + path + (query_params ? '?' + query_params : ''),
     headers,
-    params: options?.params || {}
-  }
+    params: options?.params || {},
+  };
   if (['post', 'POST', 'put', 'PUT', 'patch', 'PATCH'].includes(method)) {
     config.data = options?.requestData || {};
   }
-  console.log(config)
   const result: AxiosResponse = await axios.request(config);
   if (result.status === 200 && result?.data?.success) {
     return result?.data?.data;
   } else {
-    console.log(result.data.errors);
     if (result.data.errors) {
-      throw new Error(result?.data?.errors[0]?.message);
+      if (typeof result?.data?.errors[0]?.message === 'string') {
+        throw new Error(result?.data?.errors[0]?.message);
+      } else {
+        throw new Error(JSON.stringify(result?.data?.errors[0]?.message));
+      }
     }
   }
-}
+};
 
 /**
  * Upload file
  * @param obj Shipthis Object
  * @param file File to be uploaded
  */
-const uploadFile = async(obj: ShipthisAPI, file: File) => {
+const uploadFile = async (obj: ShipthisAPI, file: File) => {
   const headers = await prepareHeaders(obj);
   headers['Content-Type'] = 'multipart/form-data';
   const formData = new FormData();
-  formData.append("image", file);
+  formData.append('image', file);
   const result = await axios.post(obj.file_upload_api_endpoint, formData, {
-    headers: headers
-  })
+    headers: headers,
+  });
   if (result.status === 200) {
     return result?.data;
   } else {
-    console.log(result.data);
     throw new Error('File Upload Error');
   }
-}
+};
 
-export {
-  internalRequest,
-  uploadFile
-}
-
-
+export { internalRequest, uploadFile };

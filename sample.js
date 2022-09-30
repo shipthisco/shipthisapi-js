@@ -3,6 +3,7 @@ import {ShipthisAPI} from "./dist/shipthisapi-js/main.js";
 
 // let x_api_key = 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.YkboiA.85PdomGGEPA8i5SeDyI0leZ7sR0'
 
+
 let param = {
     'userType': 'employee',
     'organisationId': 'demo',
@@ -14,7 +15,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 // Login via Email and Password
 // await shipthisApi.loginViaPassword('ashishkmr2210@gmail.com', 'password');
-// console.log(shipthisApi.organisation);
 
 
 // Get all Shipment information
@@ -100,8 +100,6 @@ requiredFieldsAir.shipment_term = getShipmentTerms.items[0]
 requiredFieldsAir.operation_executive = getOperationExecutive.items[0]
 requiredFieldsAir.quotation_reference = getQuotationReference.items[0]
 const res = shipthisApi.Shipment.createAirShipment(requiredFieldsAir)
-console.log(res)
-
 
 
 // Create Sea Shipment
@@ -123,7 +121,7 @@ console.log(res)
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/shipping_line?&only=name,carrier_code,cbsa_code,shipthis_code&general_filter={}&location=new_york&region_override=null
 // const getShippingLineName  = await shipthisApi.Shipment.getShippingLineName()
 // const res = shipthisApi.Shipment.createSeaShipment(requiredFieldsSea)
-// console.log(res)
+
 
 
 // create land shipment
