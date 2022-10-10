@@ -37,6 +37,7 @@ const internalRequest = async (obj: ShipthisAPI, method: Method, path: string, o
   if (['post', 'POST', 'put', 'PUT', 'patch', 'PATCH'].includes(method)) {
     config.data = options?.requestData || {};
   }
+  console.log(config)
   const result: AxiosResponse = await axios.request(config);
   if (result.status === 200 && result?.data?.success) {
     return result?.data?.data;
@@ -70,7 +71,6 @@ const uploadFile = async (obj: ShipthisAPI, file: File) => {
     console.log(result.data);
     throw new Error('File Upload Error');
   }
-
 }
 
 

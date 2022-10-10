@@ -4,4 +4,7 @@ export declare class Invoice {
     constructor(obj: any);
     getInvoiceList(): Promise<any>;
     getInvoicItem(objectId: string): Promise<any>;
+    createInvoice(invoiceData: any): Promise<any>;
+    updateInvoice(objectId: string, updatedData: any): Promise<any>;
+    deleteInvoice(objectId: string): Promise<any>;
 }

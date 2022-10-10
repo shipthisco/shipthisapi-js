@@ -3,6 +3,10 @@ import {
   deleteGenericCollectionItem,
   getListGenericCollection,
   getOneGenericCollectionItem,
+  getExchangeRateForCurrency,
+  getGenericAutoComplete,
+  getLocation,
+  conversation,
   getReportView,
   updateGenericCollectionItem
 } from './collections/generic';
@@ -13,7 +17,7 @@ import {Organisation} from './interfaces/info.interface';
 import {Invoice} from './collections/invoice';
 
 export class ShipthisAPI {
-  serverUrl = 'https://api.shipthis.co'
+  serverUrl = 'https://api.shipthis.co';
 
   base_api_endpoint = 'https://api.shipthis.co/api/v3/';
   file_upload_api_endpoint = 'https://upload.shipthis.co/file_upload';
@@ -28,21 +32,24 @@ export class ShipthisAPI {
   selectedProfile;
   isSessionValid: boolean;
 
-
   public internalRequest = internalRequest;
-  public uploadFile = uploadFile
+  public uploadFile = uploadFile;
   public getListGenericCollection = getListGenericCollection;
   public getOneGenericCollectionItem = getOneGenericCollectionItem;
   public createGenericCollectionItem = createGenericCollectionItem;
   public updateGenericCollectionItem = updateGenericCollectionItem;
   public deleteGenericCollectionItem = deleteGenericCollectionItem;
+  public getExchangeRateForCurrency = getExchangeRateForCurrency;
+  public getGenericAutoComplete = getGenericAutoComplete;
+  public getLocation = getLocation;
+  public conversation = conversation;
+
   public getReportView = getReportView
   /**
    * Collection Definition
    */
   public Shipment: Shipment;
   public Invoice: Invoice;
-
 
   /**
    *  Initializer
@@ -64,34 +71,36 @@ export class ShipthisAPI {
 
   public connect(locationId = null) {
     return new Promise((resolve) => {
-      this.getInfo()
-        .then((resp: any) => {
-          this.onInfoChange(resp);
-          if (!locationId) {
-            this.selectedRegion = resp?.organisation?.regions[0]?.region_id;
-            this.selectedLocation = resp?.organisation?.regions[0]?.locations[0]?.location_id;
-          } else {
-            let foundLocation = false;
-            for (let i = 0; i < this.organisation.regions.length; i++) {
-              for (let j = 0; j < this.organisation.regions[i].locations.length; j++) {
-                if (this.organisation.regions[i][j].location_id === locationId) {
-                  this.selectedRegion = this.organisation.regions[i].region_id;
-                  this.selectedLocation = this.organisation.regions[i].locations[j].location_id;
-                  foundLocation = true;
-                  break;
-                }
-                if (foundLocation) {
-                  break;
-                }
+      this.getInfo().then((resp: any) => {
+        this.onInfoChange(resp);
+        if (!locationId) {
+          this.selectedRegion = resp?.organisation?.regions[0]?.region_id;
+          this.selectedLocation =
+            resp?.organisation?.regions[0]?.locations[0]?.location_id;
+        } else {
+          let foundLocation = false;
+          for (let i = 0; i < this.organisation.regions.length; i++) {
+            for (
+              let j = 0;
+              j < this.organisation.regions[i].locations.length;
+              j++
+            ) {
+              if (this.organisation.regions[i][j].location_id === locationId) {
+                this.selectedRegion = this.organisation.regions[i].region_id;
+                this.selectedLocation =
+                  this.organisation.regions[i].locations[j].location_id;
+                foundLocation = true;
+                break;
+              }
+              if (foundLocation) {
+                break;
               }
             }
-            if (!foundLocation) {
-              new Error('Location id does not exist , check available location ids');
-            }
           }
+        }
           resolve({'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation})
         });
-    })
+    });
   }
 
   public disconnect() {
@@ -114,8 +123,8 @@ export class ShipthisAPI {
       this.internalRequest(this, 'POST', basePath, {
         requestData: {
           email: email.toLowerCase(),
-          password: password
-        }
+          password: password,
+        },
       })
         .then((data: any) => {
           if (data.user) {
@@ -125,8 +134,8 @@ export class ShipthisAPI {
         })
         .catch((err) => {
           reject(err);
-        })
-    })
+        });
+    });
   }
 
   onInfoChange(response: any) {
@@ -155,7 +164,14 @@ export class ShipthisAPI {
    * @param companyName
    * @param acceptTermsAndConditions
    */
-  public async customerUserRegistration(email: string, password: string, firstName: string, lastName: string, companyName: string, acceptTermsAndConditions: boolean) {
+  public async customerUserRegistration(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    companyName: string,
+    acceptTermsAndConditions: boolean,
+  ) {
     return new Promise<any>((resolve, reject) => {
       internalRequest(this, 'POST', '/customer/auth/register', {
         requestData: {
@@ -165,18 +181,17 @@ export class ShipthisAPI {
           last_name: lastName,
           company_name: companyName,
           accept_terms_and_condition: acceptTermsAndConditions,
-          skip_recaptcha: true
-        }
+          skip_recaptcha: true,
+        },
       })
         .then((data: any) => {
           this.onInfoChange(data.user);
           resolve(data.user);
         })
         .catch((err) => {
-          reject(err)
-        })
-    })
-
+          reject(err);
+        });
+    });
   }
 
   public getSelectedRegion() {
@@ -187,7 +202,6 @@ export class ShipthisAPI {
     this.selectedRegion = regionId;
     this.selectedLocation = locationId;
   }
-
 
   setObjectReferences() {
     this.Shipment = new Shipment(this);
@@ -202,6 +216,11 @@ export class ShipthisAPI {
   }
 
   public searchLocation(query: string) {
-    return this.internalRequest(this, 'GET', 'thirdparty/search-place-autocomplete?query-level=undefined&query=' + query);
+    return this.internalRequest(
+      this,
+      'GET',
+      'thirdparty/search-place-autocomplete?query-level=undefined&query=' +
+        query,
+    );
   }
 }

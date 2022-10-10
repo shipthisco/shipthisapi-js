@@ -24,6 +24,10 @@ export declare class ShipthisAPI {
     updateGenericCollectionItem: (obj: any, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
     deleteGenericCollectionItem: (obj: any, collectionName: string, objectId: string) => Promise<any>;
     getReportView: (obj: any, report_name: string, start_date: string, end_date: string, location: any, output_type: string, skip_meta: string, post_data: any) => Promise<any>;
+    getExchangeRateForCurrency: (obj: ShipthisAPI, currency: string) => Promise<any>;
+    getGenericAutoComplete: (obj: ShipthisAPI, referenceName: string, data: any) => Promise<any>;
+    getLocation: (obj: ShipthisAPI, collectionName: string, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
+    conversation: (obj: ShipthisAPI, collectionName: string, data: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     Shipment: Shipment;
     Invoice: Invoice;
     constructor(init: ApiOptions);
