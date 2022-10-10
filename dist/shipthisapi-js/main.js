@@ -17,6 +17,7 @@ class ShipthisAPI {
         this.createGenericCollectionItem = generic_1.createGenericCollectionItem;
         this.updateGenericCollectionItem = generic_1.updateGenericCollectionItem;
         this.deleteGenericCollectionItem = generic_1.deleteGenericCollectionItem;
+        this.getReportView = generic_1.getReportView;
         this.getExchangeRateForCurrency = generic_1.getExchangeRateForCurrency;
         this.getGenericAutoComplete = generic_1.getGenericAutoComplete;
         this.getLocation = generic_1.getLocation;
@@ -27,7 +28,9 @@ class ShipthisAPI {
         this.authorization = init.authorization;
         this.selectedRegion = init.regionId || '';
         this.selectedLocation = init.locationId || '';
-        this.getInfo().then((infoResponse) => {
+        this.isSessionValid = false;
+        this.getInfo()
+            .then((infoResponse) => {
             this.onInfoChange(infoResponse);
         });
     }
@@ -60,17 +63,18 @@ class ShipthisAPI {
                         new Error('Location id does not exist , check available location ids');
                     }
                 }
-                this.setObjectReferences();
-                resolve({
-                    selectedRegion: this.selectedRegion,
-                    selectedLocation: this.selectedLocation,
-                });
+                resolve({ 'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation });
             });
         });
     }
+    disconnect() {
+        this.xApiKey = null;
+        this.authorization = null;
+        this.isSessionValid = false;
+    }
     async loginViaPassword(email, password) {
         return new Promise((resolve, reject) => {
-            const basePath = '/user-auth';
+            const basePath = '/user-auth/login';
             this.internalRequest(this, 'POST', basePath, {
                 requestData: {
                     email: email.toLowerCase(),
@@ -96,6 +100,7 @@ class ShipthisAPI {
             else {
                 this.authorization = response.user.auth_token;
             }
+            this.isSessionValid = true;
         }
         if (response?.profiles) {
             this.selectedProfile = response.profiles[0];

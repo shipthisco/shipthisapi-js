@@ -10,12 +10,24 @@ let param = {
 }
 let shipthisApi = new ShipthisAPI(param)
 
-await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message); 
+await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
 
 // Login via Email and Password
 // await shipthisApi.loginViaPassword('ashishkmr2210@gmail.com', 'password');
 // console.log(shipthisApi.organisation);
 
+// shipthisApi.customerUserRegistration("mayur@shipthis.co", 'abc12345', 'Mayur', 'rawte', 'Mayur', true)
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log('in err')
+//     console.log(err);
+//   })
+// // shipthisApi.Shipment.getAirShipment()
+// // .then((data) => {
+// //     console.log(data);
+// // })
 
 // Get all Shipment information
 // shipthisApi.Shipment.getAllShipments()
@@ -62,7 +74,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 
 // Create Air Shipments Details
-// url : 
+// url :
 const requiredFieldsAir = {
         "port_of_loading": {},
         "port_of_discharge": {},
@@ -156,3 +168,15 @@ console.log(res)
 
 // Delete the shipments
 // shipthisApi.Shipment.createAirShipment("62febd45d3cb7fafac203f37").catch((err) => console.log(err.message))
+
+shipthisApi.getReportView(shipthisApi, 'invoice_manage', '1632700800000', '1664236799000', 'nasau', 'json', true, {
+  "user_filter": {
+    "entry_id": {
+      "type": "reference",
+      "value": "6331d88834cc212bfb7c75b4"
+    }
+  }
+})
+  .then((data) => {
+    console.log(data);
+  })

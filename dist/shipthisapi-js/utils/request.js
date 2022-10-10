@@ -41,9 +41,13 @@ const internalRequest = async (obj, method, path, options) => {
         return result?.data?.data;
     }
     else {
-        console.log(result.data.errors);
         if (result.data.errors) {
-            throw new Error(result?.data?.errors[0]?.message);
+            if (typeof result?.data?.errors[0]?.message === 'string') {
+                throw new Error(result?.data?.errors[0]?.message);
+            }
+            else {
+                throw new Error(JSON.stringify(result?.data?.errors[0]));
+            }
         }
     }
 };

@@ -15,13 +15,15 @@ export declare class ShipthisAPI {
     selectedLocation: string;
     profiles: any[];
     selectedProfile: any;
+    isSessionValid: boolean;
     internalRequest: (obj: ShipthisAPI, method: import("axios").Method, path: string, options?: import("./interfaces/api.interface").RequestOptions) => Promise<any>;
     uploadFile: (obj: ShipthisAPI, file: File) => Promise<any>;
-    getListGenericCollection: (obj: ShipthisAPI, collectionName: string, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
-    getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, objectId: string) => Promise<any>;
-    createGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, itemData: any) => Promise<any>;
-    updateGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
-    deleteGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, objectId: string) => Promise<any>;
+    getListGenericCollection: (obj: ShipthisAPI, collectionName: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
+    getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: any, objectId: string) => Promise<any>;
+    createGenericCollectionItem: (obj: any, collectionName: string, itemData: any) => Promise<any>;
+    updateGenericCollectionItem: (obj: any, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
+    deleteGenericCollectionItem: (obj: any, collectionName: string, objectId: string) => Promise<any>;
+    getReportView: (obj: any, report_name: string, start_date: string, end_date: string, location: any, output_type: string, skip_meta: string, post_data: any) => Promise<any>;
     getExchangeRateForCurrency: (obj: ShipthisAPI, currency: string) => Promise<any>;
     getGenericAutoComplete: (obj: ShipthisAPI, referenceName: string, data: any) => Promise<any>;
     getLocation: (obj: ShipthisAPI, collectionName: string, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
@@ -30,6 +32,7 @@ export declare class ShipthisAPI {
     Invoice: Invoice;
     constructor(init: ApiOptions);
     connect(locationId?: any): Promise<unknown>;
+    disconnect(): void;
     loginViaPassword(email: string, password: string): Promise<unknown>;
     onInfoChange(response: any): void;
     customerUserRegistration(email: string, password: string, firstName: string, lastName: string, companyName: string, acceptTermsAndConditions: boolean): Promise<any>;
