@@ -53,6 +53,7 @@ const conversation = async (obj, collectionName, data, params) => {
     return obj.internalRequest(obj, 'POST', collectionName, data);
 };
 exports.conversation = conversation;
+
 const getReportView = async (obj, report_name, start_date, end_date, location, output_type = 'json', skip_meta = 'true', post_data) => {
     return obj.internalRequest(obj, 'POST', `/report-view/${report_name}`, {
         params: { start_date, end_date, output_type, skip_meta, location },

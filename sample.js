@@ -14,6 +14,13 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 // Login via Email and Password
 // await shipthisApi.loginViaPassword('ashishkmr2210@gmail.com', 'password');
+//  'userType': 'customer',
+//  'organisationId': 'shipbeaconexpress'
+// }
+// let shipthisApi = new ShipthisAPI(param)
+// const a = await shipthisApi.connect();
+// const a = await shipthisApi.loginViaPassword('ahmed@shipthis.co', 'password');
+
 // console.log(shipthisApi.organisation);
 
 // shipthisApi.customerUserRegistration("mayur@shipthis.co", 'abc12345', 'Mayur', 'rawte', 'Mayur', true)
