@@ -170,7 +170,10 @@ export class ShipthisAPI {
     firstName: string,
     lastName: string,
     companyName: string,
+    phone:string,
     acceptTermsAndConditions: boolean,
+    accounting: any,
+    address: any
   ) {
     return new Promise<any>((resolve, reject) => {
       internalRequest(this, 'POST', '/customer/auth/register', {
@@ -180,6 +183,9 @@ export class ShipthisAPI {
           first_name: firstName,
           last_name: lastName,
           company_name: companyName,
+          accounting: accounting,
+          address: address,
+          phone: phone,
           accept_terms_and_condition: acceptTermsAndConditions,
           skip_recaptcha: true,
         },
