@@ -98,8 +98,8 @@ export class ShipthisAPI {
             }
           }
         }
-          resolve({'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation})
-        });
+        resolve({'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation})
+      });
     });
   }
 
@@ -170,7 +170,7 @@ export class ShipthisAPI {
     firstName: string,
     lastName: string,
     companyName: string,
-    phone:string,
+    phone: string,
     acceptTermsAndConditions: boolean,
     accounting: any,
     address: any
@@ -200,6 +200,46 @@ export class ShipthisAPI {
     });
   }
 
+  /**
+   * Customer Forgot Password
+   */
+  public async customerForgotPassword(email: string) {
+    return new Promise<any>((resolve, reject) => {
+      internalRequest(this, 'POST', '/user-auth/forgot-password', {
+        requestData: {
+          email: email,
+        },
+      })
+        .then((data: any) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
+  /**
+   * Set Password Via Token (Forgot Password)
+   */
+  public async setPasswordViaToken(token: string, new_password: string) {
+    return new Promise<any>((resolve, reject) => {
+      internalRequest(this, 'POST', '/user-auth/set-password-via-token', {
+        requestData: {
+          token: token,
+          new_password: new_password
+        },
+      })
+        .then((data: any) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
+
   public getSelectedRegion() {
     return this.selectedRegion;
   }
@@ -226,7 +266,7 @@ export class ShipthisAPI {
       this,
       'GET',
       'thirdparty/search-place-autocomplete?query-level=undefined&query=' +
-        query,
+      query,
     );
   }
 }
