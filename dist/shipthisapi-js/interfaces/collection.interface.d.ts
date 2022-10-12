@@ -445,7 +445,7 @@ export interface ShipMethod {
     name?: string;
     _cls_?: string;
     code?: string;
-    _operation: Operation;
+    _operation?: Operation;
     _display: string;
 }
 export interface Airline {

@@ -23,11 +23,12 @@ export declare class ShipthisAPI {
     createGenericCollectionItem: (obj: any, collectionName: string, itemData: any) => Promise<any>;
     updateGenericCollectionItem: (obj: any, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
     deleteGenericCollectionItem: (obj: any, collectionName: string, objectId: string) => Promise<any>;
-    getReportView: (obj: any, report_name: string, start_date: string, end_date: string, location: any, output_type: string, skip_meta: string, post_data: any) => Promise<any>;
     getExchangeRateForCurrency: (obj: ShipthisAPI, currency: string) => Promise<any>;
     getGenericAutoComplete: (obj: ShipthisAPI, referenceName: string, data: any) => Promise<any>;
     getLocation: (obj: ShipthisAPI, collectionName: string, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
+    selectGoogleLocation: (obj: ShipthisAPI, collectionName: string, params: import("./interfaces/collection-params.interface").SelectGoogleLocationParams) => Promise<any>;
     conversation: (obj: ShipthisAPI, collectionName: string, data: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
+    getReportView: (obj: any, report_name: string, start_date: string, end_date: string, location: any, output_type: string, skip_meta: string, post_data: any) => Promise<any>;
     Shipment: Shipment;
     Invoice: Invoice;
     constructor(init: ApiOptions);
@@ -35,7 +36,7 @@ export declare class ShipthisAPI {
     disconnect(): void;
     loginViaPassword(email: string, password: string): Promise<unknown>;
     onInfoChange(response: any): void;
-    customerUserRegistration(email: string, password: string, firstName: string, lastName: string, companyName: string, acceptTermsAndConditions: boolean): Promise<any>;
+    customerUserRegistration(email: string, password: string, firstName: string, lastName: string, companyName: string, phone: string, acceptTermsAndConditions: boolean, accounting: any, address: any): Promise<any>;
     getSelectedRegion(): string;
     setRegionAndLocation(regionId: string, locationId: string): void;
     setObjectReferences(): void;

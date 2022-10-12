@@ -71,11 +71,26 @@ class Shipment {
         updatedData.filter_txt = data;
         return this.obj.getGenericAutoComplete(this.obj, 'customer', updatedData);
     }
-    getShipmentTerms() {
+    async addNewCustomer(data) {
+        const currency = await this.getCurrency(data.accounting.currency);
+        const newCustomerData = { ...request_body_1.createNewCustomer, ...data };
+        newCustomerData.accounting.currency = currency.items[0];
+        console.log(currency);
+        return this.obj.createGenericCollectionItem(this.obj, 'customer', newCustomerData);
+    }
+    async addNewShipper(data) {
+        const newCustomerData = { ...request_body_1.createNewShipper, ...data };
+        return this.obj.createGenericCollectionItem(this.obj, 'customer_party', newCustomerData);
+    }
+    getAllShipmentTerms() {
         return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
             only: 'name,code,order',
             general_filter: {},
         });
+    }
+    getShipmentTerms(data = '') {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        return this.obj.getGenericAutoComplete(this.obj, 'shipment_term', updatedData);
     }
     getQuotationReference(data = null) {
         const updatedData = (0, commonUtils_1.managePayload)(data, ['quotation_number'], ['quotation_number']);
@@ -98,7 +113,6 @@ class Shipment {
         const display_fields = ['company.name'];
         const input_filters = JSON.stringify({ 'customer._id': `${id}` });
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields, input_filters);
-        console.log(updatedData);
         return this.obj.getGenericAutoComplete(this.obj, 'customer_party', updatedData);
     }
     getShipperName(data = '', id) {
@@ -127,6 +141,12 @@ class Shipment {
         return this.obj.getLocation(this.obj, 'search-place-autocomplete', {
             query_level: undefined,
             query: data,
+        });
+    }
+    selectGoogleLocations(placeId, description) {
+        return this.obj.selectGoogleLocation(this.obj, 'search-place', {
+            placeId,
+            description,
         });
     }
     getForwordingAgent(data = '') {
@@ -158,11 +178,15 @@ class Shipment {
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields, null, general_filters);
         return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
     }
-    getOperationExecutive() {
+    getAllOperationExecutive() {
         return this.obj.getListGenericCollection(this.obj, 'employee', {
             only: '_id,name',
             general_filter: {},
         });
+    }
+    getOperationExecutive(data = '') {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        return this.obj.getGenericAutoComplete(this.obj, 'employee', updatedData);
     }
     getAirlineName() {
         return this.obj.getListGenericCollection(this.obj, 'airline', {
@@ -170,11 +194,15 @@ class Shipment {
             general_filter: {},
         });
     }
-    getCurrency() {
+    getAllCurrency() {
         return this.obj.getListGenericCollection(this.obj, 'currency', {
             only: 'name',
             general_filter: {},
         });
+    }
+    getCurrency(data = '') {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        return this.obj.getGenericAutoComplete(this.obj, 'currency', updatedData);
     }
     CartageByAndCustomClearance(data = '') {
         const fields = ['company', 'address', 'primary_contact_person'];
@@ -233,9 +261,21 @@ class Shipment {
             'full_address',
         ];
         const display_fields = ['company.name'];
-        const general_filters = '{\n    "company.vendor_type":"carrier"\n}';
+        const general_filters = '{"company.vendor_type":"carrier"}';
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields, general_filters);
+        console.log(updatedData);
         return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
+    }
+    getVehicleType(data) {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        return this.obj.getGenericAutoComplete(this.obj, 'vehicle_type', updatedData);
+    }
+    getPackageType(data) {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        return this.obj.getGenericAutoComplete(this.obj, 'package_type', updatedData);
+    }
+    ltloads(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'ltl_load', data);
     }
     initiaConversation(data) {
         return this.obj.conversation(this.obj, 'conversation', data);

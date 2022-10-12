@@ -7,9 +7,16 @@ import {
   // requiredShipmentClass,
   requestSeaShipement,
   requestLandShipment,
+  createNewCustomer,
+  createNewShipper,
 } from './request-body';
 import { managePayload } from '../utils/commonUtils';
-import { ConversationPayload } from '../interfaces/conversation.interface';
+import {
+  AddNewCustomerData,
+  AddNewShipper,
+  ConversationPayload,
+  ltlPackage,
+} from '../interfaces/conversation.interface';
 import {
   AirShipment,
   LandShipment,
@@ -148,12 +155,44 @@ export class Shipment {
     return this.obj.getGenericAutoComplete(this.obj, 'customer', updatedData);
   }
 
-  // get shipment terms
-  public getShipmentTerms() {
+  // create or add new customer
+  public async addNewCustomer(data: AddNewCustomerData) {
+    const currency = await this.getCurrency(data.accounting.currency);
+    const newCustomerData = { ...createNewCustomer, ...data };
+    newCustomerData.accounting.currency = currency.items[0];
+    return this.obj.createGenericCollectionItem(
+      this.obj,
+      'customer',
+      newCustomerData,
+    );
+  }
+
+  // create new shipper
+  public async addNewShipper(data: AddNewShipper) {
+    const newCustomerData = { ...createNewShipper, ...data };
+    return this.obj.createGenericCollectionItem(
+      this.obj,
+      'customer_party',
+      newCustomerData,
+    );
+  }
+
+  // get all shipment terms
+  public getAllShipmentTerms() {
     return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
       only: 'name,code,order',
       general_filter: {},
     });
+  }
+
+  // get single shipment term
+  public getShipmentTerms(data = '') {
+    const updatedData = managePayload(data);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'shipment_term',
+      updatedData,
+    );
   }
 
   // get quotation_reference
@@ -180,6 +219,7 @@ export class Shipment {
   }
 
   // get Shipper Name and Consignee
+  // id of the shipper
   public getConsigneeName(data = '', id: string) {
     const fields = [
       'company.name',
@@ -196,7 +236,6 @@ export class Shipment {
       display_fields,
       input_filters,
     );
-    console.log(updatedData);
     return this.obj.getGenericAutoComplete(
       this.obj,
       'customer_party',
@@ -213,7 +252,6 @@ export class Shipment {
       display_fields,
       input_filters,
     );
-    console.log(updatedData);
     return this.obj.getGenericAutoComplete(
       this.obj,
       'customer_party',
@@ -266,6 +304,13 @@ export class Shipment {
     });
   }
 
+  public selectGoogleLocations(placeId: string, description: string) {
+    return this.obj.selectGoogleLocation(this.obj, 'search-place', {
+      placeId,
+      description,
+    });
+  }
+
   // get forwording Agent Name
   public getForwordingAgent(data = '') {
     const fields = [
@@ -294,7 +339,6 @@ export class Shipment {
       null,
       general_filters,
     );
-    console.log(updatedData);
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
 
@@ -314,13 +358,18 @@ export class Shipment {
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
 
-  // get the operation_executive and sales executive
+  // get All the operation_executive and sales executive
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/employee?&only=_id,name&general_filter={}
-  public getOperationExecutive() {
+  public getAllOperationExecutive() {
     return this.obj.getListGenericCollection(this.obj, 'employee', {
       only: '_id,name',
       general_filter: {},
     });
+  }
+
+  public getOperationExecutive(data = '') {
+    const updatedData = managePayload(data);
+    return this.obj.getGenericAutoComplete(this.obj, 'employee', updatedData);
   }
 
   // get airline name
@@ -334,13 +383,17 @@ export class Shipment {
 
   // get currency
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/currency?&only=_id,name&general_filter={}
-  public getCurrency() {
+  public getAllCurrency() {
     return this.obj.getListGenericCollection(this.obj, 'currency', {
       only: 'name',
       general_filter: {},
     });
   }
-
+  // get single currency
+  public getCurrency(data = '') {
+    const updatedData = managePayload(data);
+    return this.obj.getGenericAutoComplete(this.obj, 'currency', updatedData);
+  }
   // get cartage By and custom clearance by
   // url : https://asia-south1.gcp.api.shipthis.co/api/v3/autocomplete-reference/vendor?location=new_york
   public CartageByAndCustomClearance(data = '') {
@@ -431,7 +484,7 @@ export class Shipment {
       'full_address',
     ];
     const display_fields = ['company.name'];
-    const general_filters = '{\n    "company.vendor_type":"carrier"\n}';
+    const general_filters = '{"company.vendor_type":"carrier"}';
     const updatedData = managePayload(
       data,
       fields,
@@ -440,17 +493,25 @@ export class Shipment {
     );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
-
-  // conversationpayload : {
-  //   "conversation": {
-  //       "type": "status",
-  //       "body": "check "
-  //   },
-  //   "document_id": "63202dac74590f45be1b480c",
-  //   "view_name": "sea_shipment",
-  //   "message_type": "status"
-  // }
-
+  public getVehicleType(data) {
+    const updatedData = managePayload(data);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'vehicle_type',
+      updatedData,
+    );
+  }
+  public getPackageType(data) {
+    const updatedData = managePayload(data);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'package_type',
+      updatedData,
+    );
+  }
+  public ltloads(data: ltlPackage) {
+    return this.obj.createGenericCollectionItem(this.obj, 'ltl_load', data);
+  }
   public initiaConversation(data: ConversationPayload) {
     return this.obj.conversation(this.obj, 'conversation', data);
   }

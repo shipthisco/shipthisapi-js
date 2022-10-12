@@ -4,10 +4,10 @@ exports.uploadFile = exports.internalRequest = void 0;
 const axios_1 = require("axios");
 const prepareHeaders = async (obj) => {
     const headers = {
-        "organisation": obj.organisationId,
-        "usertype": obj.userType,
-        "region": obj.selectedRegion || '',
-        "location": obj.selectedLocation || '',
+        organisation: obj.organisationId,
+        usertype: obj.userType,
+        region: obj.selectedRegion || '',
+        location: obj.selectedLocation || '',
     };
     if (obj.authorization) {
         headers['authorization'] = obj.authorization;
@@ -23,14 +23,14 @@ const internalRequest = async (obj, method, path, options) => {
         path = path.substring(1);
     }
     const headers = await prepareHeaders(obj);
-    headers["Access-Control-Allow-Origin"] = '*';
-    headers["Access-Control-Allow-Credentials"] = true;
+    headers['Access-Control-Allow-Origin'] = '*';
+    headers['Access-Control-Allow-Credentials'] = true;
     const query_params = options?.queryParams || null;
     const config = {
         method,
-        url: obj.base_api_endpoint + path + ((query_params) ? '?' + query_params : ''),
+        url: obj.base_api_endpoint + path + (query_params ? '?' + query_params : ''),
         headers,
-        params: options?.params || {}
+        params: options?.params || {},
     };
     if (['post', 'POST', 'put', 'PUT', 'patch', 'PATCH'].includes(method)) {
         config.data = options?.requestData || {};
@@ -56,9 +56,9 @@ const uploadFile = async (obj, file) => {
     const headers = await prepareHeaders(obj);
     headers['Content-Type'] = 'multipart/form-data';
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append('file', file);
     const result = await axios_1.default.post(obj.file_upload_api_endpoint, formData, {
-        headers: headers
+        headers: headers,
     });
     if (result.status === 200) {
         return result?.data;

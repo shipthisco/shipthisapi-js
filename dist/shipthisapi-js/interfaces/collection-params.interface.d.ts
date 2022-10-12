@@ -22,3 +22,7 @@ export interface MultiSort {
     sort_by?: string;
     sort_order?: string;
 }
+export interface SelectGoogleLocationParams {
+    placeId: string;
+    description: string;
+}
