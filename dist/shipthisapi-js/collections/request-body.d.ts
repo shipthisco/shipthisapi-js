@@ -248,3 +248,76 @@ export declare const invoiceRequestData: {
     action_op_data: {};
     'captcha-response': {};
 };
+export declare const createNewCustomer: {
+    __scp: {};
+    opening_balance: {};
+    account_contact_person: {
+        same_as_primary: boolean;
+        additional_emails: any[];
+        enable_portal_access: boolean;
+    };
+    company: {
+        is_agent: boolean;
+        name: string;
+        phone: string;
+        client_code: string;
+    };
+    primary_contact_person: {
+        additional_emails: any[];
+        enable_portal_access: boolean;
+        first_name: string;
+        last_name: string;
+        name: string;
+        email: string;
+    };
+    address: {
+        city: {};
+    };
+    __events: {
+        lead__date: {
+            $date: number;
+        };
+        lead__comments: string;
+    };
+    accounting: {
+        credit_limit: number;
+        external_balance: number;
+        account_credit_block: boolean;
+        block_reason: string;
+        currency: {};
+        is_inter_branch: boolean;
+        need_insurance: boolean;
+        automatic_ar_reminder: {
+            enable_automatic_reminder: boolean;
+        };
+        automatic_ar_aging_reminder: {
+            enable_automatic_reminder: boolean;
+        };
+        notification: {
+            sea_shipment: {};
+            air_shipment: {};
+            land_shipment: {};
+            clearance_job: {};
+            documentation_job: {};
+        };
+        documents: any[];
+        customer_lifecycle: string;
+        full_address: string;
+        full_address_field_compute: string;
+    };
+};
+export declare const createNewShipper: {
+    __scp: {};
+    company: {
+        party_type: any[];
+        name: string;
+        phone: string;
+    };
+    primary_contact_person: {};
+    account_contact_person: {};
+    address: {
+        city: {};
+    };
+    full_address: string;
+    full_address_field: string;
+};

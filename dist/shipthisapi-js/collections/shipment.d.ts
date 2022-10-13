@@ -1,5 +1,5 @@
 import { ShipthisAPI } from '../main';
-import { ConversationPayload } from '../interfaces/conversation.interface';
+import { AddNewCustomerData, AddNewShipper, ConversationPayload, ltlPackage } from '../interfaces/conversation.interface';
 import { AirShipment, LandShipment, SeaShipment } from '../interfaces/collection.interface';
 export declare class Shipment {
     obj: ShipthisAPI;
@@ -22,7 +22,10 @@ export declare class Shipment {
     deleteLandShipment(ObjectId: string): Promise<any>;
     getAirPort(data?: string): Promise<any>;
     getCustomers(data?: string): Promise<any>;
-    getShipmentTerms(): Promise<any>;
+    addNewCustomer(data: AddNewCustomerData): Promise<any>;
+    addNewShipper(data: AddNewShipper): Promise<any>;
+    getAllShipmentTerms(): Promise<any>;
+    getShipmentTerms(data?: string): Promise<any>;
     getQuotationReference(data?: any): Promise<any>;
     getMasterShipment(data?: any): Promise<any>;
     getConsigneeName(data: string, id: string): Promise<any>;
@@ -30,12 +33,15 @@ export declare class Shipment {
     getPickUpNDelivery(data: string, id: string): Promise<any>;
     getNotifyParty(data: string, id: string): Promise<any>;
     getGoogleLocation(data?: string): Promise<any>;
+    selectGoogleLocations(placeId: string, description: string): Promise<any>;
     getForwordingAgent(data?: string): Promise<any>;
     getConsolidator(data?: string): Promise<any>;
     getPlaceOfConsolidation(data?: string): Promise<any>;
-    getOperationExecutive(): Promise<any>;
+    getAllOperationExecutive(): Promise<any>;
+    getOperationExecutive(data?: string): Promise<any>;
     getAirlineName(): Promise<any>;
-    getCurrency(): Promise<any>;
+    getAllCurrency(): Promise<any>;
+    getCurrency(data?: string): Promise<any>;
     CartageByAndCustomClearance(data?: string): Promise<any>;
     getProductType(): Promise<any>;
     getShippingLineName(): Promise<any>;
@@ -44,5 +50,8 @@ export declare class Shipment {
     getPickup(data?: string): Promise<any>;
     getCustomClearance(data?: string): Promise<any>;
     getLandCarrier(data?: string): Promise<any>;
+    getVehicleType(data: any): Promise<any>;
+    getPackageType(data: any): Promise<any>;
+    ltloads(data: ltlPackage): Promise<any>;
     initiaConversation(data: ConversationPayload): Promise<any>;
 }

@@ -9,8 +9,7 @@ let param = {
     'xApiKey': 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.Yxb3BQ.P6RFy5SNBOHaktPtS1JmmD9Jfu8'
 }
 let shipthisApi = new ShipthisAPI(param)
-
-await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
+await shipthisApi.connect().then((data) => console.log(data, "======>")).catch((err) => err.message);
 
 // Login via Email and Password
 // await shipthisApi.loginViaPassword('ashishkmr2210@gmail.com', 'password');
@@ -82,44 +81,44 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 // Create Air Shipments Details
 // url :
-const requiredFieldsAir = {
-        "port_of_loading": {},
-        "port_of_discharge": {},
-        "job_id": "",
-        "shipment_name": "This is a test for Air Shipments",
-        "shipment_class": "house",
-        "customer_name": {},
-        "shipment_type": "import",
-        "shipment_term": {},
-        "carrier_code": "994",
-        "operation_executive": {}
-}
-const airPorts = await shipthisApi.Shipment.getAirPort()
-const getCustomers = await shipthisApi.Shipment.getCustomers()
-const shipTerms = await shipthisApi.Shipment.getShipmentTerms()
-const getExecutive = await shipthisApi.Shipment.getOperationExecutive()
-const getQuotationReference = await shipthisApi.Shipment.getQuotationReference()
-const getAirPort = await shipthisApi.Shipment.getAirPort()
-const getShipmentTerms = await shipthisApi.Shipment.getShipmentTerms()
-const getShipperName= await shipthisApi.Shipment.getShipperName("", "62f43e1ebca73696c1ac45d4")
-const getConsigneeName= await shipthisApi.Shipment.getConsigneeName("", "62f43e1ebca73696c1ac45d4")
-const getPickUpNDelivery = await shipthisApi.Shipment.getPickUpNDelivery("", "62f43e1ebca73696c1ac45d4")
-const getNotifyParty = await shipthisApi.Shipment.getNotifyParty("", "62f43e1ebca73696c1ac45d4")
-const getGoogleLocation = await shipthisApi.Shipment.getGoogleLocation()
-const getForwordingAgent = await shipthisApi.Shipment.getForwordingAgent()
-const getConsolidator = await shipthisApi.Shipment.getConsolidator("", "62f43e1ebca73696c1ac45d4")
-const getPlaceOfConsolidation = await shipthisApi.Shipment.getPlaceOfConsolidation()
-const getOperationExecutive = await shipthisApi.Shipment.getOperationExecutive()
-const getAirlineName = await shipthisApi.Shipment.getAirlineName()
-const getCurrency = await shipthisApi.Shipment.getCurrency()
-requiredFieldsAir.port_of_loading.port = airPorts.items[0]
-requiredFieldsAir.port_of_discharge.port = airPorts.items[1]
-requiredFieldsAir.customer_name = getCustomers.items[0]
-requiredFieldsAir.shipment_term = getShipmentTerms.items[0]
-requiredFieldsAir.operation_executive = getOperationExecutive.items[0]
-requiredFieldsAir.quotation_reference = getQuotationReference.items[0]
-const res = shipthisApi.Shipment.createAirShipment(requiredFieldsAir)
-console.log(res)
+// const requiredFieldsAir = {
+//         "port_of_loading": {},
+//         "port_of_discharge": {},
+//         "job_id": "",
+//         "shipment_name": "This is a test for Air Shipments",
+//         "shipment_class": "house",
+//         "customer_name": {},
+//         "shipment_type": "import",
+//         "shipment_term": {},
+//         "carrier_code": "994",
+//         "operation_executive": {}
+// }
+// const airPorts = await shipthisApi.Shipment.getAirPort()
+// const getCustomers = await shipthisApi.Shipment.getCustomers()
+// const shipTerms = await shipthisApi.Shipment.getShipmentTerms()
+// const getExecutive = await shipthisApi.Shipment.getOperationExecutive()
+// const getQuotationReference = await shipthisApi.Shipment.getQuotationReference()
+// const getAirPort = await shipthisApi.Shipment.getAirPort()
+// const getShipmentTerms = await shipthisApi.Shipment.getShipmentTerms()
+// const getShipperName= await shipthisApi.Shipment.getShipperName("", "62f43e1ebca73696c1ac45d4")
+// const getConsigneeName= await shipthisApi.Shipment.getConsigneeName("", "62f43e1ebca73696c1ac45d4")
+// const getPickUpNDelivery = await shipthisApi.Shipment.getPickUpNDelivery("", "62f43e1ebca73696c1ac45d4")
+// const getNotifyParty = await shipthisApi.Shipment.getNotifyParty("", "62f43e1ebca73696c1ac45d4")
+// const getGoogleLocation = await shipthisApi.Shipment.getGoogleLocation()
+// const getForwordingAgent = await shipthisApi.Shipment.getForwordingAgent()
+// const getConsolidator = await shipthisApi.Shipment.getConsolidator("", "62f43e1ebca73696c1ac45d4")
+// const getPlaceOfConsolidation = await shipthisApi.Shipment.getPlaceOfConsolidation()
+// const getOperationExecutive = await shipthisApi.Shipment.getOperationExecutive()
+// const getAirlineName = await shipthisApi.Shipment.getAirlineName()
+// const getCurrency = await shipthisApi.Shipment.getCurrency()
+// requiredFieldsAir.port_of_loading.port = airPorts.items[0]
+// requiredFieldsAir.port_of_discharge.port = airPorts.items[1]
+// requiredFieldsAir.customer_name = getCustomers.items[0]
+// requiredFieldsAir.shipment_term = getShipmentTerms.items[0]
+// requiredFieldsAir.operation_executive = getOperationExecutive.items[0]
+// requiredFieldsAir.quotation_reference = getQuotationReference.items[0]
+// const res = shipthisApi.Shipment.createAirShipment(requiredFieldsAir)
+// console.log(res)
 
 
 
@@ -142,7 +141,6 @@ console.log(res)
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/shipping_line?&only=name,carrier_code,cbsa_code,shipthis_code&general_filter={}&location=new_york&region_override=null
 // const getShippingLineName  = await shipthisApi.Shipment.getShippingLineName()
 // const res = shipthisApi.Shipment.createSeaShipment(requiredFieldsSea)
-// console.log(res)
 
 
 // create land shipment
@@ -162,7 +160,90 @@ console.log(res)
 // requiredFieldsLand.shipment_term = getShipmentTerms.items[0]
 // requiredFieldsLand.operation_executive = getOperationExecutive.items[0]
 // const res = shipthisApi.Shipment.createLandShipment(requiredFieldsLand)
-// console.log(res)
+
+// create new customer
+// const createNewCustomer = {
+//     "__scp": {},
+//     "opening_balance": {},
+//     "account_contact_person": {
+//         "same_as_primary": false,
+//         "additional_emails": [],
+//         "enable_portal_access": false
+//     },
+//     "company": {
+//         "is_agent": false,
+//         "name": "Corgoson lativaaaaaaa",
+//         "phone": "93848928993",
+//         "client_code": "12334"
+//     },
+//     "primary_contact_person": {
+//         "additional_emails": [],
+//         "enable_portal_access": false,
+//         "first_name": "shendue",
+//         "last_name": "dneundure",
+//         "name": "Dneundure",
+//         "email": "cargoson@gmail.com"
+//     },
+//     "address": {
+//         "city": {}
+//     },
+//     "__events": {
+//         "lead__date": {
+//             "$date": 1665532800000
+//         },
+//         "lead__comments": ""
+//     },
+//     "accounting": {
+//         "credit_limit": 0,
+//         "external_balance": 0,
+//         "account_credit_block": false,
+//         "block_reason": "Exceeded Credit Terms",
+//         "currency": "inr",
+//     },
+//     "is_inter_branch": false,
+//     "need_insurance": false,
+//     "automatic_ar_reminder": {
+//         "enable_automatic_reminder": false
+//     },
+//     "automatic_ar_aging_reminder": {
+//         "enable_automatic_reminder": false
+//     },
+//     "notification": {
+//         "sea_shipment": {},
+//         "air_shipment": {},
+//         "land_shipment": {},
+//         "clearance_job": {},
+//         "documentation_job": {}
+//     },
+//     "documents": [],
+//     "customer_lifecycle": "lead",
+//     "full_address": "\r\nE :cargoson@gmail.com\r\nT :93848928993",
+//     "full_address_field_compute": ""
+// }
+// const createNew = await shipthisApi.Shipment.addNewCustomer(createNewCustomer)
+// console.log(createNew)
+
+
+const createNewShipper = {
+    "__scp": {},
+    "company": {
+        "party_type": [
+            "shipper"
+        ],
+        "name": "Corgoson Testttt",
+        "phone": "123454566"
+    },
+    "primary_contact_person": {},
+    "account_contact_person": {},
+    "address": {
+        "city": {}
+    },
+    "full_address": "",
+    "full_address_field": ""
+}
+
+const createNewShipperr = await shipthisApi.Shipment.addNewShipper(createNewShipper)
+console.log(createNewShipperr)
 
 
 
@@ -176,14 +257,14 @@ console.log(res)
 // Delete the shipments
 // shipthisApi.Shipment.createAirShipment("62febd45d3cb7fafac203f37").catch((err) => console.log(err.message))
 
-shipthisApi.getReportView(shipthisApi, 'invoice_manage', '1632700800000', '1664236799000', 'nasau', 'json', true, {
-  "user_filter": {
-    "entry_id": {
-      "type": "reference",
-      "value": "6331d88834cc212bfb7c75b4"
-    }
-  }
-})
-  .then((data) => {
-    console.log(data);
-  })
+// shipthisApi.getReportView(shipthisApi, 'invoice_manage', '1632700800000', '1664236799000', 'nasau', 'json', true, {
+//   "user_filter": {
+//     "entry_id": {
+//       "type": "reference",
+//       "value": "6331d88834cc212bfb7c75b4"
+//     }
+//   }
+// })
+//   .then((data) => {
+//     console.log(data);
+//   })

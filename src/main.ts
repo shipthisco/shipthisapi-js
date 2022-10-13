@@ -8,13 +8,14 @@ import {
   getLocation,
   conversation,
   getReportView,
-  updateGenericCollectionItem
+  updateGenericCollectionItem,
+  selectGoogleLocation,
 } from './collections/generic';
-import {ApiOptions} from './interfaces/api.interface';
-import {internalRequest, uploadFile} from './utils/request';
-import {Shipment} from './collections/shipment';
-import {Organisation} from './interfaces/info.interface';
-import {Invoice} from './collections/invoice';
+import { ApiOptions } from './interfaces/api.interface';
+import { internalRequest, uploadFile } from './utils/request';
+import { Shipment } from './collections/shipment';
+import { Organisation } from './interfaces/info.interface';
+import { Invoice } from './collections/invoice';
 
 export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co';
@@ -42,9 +43,10 @@ export class ShipthisAPI {
   public getExchangeRateForCurrency = getExchangeRateForCurrency;
   public getGenericAutoComplete = getGenericAutoComplete;
   public getLocation = getLocation;
+  public selectGoogleLocation = selectGoogleLocation;
   public conversation = conversation;
 
-  public getReportView = getReportView
+  public getReportView = getReportView;
   /**
    * Collection Definition
    */
@@ -63,10 +65,9 @@ export class ShipthisAPI {
     this.selectedRegion = init.regionId || '';
     this.selectedLocation = init.locationId || '';
     this.isSessionValid = false;
-    this.getInfo()
-      .then((infoResponse) => {
-        this.onInfoChange(infoResponse);
-      });
+    this.getInfo().then((infoResponse) => {
+      this.onInfoChange(infoResponse);
+    });
   }
 
   public connect(locationId = null) {
@@ -98,7 +99,10 @@ export class ShipthisAPI {
             }
           }
         }
-        resolve({'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation})
+        resolve({
+          selectedRegion: this.selectedRegion,
+          selectedLocation: this.selectedLocation,
+        });
       });
     });
   }
@@ -119,7 +123,7 @@ export class ShipthisAPI {
   public async loginViaPassword(email: string, password: string) {
     return new Promise((resolve, reject) => {
       // TODO remove this on backend update
-      const basePath = '/user-auth/login'
+      const basePath = '/user-auth/login';
       this.internalRequest(this, 'POST', basePath, {
         requestData: {
           email: email.toLowerCase(),
@@ -173,7 +177,7 @@ export class ShipthisAPI {
     phone: string,
     acceptTermsAndConditions: boolean,
     accounting: any,
-    address: any
+    address: any,
   ) {
     return new Promise<any>((resolve, reject) => {
       internalRequest(this, 'POST', '/customer/auth/register', {

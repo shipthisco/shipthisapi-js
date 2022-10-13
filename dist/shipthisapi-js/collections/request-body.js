@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.invoiceRequestData = exports.invoiceRequiredData = exports.referenceCustomerPayload = exports.referencePortPayload = exports.partiesPayload = exports.requestLandShipment = exports.requestSeaShipement = exports.requestAirShipment = exports.freightChargeTeam = exports.movementType = exports.requiredShipmentClass = exports.requiredShipmentType = exports.requiredData = void 0;
+exports.createNewShipper = exports.createNewCustomer = exports.invoiceRequestData = exports.invoiceRequiredData = exports.referenceCustomerPayload = exports.referencePortPayload = exports.partiesPayload = exports.requestLandShipment = exports.requestSeaShipement = exports.requestAirShipment = exports.freightChargeTeam = exports.movementType = exports.requiredShipmentClass = exports.requiredShipmentType = exports.requiredData = void 0;
 exports.requiredData = [
     'customer_name',
     'shipment_class',
@@ -280,4 +280,77 @@ exports.invoiceRequestData = {
     },
     action_op_data: {},
     'captcha-response': {},
+};
+exports.createNewCustomer = {
+    __scp: {},
+    opening_balance: {},
+    account_contact_person: {
+        same_as_primary: false,
+        additional_emails: [],
+        enable_portal_access: false,
+    },
+    company: {
+        is_agent: false,
+        name: '',
+        phone: '',
+        client_code: '',
+    },
+    primary_contact_person: {
+        additional_emails: [],
+        enable_portal_access: false,
+        first_name: '',
+        last_name: '',
+        name: '',
+        email: '',
+    },
+    address: {
+        city: {},
+    },
+    __events: {
+        lead__date: {
+            $date: new Date().getTime(),
+        },
+        lead__comments: '',
+    },
+    accounting: {
+        credit_limit: 0,
+        external_balance: 0,
+        account_credit_block: false,
+        block_reason: 'Exceeded Credit Terms',
+        currency: {},
+        is_inter_branch: false,
+        need_insurance: false,
+        automatic_ar_reminder: {
+            enable_automatic_reminder: false,
+        },
+        automatic_ar_aging_reminder: {
+            enable_automatic_reminder: false,
+        },
+        notification: {
+            sea_shipment: {},
+            air_shipment: {},
+            land_shipment: {},
+            clearance_job: {},
+            documentation_job: {},
+        },
+        documents: [],
+        customer_lifecycle: 'lead',
+        full_address: '\r\nE :cargoson@gmail.com\r\nT :93848928993',
+        full_address_field_compute: '',
+    },
+};
+exports.createNewShipper = {
+    __scp: {},
+    company: {
+        party_type: [],
+        name: '',
+        phone: '',
+    },
+    primary_contact_person: {},
+    account_contact_person: {},
+    address: {
+        city: {},
+    },
+    full_address: '',
+    full_address_field: '',
 };

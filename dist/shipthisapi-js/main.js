@@ -17,11 +17,12 @@ class ShipthisAPI {
         this.createGenericCollectionItem = generic_1.createGenericCollectionItem;
         this.updateGenericCollectionItem = generic_1.updateGenericCollectionItem;
         this.deleteGenericCollectionItem = generic_1.deleteGenericCollectionItem;
-        this.getReportView = generic_1.getReportView;
         this.getExchangeRateForCurrency = generic_1.getExchangeRateForCurrency;
         this.getGenericAutoComplete = generic_1.getGenericAutoComplete;
         this.getLocation = generic_1.getLocation;
+        this.selectGoogleLocation = generic_1.selectGoogleLocation;
         this.conversation = generic_1.conversation;
+        this.getReportView = generic_1.getReportView;
         this.organisationId = init.organisationId;
         this.userType = init.userType;
         this.xApiKey = init.xApiKey;
@@ -29,8 +30,7 @@ class ShipthisAPI {
         this.selectedRegion = init.regionId || '';
         this.selectedLocation = init.locationId || '';
         this.isSessionValid = false;
-        this.getInfo()
-            .then((infoResponse) => {
+        this.getInfo().then((infoResponse) => {
             this.onInfoChange(infoResponse);
         });
     }
@@ -59,11 +59,11 @@ class ShipthisAPI {
                             }
                         }
                     }
-                    if (!foundLocation) {
-                        new Error('Location id does not exist , check available location ids');
-                    }
                 }
-                resolve({ 'selectedRegion': this.selectedRegion, 'selectedLocation': this.selectedLocation });
+                resolve({
+                    selectedRegion: this.selectedRegion,
+                    selectedLocation: this.selectedLocation,
+                });
             });
         });
     }
@@ -109,7 +109,7 @@ class ShipthisAPI {
         this.serverUrl = response.api_endpoint;
         this.setObjectReferences();
     }
-    async customerUserRegistration(email, password, firstName, lastName, companyName, acceptTermsAndConditions) {
+    async customerUserRegistration(email, password, firstName, lastName, companyName, phone, acceptTermsAndConditions, accounting, address) {
         return new Promise((resolve, reject) => {
             (0, request_1.internalRequest)(this, 'POST', '/customer/auth/register', {
                 requestData: {
@@ -118,6 +118,9 @@ class ShipthisAPI {
                     first_name: firstName,
                     last_name: lastName,
                     company_name: companyName,
+                    accounting: accounting,
+                    address: address,
+                    phone: phone,
                     accept_terms_and_condition: acceptTermsAndConditions,
                     skip_recaptcha: true,
                 },
