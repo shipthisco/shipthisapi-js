@@ -168,12 +168,14 @@ export class Shipment {
   }
 
   // create new shipper
-  public async addNewShipper(data: AddNewShipper) {
+  public async createCustomerParty(data: AddNewShipper, id: string) {
     const newCustomerData = { ...createNewShipper, ...data };
+    const params = { input_filters: { 'customer._id': `${id}` } };
     return this.obj.createGenericCollectionItem(
       this.obj,
       'customer_party',
       newCustomerData,
+      params,
     );
   }
 

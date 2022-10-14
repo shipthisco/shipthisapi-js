@@ -75,12 +75,12 @@ class Shipment {
         const currency = await this.getCurrency(data.accounting.currency);
         const newCustomerData = { ...request_body_1.createNewCustomer, ...data };
         newCustomerData.accounting.currency = currency.items[0];
-        console.log(currency);
         return this.obj.createGenericCollectionItem(this.obj, 'customer', newCustomerData);
     }
-    async addNewShipper(data) {
+    async createCustomerParty(data, id) {
         const newCustomerData = { ...request_body_1.createNewShipper, ...data };
-        return this.obj.createGenericCollectionItem(this.obj, 'customer_party', newCustomerData);
+        const params = { input_filters: { 'customer._id': `${id}` } };
+        return this.obj.createGenericCollectionItem(this.obj, 'customer_party', newCustomerData, params);
     }
     getAllShipmentTerms() {
         return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
@@ -120,7 +120,6 @@ class Shipment {
         const display_fields = ['company.name'];
         const input_filters = JSON.stringify({ 'customer._id': `${id}` });
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields, input_filters);
-        console.log(updatedData);
         return this.obj.getGenericAutoComplete(this.obj, 'customer_party', updatedData);
     }
     getPickUpNDelivery(data = '', id) {
@@ -168,7 +167,6 @@ class Shipment {
             'company.vendor_type': 'consolidator',
         });
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields, null, general_filters);
-        console.log(updatedData);
         return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
     }
     getPlaceOfConsolidation(data = '') {
@@ -263,7 +261,6 @@ class Shipment {
         const display_fields = ['company.name'];
         const general_filters = '{"company.vendor_type":"carrier"}';
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields, general_filters);
-        console.log(updatedData);
         return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
     }
     getVehicleType(data) {
