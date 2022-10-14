@@ -14,9 +14,13 @@ const getOneGenericCollectionItem = async (obj, collectionName, objectId) => {
     return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}/${objectId}`);
 };
 exports.getOneGenericCollectionItem = getOneGenericCollectionItem;
-const createGenericCollectionItem = async (obj, collectionName, itemData) => {
+const createGenericCollectionItem = async (obj, collectionName, itemData, params) => {
+    if (!params) {
+        params = {};
+    }
     return obj.internalRequest(obj, 'POST', `/incollection/${collectionName}`, {
         requestData: { reqbody: itemData },
+        params,
     });
 };
 exports.createGenericCollectionItem = createGenericCollectionItem;

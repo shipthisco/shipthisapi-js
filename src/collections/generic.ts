@@ -41,9 +41,14 @@ const createGenericCollectionItem = async (
   obj,
   collectionName: string,
   itemData: any,
+  params?: CollectionParams,
 ) => {
+  if (!params) {
+    params = {};
+  }
   return obj.internalRequest(obj, 'POST', `/incollection/${collectionName}`, {
     requestData: { reqbody: itemData },
+    params,
   });
 };
 

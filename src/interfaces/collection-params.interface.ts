@@ -11,8 +11,8 @@ export interface CollectionParams {
   region_override?: boolean;
   query?: string;
   query_level?: string;
+  input_filters?: any;
 }
-
 export interface GeneralFilter {
   job_status?: JobStatus;
 }
