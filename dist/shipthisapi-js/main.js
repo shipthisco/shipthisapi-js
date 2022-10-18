@@ -4,6 +4,7 @@ exports.ShipthisAPI = void 0;
 const generic_1 = require("./collections/generic");
 const request_1 = require("./utils/request");
 const shipment_1 = require("./collections/shipment");
+const setup_1 = require("./collections/setup");
 class ShipthisAPI {
     constructor(init) {
         this.serverUrl = 'https://api.shipthis.co';
@@ -134,6 +135,37 @@ class ShipthisAPI {
             });
         });
     }
+    async customerForgotPassword(email) {
+        return new Promise((resolve, reject) => {
+            (0, request_1.internalRequest)(this, 'POST', '/user-auth/forgot-password', {
+                requestData: {
+                    email: email,
+                },
+            })
+                .then((data) => {
+                resolve(data);
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        });
+    }
+    async setPasswordViaToken(token, new_password) {
+        return new Promise((resolve, reject) => {
+            (0, request_1.internalRequest)(this, 'POST', '/user-auth/set-password-via-token', {
+                requestData: {
+                    token: token,
+                    new_password: new_password,
+                },
+            })
+                .then((data) => {
+                resolve(data);
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        });
+    }
     getSelectedRegion() {
         return this.selectedRegion;
     }
@@ -143,6 +175,7 @@ class ShipthisAPI {
     }
     setObjectReferences() {
         this.Shipment = new shipment_1.Shipment(this);
+        this.Setup = new setup_1.Setup(this);
     }
     getInfo() {
         return this.internalRequest(this, 'GET', 'user-auth' + '/info');

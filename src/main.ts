@@ -16,6 +16,7 @@ import { internalRequest, uploadFile } from './utils/request';
 import { Shipment } from './collections/shipment';
 import { Organisation } from './interfaces/info.interface';
 import { Invoice } from './collections/invoice';
+import { Setup } from './collections/setup';
 
 export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co';
@@ -52,6 +53,7 @@ export class ShipthisAPI {
    */
   public Shipment: Shipment;
   public Invoice: Invoice;
+  public Setup: Setup;
 
   /**
    *  Initializer
@@ -231,7 +233,7 @@ export class ShipthisAPI {
       internalRequest(this, 'POST', '/user-auth/set-password-via-token', {
         requestData: {
           token: token,
-          new_password: new_password
+          new_password: new_password,
         },
       })
         .then((data: any) => {
@@ -242,7 +244,6 @@ export class ShipthisAPI {
         });
     });
   }
-
 
   public getSelectedRegion() {
     return this.selectedRegion;
@@ -255,6 +256,7 @@ export class ShipthisAPI {
 
   setObjectReferences() {
     this.Shipment = new Shipment(this);
+    this.Setup = new Setup(this);
   }
 
   /**
@@ -270,7 +272,7 @@ export class ShipthisAPI {
       this,
       'GET',
       'thirdparty/search-place-autocomplete?query-level=undefined&query=' +
-      query,
+        query,
     );
   }
 }
