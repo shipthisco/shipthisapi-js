@@ -1,5 +1,6 @@
 import {
   RequestAirportType,
+  RequestAWBType,
   RequestCategories,
   RequestCommonType,
   RequestPortType,
@@ -112,4 +113,26 @@ export const requestVesselData: RequestVesselType = {
   mmsi: '',
   flag: '',
   type: '',
+};
+
+export const requestAWBData: RequestAWBType = {
+  __scp: {},
+  available_count: 0,
+  used: [],
+  used_count: 0,
+  all_counts: '',
+  locked: false,
+  no_of_digits: 0,
+  used_codes: [],
+  available: [],
+  airline: '',
+  acquired_on: {
+    $date: 0,
+  },
+  valid_till: {
+    $date: 0,
+  },
+  prefix: '',
+  start_number: 0,
+  end_number: 0,
 };

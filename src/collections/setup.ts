@@ -1,5 +1,6 @@
 import {
   RequestAirportType,
+  RequestAWBType,
   RequestCategories,
   RequestCommonType,
   RequestPortType,
@@ -9,8 +10,10 @@ import {
   RequestVesselType,
 } from '../interfaces/api.interface';
 import { ShipthisAPI } from '../main';
+import { managePayload } from '../utils/commonUtils';
 import {
   requestAirportData,
+  requestAWBData,
   requestCatData,
   requestCommonData,
   requestPortData,
@@ -137,6 +140,29 @@ export class Setup {
       this.obj,
       'vessel',
       updatedData,
+    );
+  }
+
+  public async getAWBBlock(data: RequestAWBType) {
+    const fields = ['name', 'code'];
+    const display_fields = ['name'];
+    const updatedData = managePayload(
+      data.airline as string,
+      fields,
+      display_fields,
+    );
+    const res = await this.obj.getGenericAutoComplete(
+      this.obj,
+      'airline',
+      updatedData,
+    );
+    console.log(res);
+    data.airline = res.items[0];
+    const injectableDate = { requestAWBData, ...data };
+    return this.obj.createGenericCollectionItem(
+      this.obj,
+      'awb_block',
+      injectableDate,
     );
   }
 }

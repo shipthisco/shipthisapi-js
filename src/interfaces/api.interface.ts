@@ -1,4 +1,4 @@
-import { CountryOfOrigin } from './collection.interface';
+import { CountryOfOrigin, PortOfDestination } from './collection.interface';
 
 export interface ApiEssentials {
   x_api_key: string;
@@ -97,4 +97,26 @@ export interface RequestVesselType {
   mmsi: string;
   flag: string;
   type: string;
+}
+
+export interface RequestAWBType {
+  __scp: any;
+  available_count: number;
+  used: [];
+  used_count: number;
+  all_counts: string;
+  locked: boolean;
+  no_of_digits: number;
+  used_codes: [];
+  available: [];
+  airline: string | PortOfDestination;
+  acquired_on: {
+    $date: number;
+  };
+  valid_till: {
+    $date: number;
+  };
+  prefix: string;
+  start_number: number;
+  end_number: number;
 }
