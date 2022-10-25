@@ -226,7 +226,7 @@ export class Shipment {
 
   // get Shipper Name and Consignee
   // id of the shipper
-  public getConsigneeName(data = '', id: string) {
+  public getConsignee(data = '', id: string) {
     const fields = [
       'company.name',
       'full_address',
