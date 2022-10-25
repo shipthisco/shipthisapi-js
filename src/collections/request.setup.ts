@@ -1,7 +1,7 @@
 import {
   RequestAirportType,
   RequestAWBType,
-  RequestCategories,
+  RequestContainerType,
   RequestCommonType,
   RequestPortType,
   RequestShipmentTermsType,
@@ -10,7 +10,7 @@ import {
   RequestVesselType,
 } from '../interfaces/api.interface';
 
-export const requestCatData: RequestCategories = {
+export const requestCatData: RequestContainerType = {
   __scp: {},
   name: '',
   max_cbm: 0,
