@@ -1,7 +1,7 @@
 import {
   RequestAirportType,
   RequestAWBType,
-  RequestCategories,
+  RequestContainerType,
   RequestCommonType,
   RequestPortType,
   RequestShipmentTermsType,
@@ -29,7 +29,7 @@ export class Setup {
   constructor(obj: ShipthisAPI) {
     this.obj = obj;
   }
-  public getCategoriesType(data: RequestCategories) {
+  public getCategoriesType(data: RequestContainerType) {
     const updatedData = { requestCatData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -163,6 +163,143 @@ export class Setup {
       this.obj,
       'awb_block',
       injectableDate,
+    );
+  }
+
+  // delete Operation
+  private deleteOperation(id: string, collectionName: string) {
+    return this.obj.deleteGenericCollectionItem(this.obj, collectionName, id);
+  }
+
+  public deletePort(id: string) {
+    return this.deleteOperation(id, 'port');
+  }
+
+  public deleteAirPort(id: string) {
+    return this.deleteOperation(id, 'airport');
+  }
+
+  public deleteContainersType(id: string) {
+    return this.deleteOperation(id, 'container_type');
+  }
+
+  public deletePackageType(id: string) {
+    return this.deleteOperation(id, 'package_type');
+  }
+
+  public deleteDocumentKind(id: string) {
+    return this.deleteOperation(id, 'document_kind');
+  }
+
+  public deleteVehicleType(id: string) {
+    return this.deleteOperation(id, 'vehicle_type');
+  }
+
+  public deleteProductType(id: string) {
+    return this.deleteOperation(id, 'product_type');
+  }
+
+  public deleteAirline(id: string) {
+    return this.deleteOperation(id, 'airline');
+  }
+
+  public deleteShipmentTerms(id: string) {
+    return this.deleteOperation(id, 'shipment_term');
+  }
+
+  public deleteShippingLine(id: string) {
+    return this.deleteOperation(id, 'shipping_line');
+  }
+
+  public deleteVessel(id: string) {
+    return this.deleteOperation(id, 'vessel');
+  }
+
+  public deleteAWBBlock(id: string) {
+    return this.deleteOperation(id, 'awb_block');
+  }
+
+  // update operations
+  public updatePort(id: string, data: RequestPortType) {
+    return this.obj.updateGenericCollectionItem(this.obj, 'port', id, data);
+  }
+
+  public updateAirport(id: string, data: RequestAirportType) {
+    return this.obj.updateGenericCollectionItem(this.obj, 'airport', id, data);
+  }
+
+  public updateContainerType(id: string, data: RequestContainerType) {
+    return this.obj.updateGenericCollectionItem(this.obj, 'airport', id, data);
+  }
+
+  public updatePackageType(id: string, data: RequestCommonType) {
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'package_type',
+      id,
+      data,
+    );
+  }
+
+  public updateDocumentType(id: string, data: RequestCommonType) {
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'document_type',
+      id,
+      data,
+    );
+  }
+
+  public updateVehicleType(id: string, data: RequestVehicleType) {
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'vehicle_type',
+      id,
+      data,
+    );
+  }
+
+  public updateProductType(id: string, data: RequestCommonType) {
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'product_type',
+      id,
+      data,
+    );
+  }
+
+  public updateAirline(id: string, data: RequestCommonType) {
+    return this.obj.updateGenericCollectionItem(this.obj, 'airline', id, data);
+  }
+
+  public updateShipmentTerms(id: string, data: RequestShipmentTermsType) {
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'package_type',
+      id,
+      data,
+    );
+  }
+
+  public updateShippingLine(id: string, data: RequestShippingLineType) {
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'shipping_type',
+      id,
+      data,
+    );
+  }
+
+  public updateVessel(id: string, data: RequestVesselType) {
+    return this.obj.updateGenericCollectionItem(this.obj, 'vessel', id, data);
+  }
+
+  public updateAWBBlock(id: string, data: RequestAWBType) {
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'awb_block',
+      id,
+      data,
     );
   }
 }

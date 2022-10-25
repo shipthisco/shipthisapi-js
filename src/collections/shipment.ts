@@ -156,7 +156,7 @@ export class Shipment {
   }
 
   // create or add new customer
-  public async addNewCustomer(data: AddNewCustomerData) {
+  public async createCustomer(data: AddNewCustomerData) {
     const currency = await this.getCurrency(data.accounting.currency);
     const newCustomerData = { ...createNewCustomer, ...data };
     newCustomerData.accounting.currency = currency.items[0];
@@ -180,22 +180,26 @@ export class Shipment {
   }
 
   // get all shipment terms
-  public getAllShipmentTerms() {
-    return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
-      only: 'name,code,order',
-      general_filter: {},
-    });
+  public getShipmentTerms(data) {
+    if (!data) {
+      return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
+        only: 'name,code,order',
+        general_filter: {},
+      });
+    } else {
+      const updatedData = managePayload(data);
+      return this.obj.getGenericAutoComplete(
+        this.obj,
+        'shipment_term',
+        updatedData,
+      );
+    }
   }
 
-  // get single shipment term
-  public getShipmentTerms(data = '') {
-    const updatedData = managePayload(data);
-    return this.obj.getGenericAutoComplete(
-      this.obj,
-      'shipment_term',
-      updatedData,
-    );
-  }
+  // // get single shipment term
+  // public getShipmentTerms(data = '') {
+
+  // }
 
   // get quotation_reference
   public getQuotationReference(data = null) {
@@ -244,7 +248,7 @@ export class Shipment {
       updatedData,
     );
   }
-  public getShipperName(data = '', id: string) {
+  public getShipper(data = '', id: string) {
     const fields = ['company.name', 'full_address', 'address', 'tin_no'];
     const display_fields = ['company.name'];
     const input_filters = JSON.stringify({ 'customer._id': `${id}` });

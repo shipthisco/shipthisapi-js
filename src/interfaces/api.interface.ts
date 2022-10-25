@@ -25,7 +25,7 @@ export interface RequestOptions {
   params?: any;
 }
 
-export interface RequestCategories {
+export interface RequestContainerType {
   __scp?: any;
   name: string;
   max_cbm?: number;
