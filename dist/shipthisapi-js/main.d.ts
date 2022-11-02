@@ -20,7 +20,7 @@ export declare class ShipthisAPI {
     uploadFile: (obj: ShipthisAPI, file: File) => Promise<any>;
     getListGenericCollection: (obj: ShipthisAPI, collectionName: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: any, objectId: string) => Promise<any>;
-    createGenericCollectionItem: (obj: any, collectionName: string, itemData: any) => Promise<any>;
+    createGenericCollectionItem: (obj: any, collectionName: string, itemData: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     updateGenericCollectionItem: (obj: any, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
     deleteGenericCollectionItem: (obj: any, collectionName: string, objectId: string) => Promise<any>;
     getExchangeRateForCurrency: (obj: ShipthisAPI, currency: string) => Promise<any>;
@@ -37,6 +37,8 @@ export declare class ShipthisAPI {
     loginViaPassword(email: string, password: string): Promise<unknown>;
     onInfoChange(response: any): void;
     customerUserRegistration(email: string, password: string, firstName: string, lastName: string, companyName: string, phone: string, acceptTermsAndConditions: boolean, accounting: any, address: any): Promise<any>;
+    customerForgotPassword(email: string): Promise<any>;
+    setPasswordViaToken(token: string, new_password: string): Promise<any>;
     getSelectedRegion(): string;
     setRegionAndLocation(regionId: string, locationId: string): void;
     setObjectReferences(): void;

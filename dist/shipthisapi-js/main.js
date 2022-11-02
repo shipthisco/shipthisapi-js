@@ -7,7 +7,7 @@ const shipment_1 = require("./collections/shipment");
 class ShipthisAPI {
     constructor(init) {
         this.serverUrl = 'https://api.shipthis.co';
-        this.base_api_endpoint = 'https://api.shipthis.co/api/v3/';
+        this.base_api_endpoint = 'https://api.shipthis.co';
         this.file_upload_api_endpoint = 'https://upload.shipthis.co/file_upload';
         this.profiles = [];
         this.internalRequest = request_1.internalRequest;
@@ -128,6 +128,37 @@ class ShipthisAPI {
                 .then((data) => {
                 this.onInfoChange(data.user);
                 resolve(data.user);
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        });
+    }
+    async customerForgotPassword(email) {
+        return new Promise((resolve, reject) => {
+            (0, request_1.internalRequest)(this, 'POST', '/user-auth/forgot-password', {
+                requestData: {
+                    email: email,
+                },
+            })
+                .then((data) => {
+                resolve(data);
+            })
+                .catch((err) => {
+                reject(err);
+            });
+        });
+    }
+    async setPasswordViaToken(token, new_password) {
+        return new Promise((resolve, reject) => {
+            (0, request_1.internalRequest)(this, 'POST', '/user-auth/set-password-via-token', {
+                requestData: {
+                    token: token,
+                    new_password: new_password
+                },
+            })
+                .then((data) => {
+                resolve(data);
             })
                 .catch((err) => {
                 reject(err);

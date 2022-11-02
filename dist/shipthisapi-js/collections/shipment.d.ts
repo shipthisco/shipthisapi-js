@@ -23,13 +23,13 @@ export declare class Shipment {
     getAirPort(data?: string): Promise<any>;
     getCustomers(data?: string): Promise<any>;
     addNewCustomer(data: AddNewCustomerData): Promise<any>;
-    addNewShipper(data: AddNewShipper): Promise<any>;
+    createCustomerParty(data: AddNewShipper, id: string): Promise<any>;
     getAllShipmentTerms(): Promise<any>;
     getShipmentTerms(data?: string): Promise<any>;
     getQuotationReference(data?: any): Promise<any>;
     getMasterShipment(data?: any): Promise<any>;
-    getConsigneeName(data: string, id: string): Promise<any>;
-    getShipperName(data: string, id: string): Promise<any>;
+    getConsignee(data: string, id: string): Promise<any>;
+    getShipper(data: string, id: string): Promise<any>;
     getPickUpNDelivery(data: string, id: string): Promise<any>;
     getNotifyParty(data: string, id: string): Promise<any>;
     getGoogleLocation(data?: string): Promise<any>;

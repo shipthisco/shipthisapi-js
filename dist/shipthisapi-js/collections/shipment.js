@@ -102,7 +102,7 @@ class Shipment {
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields);
         return this.obj.getGenericAutoComplete(this.obj, 'sea_shipment', updatedData);
     }
-    getConsigneeName(data = '', id) {
+    getConsignee(data = '', id) {
         const fields = [
             'company.name',
             'full_address',
@@ -115,7 +115,7 @@ class Shipment {
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields, input_filters);
         return this.obj.getGenericAutoComplete(this.obj, 'customer_party', updatedData);
     }
-    getShipperName(data = '', id) {
+    getShipper(data = '', id) {
         const fields = ['company.name', 'full_address', 'address', 'tin_no'];
         const display_fields = ['company.name'];
         const input_filters = JSON.stringify({ 'customer._id': `${id}` });
