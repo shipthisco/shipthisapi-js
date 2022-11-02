@@ -68,5 +68,44 @@ class Setup {
         const injectableDate = { requestAWBData: request_setup_1.requestAWBData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'awb_block', injectableDate);
     }
+    deleteOperation(id, collectionName) {
+        return this.obj.deleteGenericCollectionItem(this.obj, collectionName, id);
+    }
+    deletePort(id) {
+        return this.deleteOperation(id, 'port');
+    }
+    deleteAirPort(id) {
+        return this.deleteOperation(id, 'airport');
+    }
+    deleteContainersType(id) {
+        return this.deleteOperation(id, 'container_type');
+    }
+    deletePackageType(id) {
+        return this.deleteOperation(id, 'package_type');
+    }
+    deleteDocumentKind(id) {
+        return this.deleteOperation(id, 'document_kind');
+    }
+    deleteVehicleType(id) {
+        return this.deleteOperation(id, 'vehicle_type');
+    }
+    deleteProductType(id) {
+        return this.deleteOperation(id, 'product_type');
+    }
+    deleteAirline(id) {
+        return this.deleteOperation(id, 'airline');
+    }
+    deleteShipmentTerms(id) {
+        return this.deleteOperation(id, 'shipment_term');
+    }
+    deleteShippingLine(id) {
+        return this.deleteOperation(id, 'shipping_line');
+    }
+    deleteVessel(id) {
+        return this.deleteOperation(id, 'vessel');
+    }
+    deleteAWBBlock(id) {
+        return this.deleteOperation(id, 'awb_block');
+    }
 }
 exports.Setup = Setup;

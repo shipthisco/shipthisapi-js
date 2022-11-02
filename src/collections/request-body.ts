@@ -288,7 +288,6 @@ export const invoiceRequestData = {
 };
 
 export const createNewCustomer = {
-  __scp: {},
   opening_balance: {},
   account_contact_person: {
     same_as_primary: false,
@@ -347,7 +346,6 @@ export const createNewCustomer = {
 };
 
 export const createNewShipper = {
-  __scp: {},
   company: {
     party_type: [],
     name: '',
@@ -360,4 +358,283 @@ export const createNewShipper = {
   },
   full_address: '',
   full_address_field: '',
+};
+
+export const fclSeaLoad = {
+  shipment: [
+    {
+      _cls_: 'sea_shipment',
+      _id: {
+        $oid: '',
+      },
+    },
+  ],
+  description: '',
+  weight_unit: '',
+  hazard_details: {
+    is_hazardous: false,
+  },
+  container_type: {},
+  container_no: '',
+  gross_wt: 0,
+  net_wt: 0,
+  cbm: 0,
+  cft: 0,
+  seal_no: '',
+  custom_seal_no: '',
+  pickup_number: '',
+  packages: [],
+};
+
+export const Airload = {
+  shipment: [
+    {
+      _cls_: 'air_shipment',
+      _id: {
+        $oid: '',
+      },
+    },
+  ],
+  description: '',
+  cbm_compute: '',
+  weight_unit: '',
+  dimensions: [],
+  hazard_details: {
+    is_hazardous: false,
+  },
+  package_type: {},
+  package_quantity: 0,
+  total_units: 0,
+  chargeable_wt: 0,
+  net_wt: 0,
+  gross_wt: 0,
+  cft: 0,
+  cbm: 0,
+  gross_wt_kg: 0,
+};
+
+export const lclSeaLoad = {
+  shipment: [
+    {
+      _cls_: 'sea_shipment',
+      _id: {
+        $oid: '',
+      },
+    },
+  ],
+  description: '',
+  package_quantity: 0,
+  total_units: 0,
+  weight_unit: '',
+  length_unit: '',
+  custom: {
+    vehicle_type: '',
+  },
+  hazard_details: {
+    is_hazardous: false,
+    un_number: {},
+    hazard_class: {},
+    hazardouse_level: '',
+    temp_unit: '',
+    emergency_contact: '',
+    flash_point: 0,
+    hazard_special_instruction: '',
+  },
+  container_type: {},
+  package_type: {},
+  container_no: '',
+  marks_and_no: '',
+  seal_no: '',
+  custom_seal_no: '',
+  number_and_kind_of_package_override: '',
+  hs_code: '',
+  per_unit_weight: 0,
+  gross_wt: 0,
+  net_wt: 0,
+  chargeable_wt: 0,
+  length: 0,
+  width: 0,
+  height: 0,
+  cbm: 0,
+  cft: 0,
+};
+
+export const RoroSeaLoad = {
+  shipment: [
+    {
+      _cls_: 'sea_shipment',
+      _id: {
+        $oid: '',
+      },
+    },
+  ],
+  description: '',
+  package_quantity: 0,
+  total_units: 0,
+  weight_unit: '',
+  length_unit: '',
+  hazard_details: {
+    is_hazardous: false,
+    un_number: {},
+    hazard_class: {},
+    hazardouse_level: '',
+    temp_unit: '',
+    emergency_contact: '',
+    flash_point: 0,
+    hazard_special_instruction: '',
+  },
+  package_type: {},
+  per_unit_weight: 0,
+  gross_wt: 0,
+  chargeable_wt: 0,
+  length: 0,
+  width: 0,
+  height: 0,
+  cbm: 0,
+  cft: 0,
+  vin_no: '',
+  make: '',
+  model: '',
+  year: '',
+};
+
+export const BulkSeaLoad = {
+  shipment: [
+    {
+      _cls_: 'sea_shipment',
+      _id: {
+        $oid: '',
+      },
+    },
+  ],
+  description: '',
+  hazard_details: {
+    is_hazardous: false,
+    un_number: {},
+    hazard_class: {},
+    hazardouse_level: '',
+    temp_unit: '',
+    flash_point: 0,
+    emergency_contact: '',
+    hazard_special_instruction: '',
+  },
+  bulk_cargo_type: '',
+  gross_wt: 0,
+  loading_rate: 0,
+  discharging_rate: 0,
+  additional_information: '',
+};
+
+export const ftlLandLoad = {
+  shipment: [
+    {
+      _cls_: 'land_shipment',
+      _id: {
+        $oid: '',
+      },
+    },
+  ],
+  description: '',
+  weight_unit: '',
+  hazard_details: {
+    is_hazardous: false,
+  },
+  packages: [
+    {
+      description: '',
+      length_unit: '',
+      weight_unit: '',
+      package_type: {},
+      package_quantity: 0,
+      length: 0,
+      width: 0,
+      height: 0,
+      cbm: 0,
+      cft: 0,
+      gross_wt: 0,
+      net_wt: 0,
+    },
+  ],
+  marks_and_no: '',
+  vehicle_type: {},
+  vehicle_no: '',
+  seal_no: '',
+  gross_wt: 0,
+  net_wt: 0,
+};
+
+export const ltlLandLoad = {
+  shipment: [
+    {
+      _cls_: 'land_shipment',
+      _id: {
+        $oid: '',
+      },
+    },
+  ],
+  description: '',
+  package_quantity: 0,
+  total_units: 0,
+  weight_unit: '',
+  length_unit: '',
+  hazard_details: {
+    is_hazardous: false,
+  },
+  vehicle_type: {},
+  vehicle_no: '',
+  marks_and_no: '',
+  hs_code: '',
+  seal_no: '',
+  package_type: {},
+  per_unit_weight: 0,
+  gross_wt: 0,
+  chargeable_wt: 0,
+  length: 0,
+  width: 0,
+  height: 0,
+  cbm: 0,
+  cft: 0,
+};
+
+export const fclLandLoad = {
+  shipment: [
+    {
+      _cls_: 'land_shipment',
+      _id: {
+        $oid: '',
+      },
+    },
+  ],
+  description: '',
+  weight_unit: '',
+  hazard_details: {
+    is_hazardous: false,
+  },
+  container_type: {},
+  container_no: '',
+  marks_and_no: '',
+  gross_wt: 0,
+  net_wt: 0,
+  number_and_kind_of_package_override: '',
+  cbm: 0,
+  cft: 0,
+  seal_no: '',
+  custom_seal_no: '',
+  pickup_number: '',
+  packages: [
+    {
+      description: '',
+      length_unit: '',
+      weight_unit: '',
+      package_type: {},
+      package_quantity: 0,
+      length: 0,
+      width: 0,
+      height: 7,
+      cbm: 0.010332,
+      cft: 0.365,
+      gross_wt: 5,
+      total_units: 4,
+    },
+  ],
 };

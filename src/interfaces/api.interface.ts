@@ -1,4 +1,11 @@
-import { CountryOfOrigin, PortOfDestination } from './collection.interface';
+import {
+  CountryOfOrigin,
+  ID,
+  Operation,
+  PortOfDestination,
+  ShipthisBasic,
+} from './collection.interface';
+import { WeightUnit } from './load.interface';
 
 export interface ApiEssentials {
   x_api_key: string;
@@ -26,7 +33,6 @@ export interface RequestOptions {
 }
 
 export interface RequestContainerType {
-  __scp?: any;
   name: string;
   max_cbm?: number;
   length?: number;
@@ -35,20 +41,17 @@ export interface RequestContainerType {
   max_weight?: number;
 }
 export interface RequestVehicleType {
-  __scp: any;
   name: string;
   code: string;
   container_size: string;
 }
 
 export interface RequestCommonType {
-  __scp?: any;
   name: string;
   code: string;
 }
 
 export interface RequestPortType {
-  __scp?: any;
   location: CountryOfOrigin;
   custom?: {
     new_port: string;
@@ -61,7 +64,6 @@ export interface RequestPortType {
 }
 
 export interface RequestAirportType {
-  __scp: any;
   location: CountryOfOrigin;
   custom: {
     new_field: string;
@@ -71,14 +73,12 @@ export interface RequestAirportType {
 }
 
 export interface RequestShipmentTermsType {
-  __scp?: any;
   name: string;
   code: string;
   order?: number;
 }
 
 export interface RequestShippingLineType {
-  __scp: any;
   address: any;
   name: string;
   code: string;
@@ -90,7 +90,6 @@ export interface RequestShippingLineType {
 }
 
 export interface RequestVesselType {
-  __scp: any;
   name: string;
   code: string;
   imo: string;
@@ -100,7 +99,6 @@ export interface RequestVesselType {
 }
 
 export interface RequestAWBType {
-  __scp: any;
   available_count: number;
   used: [];
   used_count: number;
