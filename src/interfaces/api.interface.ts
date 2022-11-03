@@ -1,11 +1,4 @@
-import {
-  CountryOfOrigin,
-  ID,
-  Operation,
-  PortOfDestination,
-  ShipthisBasic,
-} from './collection.interface';
-import { WeightUnit } from './load.interface';
+import { CountryOfOrigin, PortOfDestination } from './collection.interface';
 
 export interface ApiEssentials {
   x_api_key: string;

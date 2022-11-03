@@ -11,7 +11,6 @@ import {
 } from '../interfaces/api.interface';
 
 export const requestCatData: RequestContainerType = {
-  __scp: {},
   name: '',
   max_cbm: 0,
   length: 0,
@@ -21,26 +20,22 @@ export const requestCatData: RequestContainerType = {
 };
 
 export const requestCommonData: RequestCommonType = {
-  __scp: {},
   name: '',
   code: '',
 };
 
 export const requestVehicleData: RequestVehicleType = {
-  __scp: {},
   name: '',
   code: '',
   container_size: '',
 };
 
 export const requestProdData: RequestCommonType = {
-  __scp: {},
   name: '',
   code: '',
 };
 
 export const requestPortData: RequestPortType = {
-  __scp: {},
   location: {
     description: '',
     bold: '',
@@ -65,7 +60,6 @@ export const requestPortData: RequestPortType = {
 };
 
 export const requestAirportData: RequestAirportType = {
-  __scp: {},
   location: {
     description: '',
     bold: '',
@@ -87,14 +81,12 @@ export const requestAirportData: RequestAirportType = {
 };
 
 export const requestShipmentTermsData: RequestShipmentTermsType = {
-  __scp: {},
   name: '',
   code: '',
   order: 0,
 };
 
 export const requestShippingLine: RequestShippingLineType = {
-  __scp: {},
   address: {},
   name: '',
   code: '',
@@ -106,7 +98,6 @@ export const requestShippingLine: RequestShippingLineType = {
 };
 
 export const requestVesselData: RequestVesselType = {
-  __scp: {},
   name: '',
   code: '',
   imo: '',
@@ -116,7 +107,6 @@ export const requestVesselData: RequestVesselType = {
 };
 
 export const requestAWBData: RequestAWBType = {
-  __scp: {},
   available_count: 0,
   used: [],
   used_count: 0,

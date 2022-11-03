@@ -57,8 +57,8 @@ export interface RequestBulkSeaLoad {
     is_hazardous?: boolean;
     un_number?: HazardUnNumber;
     hazard_class?: HazardClass;
-    hazardouse_level?: string;
-    temp_unit?: string;
+    hazardouse_level?: HazardousLevelType;
+    temp_unit?: Temp;
     flash_point?: number;
     emergency_contact?: string;
     hazard_special_instruction?: string;
@@ -81,8 +81,8 @@ export interface RequestRoroSeaLoad {
     is_hazardous?: boolean;
     un_number?: HazardUnNumber;
     hazard_class?: HazardClass;
-    hazardouse_level?: string;
-    temp_unit?: string;
+    hazardouse_level?: HazardousLevelType;
+    temp_unit?: Temp;
     emergency_contact?: string;
     flash_point?: number;
     hazard_special_instruction?: string;
@@ -155,7 +155,7 @@ export interface RequestlclSeaLoad {
     is_hazardous: boolean;
     un_number: HazardUnNumber;
     hazard_class: HazardClass;
-    hazardouse_level: string;
+    hazardouse_level: HazardousLevelType;
     temp_unit: Temp;
     flash_point: number;
     emergency_contact: string;
@@ -229,23 +229,38 @@ export enum LengthUnit {
   Inches = 'inches',
   Ft = 'ft',
 }
-export interface ltlPackage {
-  shipment?: TypeShipment;
+export interface RequestltlLandLoad {
+  shipment: TypeShipment;
   description?: string;
   _auto_generated?: string;
-  package_quantity?: number;
+  package_quantity: number;
   total_units?: number;
   weight_unit?: WeightUnit;
   length_unit?: string;
   hazard_details?: {
-    is_hazardous: boolean;
+    is_hazardous?: boolean;
+    un_number?: HazardUnNumber;
+    hazard_class?: HazardClass;
+    hazardouse_level?: HazardousLevelType;
+    temp_unit?: Temp;
+    flash_point?: number;
+    emergency_contact?: string;
+    hazard_special_instruction?: string;
   };
-  vehicle_type: ShipMethod;
+  vehicle_type?: ShipMethod;
   vehicle_no?: string;
   marks_and_no?: string;
   hs_code?: string;
   seal_no?: string;
   package_type: ShipMethod;
+  per_unit_weight?: number;
+  gross_wt?: number;
+  chargeable_wt?: number;
+  length?: number;
+  width?: number;
+  height?: number;
+  cbm?: number;
+  cft?: number;
 }
 
 export interface fclLandLoad {

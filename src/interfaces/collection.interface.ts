@@ -17,10 +17,6 @@ export interface CollectionResponse<T> {
   disable_add?: boolean;
 }
 
-// second method to create interface
-// export type AirShipment = {
-
-// }
 export interface AirShipment {
   _id: ID;
   job_id: string;

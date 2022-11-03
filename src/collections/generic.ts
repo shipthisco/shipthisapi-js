@@ -12,6 +12,19 @@ import { ShipthisAPI } from '../main';
  * @returns
  */
 
+const getListGeneric = async (
+  obj: any,
+  collectionName: string,
+  params: CollectionParams,
+) => {
+  if (!params) {
+    params = {};
+  }
+  return obj.internalRequest(obj, 'POST', `/report-view/${collectionName}`, {
+    params,
+  });
+};
+
 const getListGenericCollection = async (
   obj: ShipthisAPI,
   collectionName,
@@ -172,4 +185,5 @@ export {
   conversation,
   getReportView,
   selectGoogleLocation,
+  getListGeneric,
 };

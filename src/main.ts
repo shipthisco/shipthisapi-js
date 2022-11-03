@@ -10,6 +10,7 @@ import {
   getReportView,
   updateGenericCollectionItem,
   selectGoogleLocation,
+  getListGeneric,
 } from './collections/generic';
 import { ApiOptions } from './interfaces/api.interface';
 import { internalRequest, uploadFile } from './utils/request';
@@ -35,6 +36,7 @@ export class ShipthisAPI {
   isSessionValid: boolean;
 
   public internalRequest = internalRequest;
+  public getListGeneric = getListGeneric;
   public uploadFile = uploadFile;
   public getListGenericCollection = getListGenericCollection;
   public getOneGenericCollectionItem = getOneGenericCollectionItem;

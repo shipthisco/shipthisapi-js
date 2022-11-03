@@ -579,6 +579,13 @@ export const ltlLandLoad = {
   length_unit: '',
   hazard_details: {
     is_hazardous: false,
+    un_number: {},
+    hazard_class: {},
+    hazardouse_level: '',
+    temp_unit: '',
+    flash_point: 0,
+    emergency_contact: '',
+    hazard_special_instruction: '',
   },
   vehicle_type: {},
   vehicle_no: '',
