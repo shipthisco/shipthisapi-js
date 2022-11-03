@@ -10,7 +10,7 @@ let shipthisApi = new ShipthisAPI(param)
 await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
 
 // Login via Email and Password
-// await shipthisApi.loginViaPassword('your@gmail.com', 'your-password');
+// await shipthisApi.loginViaPassword('your@gmail.com', 'password');
 //  'userType': 'customer',
 //  'organisationId': 'shipbeaconexpress'
 // }
