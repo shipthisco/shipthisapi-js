@@ -4,6 +4,7 @@ exports.ShipthisAPI = void 0;
 const generic_1 = require("./collections/generic");
 const request_1 = require("./utils/request");
 const shipment_1 = require("./collections/shipment");
+const setup_1 = require("./collections/setup");
 class ShipthisAPI {
     constructor(init) {
         this.serverUrl = 'https://api.shipthis.co';
@@ -174,6 +175,7 @@ class ShipthisAPI {
     }
     setObjectReferences() {
         this.Shipment = new shipment_1.Shipment(this);
+        this.Setup = new setup_1.Setup(this);
     }
     getInfo() {
         return this.internalRequest(this, 'GET', 'user-auth' + '/info');

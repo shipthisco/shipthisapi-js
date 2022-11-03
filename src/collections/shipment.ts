@@ -3,8 +3,6 @@ import {
   requestAirShipment,
   referencePortPayload,
   referenceCustomerPayload,
-  // requiredShipmentType,
-  // requiredShipmentClass,
   requestSeaShipement,
   requestLandShipment,
   createNewCustomer,
@@ -14,9 +12,16 @@ import { managePayload } from '../utils/commonUtils';
 import {
   AddNewCustomerData,
   AddNewShipper,
-  ConversationPayload,
-  ltlPackage,
-} from '../interfaces/conversation.interface';
+  LoadType,
+  RequestAirLoad,
+  RequestBulkSeaLoad,
+  RequestfclSeaLoad,
+  RequestftlLandLoad,
+  RequestlclSeaLoad,
+  RequestltlLandLoad,
+  RequestRoroSeaLoad,
+} from '../interfaces/load.interface';
+import { ConversationPayload } from '../interfaces/conversation.interface';
 import {
   AirShipment,
   LandShipment,
@@ -27,6 +32,10 @@ export class Shipment {
 
   constructor(obj: ShipthisAPI) {
     this.obj = obj;
+  }
+
+  public getSomeShipments(filter) {
+    return this.obj.getListGeneric(this.obj, 'shipment_list_all', filter);
   }
 
   // Read
@@ -156,7 +165,7 @@ export class Shipment {
   }
 
   // create or add new customer
-  public async addNewCustomer(data: AddNewCustomerData) {
+  public async createCustomer(data: AddNewCustomerData) {
     const currency = await this.getCurrency(data.accounting.currency);
     const newCustomerData = { ...createNewCustomer, ...data };
     newCustomerData.accounting.currency = currency.items[0];
@@ -180,21 +189,20 @@ export class Shipment {
   }
 
   // get all shipment terms
-  public getAllShipmentTerms() {
-    return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
-      only: 'name,code,order',
-      general_filter: {},
-    });
-  }
-
-  // get single shipment term
-  public getShipmentTerms(data = '') {
-    const updatedData = managePayload(data);
-    return this.obj.getGenericAutoComplete(
-      this.obj,
-      'shipment_term',
-      updatedData,
-    );
+  public getShipmentTerms(data) {
+    if (!data) {
+      return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
+        only: 'name,code,order',
+        general_filter: {},
+      });
+    } else {
+      const updatedData = managePayload(data);
+      return this.obj.getGenericAutoComplete(
+        this.obj,
+        'shipment_term',
+        updatedData,
+      );
+    }
   }
 
   // get quotation_reference
@@ -495,7 +503,7 @@ export class Shipment {
     );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
-  public getVehicleType(data) {
+  public getVehicleType(data = '') {
     const updatedData = managePayload(data);
     return this.obj.getGenericAutoComplete(
       this.obj,
@@ -503,7 +511,8 @@ export class Shipment {
       updatedData,
     );
   }
-  public getPackageType(data) {
+
+  public async getPackageTypeList(data = ''): Promise<{ items: LoadType[] }> {
     const updatedData = managePayload(data);
     return this.obj.getGenericAutoComplete(
       this.obj,
@@ -511,10 +520,90 @@ export class Shipment {
       updatedData,
     );
   }
-  public ltloads(data: ltlPackage) {
-    return this.obj.createGenericCollectionItem(this.obj, 'ltl_load', data);
+
+  public async getPackageType({
+    data = '',
+  }: {
+    data: string;
+  }): Promise<LoadType> {
+    const updatedData = managePayload(data);
+    const res = await this.obj.getGenericAutoComplete(
+      this.obj,
+      'package_type',
+      updatedData,
+    );
+    return res.items[0];
   }
+
+  public getContainerType(data = '') {
+    const updatedData = managePayload(data);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'container_type',
+      updatedData,
+    );
+  }
+
+  public getHarzardUnNumber(data = '') {
+    const updatedData = managePayload(data);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'hazard_un_number',
+      updatedData,
+    );
+  }
+
+  public getHarzardClass(data = '') {
+    const updatedData = managePayload(data);
+    return this.obj.getGenericAutoComplete(
+      this.obj,
+      'hazard_class',
+      updatedData,
+    );
+  }
+  // public ltloads(data: ltlPackage) {
+  //   return this.obj.createGenericCollectionItem(this.obj, 'ltl_load', data);
+  // }
   public initiaConversation(data: ConversationPayload) {
     return this.obj.conversation(this.obj, 'conversation', data);
+  }
+
+  // Air Load
+  public createAirLoad(data: RequestAirLoad) {
+    return this.obj.createGenericCollectionItem(this.obj, 'air_load', data);
+  }
+
+  // Sea FCL load
+  public createSeaFclLoad(data: RequestfclSeaLoad) {
+    return this.obj.createGenericCollectionItem(this.obj, 'fcl_load', data);
+  }
+  // Sea LCL Load
+  public createSeaLclLoad(data: RequestlclSeaLoad) {
+    return this.obj.createGenericCollectionItem(this.obj, 'lcl_load', data);
+  }
+
+  // Sea RORO Load
+  public createSeaRoroLoad(data: RequestRoroSeaLoad) {
+    return this.obj.createGenericCollectionItem(this.obj, 'roro_load', data);
+  }
+
+  // Sea Bulk Load
+  public createSeaBulkLoad(data: RequestBulkSeaLoad) {
+    return this.obj.createGenericCollectionItem(this.obj, 'bulk_load', data);
+  }
+
+  // Land ftl load
+  public createLandFtlLoad(data: RequestftlLandLoad) {
+    return this.obj.createGenericCollectionItem(this.obj, 'ftl_load', data);
+  }
+
+  // Land ltl load
+  public createLandltlLoad(data: RequestltlLandLoad) {
+    return this.obj.createGenericCollectionItem(this.obj, 'ltl_load', data);
+  }
+
+  // Land fcl load
+  public createLandFclLoad(data: RequestftlLandLoad) {
+    return this.obj.createGenericCollectionItem(this.obj, 'fcl_load', data);
   }
 }

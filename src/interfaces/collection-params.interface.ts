@@ -12,6 +12,10 @@ export interface CollectionParams {
   query?: string;
   query_level?: string;
   input_filters?: any;
+  sort_by?: string;
+  sort_order?: string;
+  start_date?: number;
+  end_date?: number;
 }
 export interface GeneralFilter {
   job_status?: JobStatus;

@@ -1,4 +1,3 @@
-import { clear, Console, error } from "console";
 import {ShipthisAPI} from "./dist/shipthisapi-js/main.js";
 
 // let x_api_key = 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.YkboiA.85PdomGGEPA8i5SeDyI0leZ7sR0'
@@ -6,10 +5,9 @@ import {ShipthisAPI} from "./dist/shipthisapi-js/main.js";
 let param = {
     'userType': 'employee',
     'organisationId': 'demo',
-    'xApiKey': 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.Yxb3BQ.P6RFy5SNBOHaktPtS1JmmD9Jfu8'
 }
 let shipthisApi = new ShipthisAPI(param)
-await shipthisApi.connect().then((data) => console.log(data, "======>")).catch((err) => err.message);
+await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
 
 // Login via Email and Password
 // await shipthisApi.loginViaPassword('abc@xyz.com', 'password');
@@ -36,7 +34,7 @@ await shipthisApi.connect().then((data) => console.log(data, "======>")).catch((
 // // })
 
 // Get all Shipment information
-// shipthisApi.Shipment.getAllShipments()
+// shipthisApi.Shipment.getShipmentTerms("cfr")
 // .then((data) => console.log("All Shipments : ",data)).catch((err) => err.message)
 
 
@@ -100,7 +98,7 @@ await shipthisApi.connect().then((data) => console.log(data, "======>")).catch((
 // const getQuotationReference = await shipthisApi.Shipment.getQuotationReference()
 // const getAirPort = await shipthisApi.Shipment.getAirPort()
 // const getShipmentTerms = await shipthisApi.Shipment.getShipmentTerms()
-// const getShipperName= await shipthisApi.Shipment.getShipperName("", "62f43e1ebca73696c1ac45d4")
+// const getShipper= await shipthisApi.Shipment.getShipper("", "62f43e1ebca73696c1ac45d4")
 // const getConsigneeName= await shipthisApi.Shipment.getConsigneeName("", "62f43e1ebca73696c1ac45d4")
 // const getPickUpNDelivery = await shipthisApi.Shipment.getPickUpNDelivery("", "62f43e1ebca73696c1ac45d4")
 // const getNotifyParty = await shipthisApi.Shipment.getNotifyParty("", "62f43e1ebca73696c1ac45d4")
@@ -163,7 +161,6 @@ await shipthisApi.connect().then((data) => console.log(data, "======>")).catch((
 
 // create new customer
 // const createNewCustomer = {
-//     "__scp": {},
 //     "opening_balance": {},
 //     "account_contact_person": {
 //         "same_as_primary": false,
@@ -220,29 +217,30 @@ await shipthisApi.connect().then((data) => console.log(data, "======>")).catch((
 //     "full_address": "\r\nE :cargoson@gmail.com\r\nT :93848928993",
 //     "full_address_field_compute": ""
 // }
-// const createNew = await shipthisApi.Shipment.addNewCustomer(createNewCustomer)
+// const createNew = await shipthisApi.Shipment.createCustomer(createNewCustomer)
 // console.log(createNew)
 
 
 // const createNewShipper = {
-//     "__scp": {},
 //     "company": {
-//         "party_type": [
-//             "shipper"
-//         ],
-//         "name": "Corgoson Testttt",
-//         "phone": "123454566"
+//       "name": "new company consignee",
+//       "phone": "+37166789012",
+//       "party_type": ["consignee"],
 //     },
-//     "primary_contact_person": {},
-//     "account_contact_person": {},
 //     "address": {
-//         "city": {}
+//       "line_1": "Dārzciema iela 60",
+//       "city": {},
+//       "pincode": "45365"
 //     },
-//     "full_address": "",
-//     "full_address_field": ""
-// }
-
-// const createNewShipperr = await shipthisApi.Shipment.addNewShipper(createNewShipper)
+//     "primary_contact_person": {
+//       "name": "Test Person",
+//       "email": "rasmus@demo.example.com",
+//       "phone": "+37166789012",
+//       "first_name": "Test",
+//       "last_name": "Person",
+//     }
+//   }
+// const createNewShipperr = await shipthisApi.Shipment.createCustomerParty(createNewShipper, "6346bbcd2d632f192bdd1dca")
 // console.log(createNewShipperr)
 
 
@@ -268,3 +266,201 @@ await shipthisApi.connect().then((data) => console.log(data, "======>")).catch((
 //   .then((data) => {
 //     console.log(data);
 //   })
+
+
+// Setup
+
+// Categories Type
+
+// const categoriesData = {
+//   "__scp": {},
+//   "name": "Shipthis.product123",
+//   "code": "0088"
+// }
+// const res = await shipthisApi.Setup.getProductType(categoriesData)
+// console.log(res)
+
+// // port
+// const categoriesData = {
+//   "__scp": {},
+//   "location": {
+//       "description": "Bangalore, Karnataka, India",
+//       "bold": "Bengaluru",
+//       "lat": 12.9715987,
+//       "lng": 77.5945627,
+//       "query_type": "place_id",
+//       "type": "city",
+//       "province": "Karnataka",
+//       "province_code": "KA",
+//       "city": "Bengaluru",
+//       "country": "India",
+//       "country_code": "IN"
+//   },
+//   "custom": {
+//       "new_port": "1233"
+//   },
+//   "name": "shipthis",
+//   "code": "007",
+//   "numeric_code": "123",
+//   "latitude": 123,
+//   "longitude": 1234
+// }
+// const res = await shipthisApi.Setup.getPort(categoriesData)
+// console.log(res)
+
+
+// AWB Block
+
+// const AWBData = {
+//     "__scp": {},
+//     "available_count": 123312,
+//     "used": [],
+//     "used_count": 123312,
+//     "all_counts": "",
+//     "locked": false,
+//     "no_of_digits": 8,
+//     "used_codes": [],
+//     "available": [
+//     ],
+//     "airline": "Adria Airways",
+//     "acquired_on": {
+//         "$date": 1665360000000
+//     },
+//     "valid_till": {
+//         "$date": 1666051200000
+//     },
+//     "prefix": "123",
+//     "start_number": 133,
+//     "end_number": 123444
+// }
+// const res = await shipthisApi.Setup.getAWBBlock(AWBData)
+
+
+// check for loads
+// for Air Shipments there is only one type of load
+// const packType = await shipthisApi.Shipment.getPackageTypeList("shipthis")
+// const payload  = {
+//     shipment: [
+//       {
+//         _cls_: 'air_shipment',
+//         _id: {
+//           $oid: '63511149890e3cc8aaf246bd',
+//         },
+//       },
+//     ],
+//     description: 'justt a text',
+//     cbm_compute: '',
+//     weight_unit: 'kg',
+//     dimensions: [],
+//     hazard_details: {
+//       is_hazardous: false,
+//     },
+//     package_type: packType.items[0],
+//     package_quantity: 0,
+//     total_units: 0,
+//     chargeable_wt: 0,
+//     net_wt: 0,
+//     gross_wt: 0,
+//     cft: 0,
+//     cbm: 0,
+//     gross_wt_kg: 0,
+//   };
+// const res = await shipthisApi.Shipment.createAirLoad(payload)
+
+
+// for Sea Shipments there are 4 types of loads
+// 1. fcl loads
+// 2. lcl loads
+// 3. roro loads
+// 4. bulk loads
+
+// fcl sea loads
+// const contType = await shipthisApi.Shipment.getContainerType("20FT")
+// const packType = await shipthisApi.Shipment.getPackageTypeList("shipthis")
+// const payload = {
+//     shipment: [
+//       {
+//         _cls_: 'sea_shipment',
+//         _id: {
+//           $oid: '635227ca6504f38842343b00',
+//         },
+//       },
+//     ],
+//     description: '',
+//     weight_unit: 'lb',
+//     hazard_details: {
+//       is_hazardous: false,
+//     },
+//     container_type: contType.items[0],
+//     container_no: '',
+//     gross_wt: 0,
+//     net_wt: 0,
+//     cbm: 0,
+//     cft: 0,
+//     seal_no: '',
+//     custom_seal_no: '',
+//     pickup_number: '',
+//   }
+//   const res = await shipthisApi.Shipment.createSeaFclLoad(payload)
+//   console.log(res)
+
+
+// for land shipments there are 3 types
+// 1. fcl load
+// 2. ftl load
+// 3. ltl load
+
+// const vehicleType = await shipthisApi.Shipment.getVehicleType("Shipthis")
+// const payload = {
+//     shipment: [
+//       {
+//         _cls_: 'land_shipment',
+//         _id: {
+//           $oid: '63522078f5affe81ef2e8ca6',
+//         },
+//       },
+//     ],
+//     description: 'testtt',
+//     weight_unit: '',
+//     hazard_details: {
+//       is_hazardous: false,
+//     },
+//     packages: [
+//       {
+//         description: '',
+//         length_unit: '',
+//         weight_unit: '',
+//         package_type: {},
+//         package_quantity: 0,
+//         length: 0,
+//         width: 0,
+//         height: 0,
+//         cbm: 0,
+//         cft: 0,
+//         gross_wt: 0,
+//         net_wt: 0,
+//       },
+//     ],
+//     marks_and_no: '',
+//     vehicle_type: vehicleType.items[0],
+//     vehicle_no: '',
+//     seal_no: '',
+//     gross_wt: 0,
+//     net_wt: 0,
+//   };
+//   const res = await shipthisApi.Shipment.createLandFtlLoad(payload)
+//   console.log(res)
+
+
+// get some shipments by giving count and page
+// const filter = {
+//   count : 20,
+//   page : 1,
+//   sort_by: "created_at",
+//   sort_order: "dsc",
+//   start_date: new Date(2021, 1, 1).getTime(),
+//   end_date: new Date(2022, 1, 1).getTime(),
+// }
+// const res = await shipthisApi.Shipment.getSomeShipments(filter)
+// console.log(res)
+

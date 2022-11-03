@@ -71,7 +71,7 @@ class Shipment {
         updatedData.filter_txt = data;
         return this.obj.getGenericAutoComplete(this.obj, 'customer', updatedData);
     }
-    async addNewCustomer(data) {
+    async createCustomer(data) {
         const currency = await this.getCurrency(data.accounting.currency);
         const newCustomerData = { ...request_body_1.createNewCustomer, ...data };
         newCustomerData.accounting.currency = currency.items[0];
@@ -82,15 +82,17 @@ class Shipment {
         const params = { input_filters: { 'customer._id': `${id}` } };
         return this.obj.createGenericCollectionItem(this.obj, 'customer_party', newCustomerData, params);
     }
-    getAllShipmentTerms() {
-        return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
-            only: 'name,code,order',
-            general_filter: {},
-        });
-    }
-    getShipmentTerms(data = '') {
-        const updatedData = (0, commonUtils_1.managePayload)(data);
-        return this.obj.getGenericAutoComplete(this.obj, 'shipment_term', updatedData);
+    getShipmentTerms(data) {
+        if (!data) {
+            return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
+                only: 'name,code,order',
+                general_filter: {},
+            });
+        }
+        else {
+            const updatedData = (0, commonUtils_1.managePayload)(data);
+            return this.obj.getGenericAutoComplete(this.obj, 'shipment_term', updatedData);
+        }
     }
     getQuotationReference(data = null) {
         const updatedData = (0, commonUtils_1.managePayload)(data, ['quotation_number'], ['quotation_number']);
