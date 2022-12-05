@@ -29,7 +29,115 @@ export class Setup {
   constructor(obj: ShipthisAPI) {
     this.obj = obj;
   }
-  public getCategoriesType(data: RequestContainerType) {
+
+  // get all
+  public getAllAirport() {
+    return this.obj.getListGenericCollection(this.obj, 'airport');
+  }
+  public getAllPort() {
+    return this.obj.getListGenericCollection(this.obj, 'port');
+  }
+  public getAllContainerType() {
+    return this.obj.getListGenericCollection(this.obj, 'container_type');
+  }
+  public getAllPackageType() {
+    return this.obj.getListGenericCollection(this.obj, 'package_type');
+  }
+  public getAllDocumentType() {
+    return this.obj.getListGenericCollection(this.obj, 'documentation_kind');
+  }
+  public getAllVehicleType() {
+    return this.obj.getListGenericCollection(this.obj, 'vehicle_type');
+  }
+  public getAllProductType() {
+    return this.obj.getListGenericCollection(this.obj, 'product_type');
+  }
+  public getAllAirline() {
+    return this.obj.getListGenericCollection(this.obj, 'airline');
+  }
+  public getAllShipmentTerms() {
+    return this.obj.getListGenericCollection(this.obj, 'shipment_term');
+  }
+  public getAllShippingLine() {
+    return this.obj.getListGenericCollection(this.obj, 'shipping_line');
+  }
+  public getAllVessel() {
+    return this.obj.getListGenericCollection(this.obj, 'vessel');
+  }
+  public getAllAWBBlock() {
+    return this.obj.getListGenericCollection(this.obj, 'awb_block');
+  }
+  // get one
+  public getAirport(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(this.obj, 'airport', objectId);
+  }
+  public getPort(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(this.obj, 'port', objectId);
+  }
+  public getContainerType(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'container_type',
+      objectId,
+    );
+  }
+  public getPackageType(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'package_type',
+      objectId,
+    );
+  }
+  public getDocumentType(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'documentation_kind',
+      objectId,
+    );
+  }
+  public getVehicleType(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'vehicle_type',
+      objectId,
+    );
+  }
+  public getProductType(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'product_type',
+      objectId,
+    );
+  }
+  public getAirline(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(this.obj, 'airline', objectId);
+  }
+  public getShipmentTerms(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'shipment_term',
+      objectId,
+    );
+  }
+  public getShippingLine(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'shipping_line',
+      objectId,
+    );
+  }
+  public getVessel(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(this.obj, 'vessel', objectId);
+  }
+  public getAWBBlock(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'awb_block',
+      objectId,
+    );
+  }
+  // create
+  public createContainerType(data: RequestContainerType) {
     const updatedData = { requestCatData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -37,7 +145,7 @@ export class Setup {
       updatedData,
     );
   }
-  public getPackageType(data: RequestCommonType) {
+  public createPackageType(data: RequestCommonType) {
     const updatedData = { requestCommonData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -46,7 +154,7 @@ export class Setup {
     );
   }
 
-  public getDocumentType(data: RequestCommonType) {
+  public createDocumentType(data: RequestCommonType) {
     const updatedData = { requestCommonData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -55,7 +163,7 @@ export class Setup {
     );
   }
 
-  public getVehicleType(data: RequestVehicleType) {
+  public createVehicleType(data: RequestVehicleType) {
     const updatedData = { requestVehicleData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -64,7 +172,7 @@ export class Setup {
     );
   }
 
-  public getProductType(data: RequestCommonType) {
+  public createProductType(data: RequestCommonType) {
     const updatedData = { requestCommonData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -73,7 +181,7 @@ export class Setup {
     );
   }
 
-  public getAirline(data: RequestCommonType) {
+  public createAirline(data: RequestCommonType) {
     const updatedData = { requestCommonData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -82,7 +190,7 @@ export class Setup {
     );
   }
 
-  public async getPort(data: RequestPortType) {
+  public async createPort(data: RequestPortType) {
     const location = await this.obj.Shipment.getGoogleLocation(
       data.location.bold,
     );
@@ -94,7 +202,7 @@ export class Setup {
     return this.obj.createGenericCollectionItem(this.obj, 'port', updatedData);
   }
 
-  public async getAirport(data: RequestAirportType) {
+  public async createAirport(data: RequestAirportType) {
     const location = await this.obj.Shipment.getGoogleLocation(
       data.location.bold,
     );
@@ -110,7 +218,7 @@ export class Setup {
     );
   }
 
-  public getshipmentTerms(data: RequestShipmentTermsType) {
+  public createShipmentTerms(data: RequestShipmentTermsType) {
     const updatedData = { requestShipmentTermsData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -119,7 +227,7 @@ export class Setup {
     );
   }
 
-  public async getshippingLine(data: RequestShippingLineType) {
+  public async createShippingLine(data: RequestShippingLineType) {
     const updatedData = { requestShippingLine, ...data };
     const location = await this.obj.Shipment.getGoogleLocation(data.address);
     const selectLocation = await this.obj.Shipment.selectGoogleLocations(
@@ -134,7 +242,7 @@ export class Setup {
     );
   }
 
-  public async getVessel(data: RequestVesselType) {
+  public async createVessel(data: RequestVesselType) {
     const updatedData = { requestVesselData, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -143,7 +251,7 @@ export class Setup {
     );
   }
 
-  public async getAWBBlock(data: RequestAWBType) {
+  public async createAWBBlock(data: RequestAWBType) {
     const fields = ['name', 'code'];
     const display_fields = ['name'];
     const updatedData = managePayload(
@@ -156,7 +264,6 @@ export class Setup {
       'airline',
       updatedData,
     );
-    console.log(res);
     data.airline = res.items[0];
     const injectableDate = { requestAWBData, ...data };
     return this.obj.createGenericCollectionItem(
@@ -175,7 +282,7 @@ export class Setup {
     return this.deleteOperation(id, 'port');
   }
 
-  public deleteAirPort(id: string) {
+  public deleteAirport(id: string) {
     return this.deleteOperation(id, 'airport');
   }
 

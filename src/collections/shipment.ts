@@ -42,32 +42,32 @@ export class Shipment {
   public getAllShipments() {
     return this.obj.getListGenericCollection(this.obj, 'shipment_v2');
   }
-  public getAirShipments() {
+  public getAllAirFreight() {
     return this.obj.getListGenericCollection(this.obj, 'air_shipment');
   }
-  public getSeaShipments() {
+  public getAllSeaFreight() {
     return this.obj.getListGenericCollection(this.obj, 'sea_shipment');
   }
-  public getLandShipments() {
+  public getAllLandFreight() {
     return this.obj.getListGenericCollection(this.obj, 'land_shipment');
   }
 
   // Get single shipment with jobid
-  public getAirShipment(ObjectId: string) {
+  public getAirFreight(ObjectId: string) {
     return this.obj.getOneGenericCollectionItem(
       this.obj,
       'air_shipment',
       ObjectId,
     );
   }
-  public getSeaShipment(ObjectId: string) {
+  public getSeaFreight(ObjectId: string) {
     return this.obj.getOneGenericCollectionItem(
       this.obj,
       'sea_shipment',
       ObjectId,
     );
   }
-  public getLandShipment(ObjectId: string) {
+  public getLandFreight(ObjectId: string) {
     return this.obj.getOneGenericCollectionItem(
       this.obj,
       'land_shipment',
@@ -76,7 +76,7 @@ export class Shipment {
   }
 
   // Update
-  public updateAirShipment(ObjectId: string, updatedData: AirShipment) {
+  public updateAirFreight(ObjectId: string, updatedData: AirShipment) {
     const Data = { ...requestAirShipment, ...updatedData };
     return this.obj.updateGenericCollectionItem(
       this.obj,
@@ -85,7 +85,7 @@ export class Shipment {
       Data,
     );
   }
-  public updateSeaShipment(ObjectId: string, updatedData: SeaShipment) {
+  public updateSeaFreight(ObjectId: string, updatedData: SeaShipment) {
     const Data = { ...requestSeaShipement, ...updatedData };
     return this.obj.updateGenericCollectionItem(
       this.obj,
@@ -94,7 +94,7 @@ export class Shipment {
       Data,
     );
   }
-  public updateLandShipment(ObjectId: string, updatedData: LandShipment) {
+  public updateLandFreight(ObjectId: string, updatedData: LandShipment) {
     const Data = { ...requestLandShipment, ...updatedData };
     return this.obj.updateGenericCollectionItem(
       this.obj,
@@ -105,17 +105,17 @@ export class Shipment {
   }
 
   // Create
-  public createAirShipment(data: AirShipment) {
+  public createAirFreight(data: AirShipment) {
     const Data = { ...requestAirShipment, ...data };
     return this.obj.createGenericCollectionItem(this.obj, 'air_shipment', Data);
   }
 
   // create Sea shipment
-  public createSeaShipment(data: SeaShipment) {
+  public createSeaFreight(data: SeaShipment) {
     const Data = { ...requestSeaShipement, ...data };
     return this.obj.createGenericCollectionItem(this.obj, 'sea_shipment', Data);
   }
-  public createLandShipment(data: LandShipment) {
+  public createLandFreight(data: LandShipment) {
     const Data = { ...requestLandShipment, ...data };
     return this.obj.createGenericCollectionItem(
       this.obj,
@@ -125,21 +125,21 @@ export class Shipment {
   }
 
   // Delete
-  public deleteAirShipment(ObjectId: string) {
+  public deleteAirFreight(ObjectId: string) {
     return this.obj.deleteGenericCollectionItem(
       this.obj,
       'air_shipment',
       ObjectId,
     );
   }
-  public deleteSeaShipment(ObjectId: string) {
+  public deleteSeaFreight(ObjectId: string) {
     return this.obj.deleteGenericCollectionItem(
       this.obj,
       'sea_shipment',
       ObjectId,
     );
   }
-  public deleteLandShipment(ObjectId: string) {
+  public deleteLandFreight(ObjectId: string) {
     return this.obj.deleteGenericCollectionItem(
       this.obj,
       'land_shipment',
@@ -205,7 +205,7 @@ export class Shipment {
     }
   }
 
-  // get quotation_reference
+  // get quotation_reference with filter
   public getQuotationReference(data = null) {
     const updatedData = managePayload(
       data,

@@ -12,6 +12,7 @@ class ShipthisAPI {
         this.file_upload_api_endpoint = 'https://upload.shipthis.co/file_upload';
         this.profiles = [];
         this.internalRequest = request_1.internalRequest;
+        this.getListGeneric = generic_1.getListGeneric;
         this.uploadFile = request_1.uploadFile;
         this.getListGenericCollection = generic_1.getListGenericCollection;
         this.getOneGenericCollectionItem = generic_1.getOneGenericCollectionItem;

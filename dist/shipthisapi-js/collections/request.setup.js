@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.requestAWBData = exports.requestVesselData = exports.requestShippingLine = exports.requestShipmentTermsData = exports.requestAirportData = exports.requestPortData = exports.requestProdData = exports.requestVehicleData = exports.requestCommonData = exports.requestCatData = void 0;
 exports.requestCatData = {
-    __scp: {},
     name: '',
     max_cbm: 0,
     length: 0,
@@ -11,23 +10,19 @@ exports.requestCatData = {
     max_weight: 0,
 };
 exports.requestCommonData = {
-    __scp: {},
     name: '',
     code: '',
 };
 exports.requestVehicleData = {
-    __scp: {},
     name: '',
     code: '',
     container_size: '',
 };
 exports.requestProdData = {
-    __scp: {},
     name: '',
     code: '',
 };
 exports.requestPortData = {
-    __scp: {},
     location: {
         description: '',
         bold: '',
@@ -51,7 +46,6 @@ exports.requestPortData = {
     longitude: 0,
 };
 exports.requestAirportData = {
-    __scp: {},
     location: {
         description: '',
         bold: '',
@@ -72,13 +66,11 @@ exports.requestAirportData = {
     code: '',
 };
 exports.requestShipmentTermsData = {
-    __scp: {},
     name: '',
     code: '',
     order: 0,
 };
 exports.requestShippingLine = {
-    __scp: {},
     address: {},
     name: '',
     code: '',
@@ -89,7 +81,6 @@ exports.requestShippingLine = {
     email: '',
 };
 exports.requestVesselData = {
-    __scp: {},
     name: '',
     code: '',
     imo: '',
@@ -98,7 +89,6 @@ exports.requestVesselData = {
     type: '',
 };
 exports.requestAWBData = {
-    __scp: {},
     available_count: 0,
     used: [],
     used_count: 0,

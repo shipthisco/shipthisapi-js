@@ -25,7 +25,7 @@ export interface AirShipment {
     shipment_type: ShipmentType;
     shipment_term: ShipMethod;
     shipment_name: string;
-    is_consolidated_shipment: boolean;
+    is_consolidated_shipment?: boolean;
     master_shipment_cost_allocation?: boolean;
     enable_automated_tracking?: boolean;
     custom?: {
@@ -67,12 +67,12 @@ export interface AirShipment {
     destination_agent_show_on_master?: boolean;
     foforwarding_agent_address?: string;
     destination_agent_address?: string;
-    consolidator: Consolidator;
+    consolidator?: Consolidator;
     consolidator_address?: string;
     place_of_consolidation_address?: string;
     notify_party?: NotifyAndAlsoNotifyParty;
     notify_party_address?: string;
-    carrier_code?: string;
+    carrier_code: string;
     portOfDestination: PortOfDestination;
     dischargeSublocationCode: DisAndDesSublocationCode;
     destinationSublocationCode: DisAndDesSublocationCode;
@@ -80,53 +80,42 @@ export interface AirShipment {
     previousCCN?: string;
     consolidationIndicator?: string;
     override_cargo_control_number?: string;
-    pod_documents: any[];
-    skus: any[];
-    under_watchlist: boolean;
-    notify_events_via_email: boolean;
-    tags: any[];
-    mawb_rate_class_code: string;
-    pick_charge_from_invoice: boolean;
-    hawb_override_dimensions: boolean;
-    hawb_rate_class_code: string;
-    hawb_rate_or_charge: number;
-    hawb_rate_total: number;
-    hawb_has_other_charges: boolean;
-    documents: any[];
-    customer_documents: any[];
-    customer_uploaded_documents: any[];
-    job_status: string;
-    shipment_status: string;
-    __events: {
+    pod_documents?: any[];
+    skus?: any[];
+    under_watchlist?: boolean;
+    notify_events_via_email?: boolean;
+    tags?: any[];
+    mawb_rate_class_code?: string;
+    pick_charge_from_invoice?: boolean;
+    hawb_override_dimensions?: boolean;
+    hawb_rate_class_code?: string;
+    hawb_rate_or_charge?: number;
+    hawb_rate_total?: number;
+    hawb_has_other_charges?: boolean;
+    documents?: any[];
+    customer_documents?: any[];
+    customer_uploaded_documents?: any[];
+    job_status?: string;
+    shipment_status?: string;
+    __events?: {
         opened__date: {
             $date: Date;
         };
         opened__comments: string;
     };
     _cls_?: string;
-    _last_update?: string;
-    __deleted?: boolean;
     _last_remark?: string;
     __status?: any;
-    __scp?: any;
-    __import_reference?: any;
     __subscribers?: {
         customers?: Array<string>;
         vendors?: Array<string>;
         employee?: Array<string>;
     };
-    __region_id?: Array<string>;
-    __location_id?: Array<string>;
     _created_by?: string;
     _created_by_name?: string;
     _last_modified_by?: string;
     _last_modified_by_name?: string;
     _last_modified_by_email?: string;
-    __cache?: {
-        house_shipments: {
-            shipment_status: [];
-        };
-    };
     'port_of_loading.transit_time'?: string;
     hawb_rates?: string;
     hawb_name?: string;
@@ -136,7 +125,6 @@ export interface AirShipment {
     hbl_no?: null;
 }
 export interface LandShipment {
-    __scp?: any;
     __events?: {
         opened__date: {
             $date: Date;
@@ -197,7 +185,6 @@ export interface LandShipment {
         address?: Address;
         full_address?: string;
         _cls_?: string;
-        __display?: string;
     };
     carrier_quote_no?: string;
     additional_notes?: string;
@@ -243,7 +230,6 @@ export interface LandShipment {
     _id?: ID;
     shipment_status?: string;
     _cls_?: string;
-    __cache?: Cache;
     port_of_discharge?: PortOfDischarge;
     port_of_loading?: PortOfLoading;
     _operation?: Operation;
@@ -251,7 +237,6 @@ export interface LandShipment {
     hbl_no?: null;
 }
 export interface SeaShipment {
-    __scp?: any;
     'port_of_loading.transit_time': string;
     __events?: {
         opened__date: {
@@ -378,10 +363,8 @@ export interface SeaShipment {
     volume?: string;
     _id?: ID;
     _cls_?: string;
-    __cache?: Cache;
     _operation?: Operation;
 }
-export declare type Cache = any;
 export interface ID {
     $oid?: string;
 }
@@ -395,14 +378,12 @@ export interface CustomerName {
     primary_contact_person?: PrimaryContactPerson;
     _cls_?: string;
     credit_limit?: string;
-    currency?: string;
+    currency?: string | ShipthisBasic;
     payment_term?: string;
     sales_person?: string;
-    __warn?: string;
     address?: Address;
     cartage_by?: string;
     customs_agent?: string;
-    __display?: string;
 }
 export interface Address {
     line_1?: string;
@@ -410,9 +391,7 @@ export interface Address {
     pincode?: string;
     city?: CountryOfOrigin;
     _cls_?: string;
-    __display?: string;
     need_insurance?: boolean;
-    __warn?: boolean;
 }
 export interface Company {
     name: string;
@@ -425,20 +404,6 @@ export interface QuotationReference {
         $date: Date;
     };
     _cls_?: string;
-    __cache?: {
-        responses: {
-            accepted_responses: {
-                quotation_response_currency: {
-                    __display: string;
-                    _cls_: string;
-                    _id?: ID;
-                    name: string;
-                };
-                quotation_response_total: number;
-            };
-        };
-    };
-    __display?: string;
 }
 export interface ShipMethod {
     _id?: ID;
@@ -446,7 +411,6 @@ export interface ShipMethod {
     _cls_?: string;
     code?: string;
     _operation?: Operation;
-    _display: string;
 }
 export interface Airline {
     _id?: ID;
@@ -454,12 +418,10 @@ export interface Airline {
     prefix_code?: string;
     name?: string;
     _operation: Operation;
-    _display: string;
 }
 export interface ShipperDeclaredValue {
-    currency?: Currency;
+    currency?: ShipthisBasic;
     amount?: number;
-    __display?: string;
 }
 export interface CountryOfOrigin {
     description?: string;
@@ -479,7 +441,7 @@ export interface CountryOfOrigin {
 }
 export interface Insurance {
     need_insurance?: boolean;
-    currency?: Currency;
+    currency?: ShipthisBasic;
     amount?: number;
 }
 export interface ByDetails {
@@ -492,13 +454,11 @@ export interface ByDetails {
     primary_contact_person?: PrimaryContactPerson;
     address?: Address;
     _cls_?: string;
-    __display?: string;
 }
 export interface CartageCostCurrency {
     _id?: ID;
     name?: string;
     _cls_?: string;
-    _display?: string;
 }
 export interface CustomClearanceBy {
     _id?: ID;
@@ -510,7 +470,6 @@ export interface CustomClearanceBy {
     primary_contact_person: PrimaryContactPerson;
     address?: Address;
     _cls_?: string;
-    __display?: string;
 }
 export interface PlaceOfReceiptDelivery {
     location?: Location;
@@ -524,7 +483,6 @@ export interface PlaceOfReceiptDelivery {
 export interface OperationExecutive {
     _id?: ID;
     name?: string;
-    __display?: string;
     email?: string;
     _cls_?: string;
     _operation?: Operation;
@@ -539,7 +497,6 @@ export interface ShipperName {
     address?: Address;
     tin_no?: string;
     full_address: string;
-    __display?: string;
 }
 export interface ConsigneeAndPickupAndDelivery {
     _id: ID;
@@ -550,7 +507,6 @@ export interface ConsigneeAndPickupAndDelivery {
     address: Address;
     full_address: string;
     _cls_?: string;
-    _display?: string;
 }
 export interface ForwordingAgent {
     _id?: ID;
@@ -566,7 +522,6 @@ export interface ForwordingAgent {
     address?: Address;
     full_address?: string;
     _cls_?: string;
-    __display?: string;
 }
 export interface DestinationAgent {
     _id?: ID;
@@ -582,19 +537,16 @@ export interface DestinationAgent {
     address?: Address;
     full_address?: string;
     _cls_?: string;
-    __display?: string;
 }
 export interface CustomerSegment {
     _id?: ID;
     name?: string;
     _cls_?: string;
-    __display?: string;
 }
 export interface MasterReference {
     _id?: ID;
     job_id?: string;
     _cls_?: string;
-    __display?: string;
 }
 export interface PrimaryContactPerson {
     salutation?: string;
@@ -616,7 +568,6 @@ export interface Consolidator {
     address: Address;
     full_address?: string;
     _cls_?: string;
-    __display?: string;
 }
 export interface NotifyAndAlsoNotifyParty {
     _id: ID;
@@ -626,7 +577,6 @@ export interface NotifyAndAlsoNotifyParty {
     address: Address;
     full_address?: string;
     _cls_?: string;
-    __display?: string;
 }
 export interface PortOfDischarge {
     port?: Port;
@@ -639,14 +589,12 @@ export interface DisAndDesSublocationCode {
     customs_code: string;
     address: Address;
     _cls_?: string;
-    __display?: string;
 }
 export interface PortOfDestination {
     _id: ID;
     name: string;
     code: string;
-    _cls_: string;
-    __display: string;
+    _cls_?: string;
 }
 export interface PortofDestinationSea {
     port: Port;
@@ -660,7 +608,6 @@ export interface Port {
     code?: string;
     location?: Location;
     _cls_?: string;
-    __display?: string;
 }
 export interface Location {
     description?: string;
@@ -682,7 +629,7 @@ export interface PortOfLoading {
     port?: Port;
     departure_date?: ArrivalDateClass;
     original_departure_date?: {
-        $date?: Date;
+        $date?: number;
     };
     transit_time?: number;
 }
@@ -702,11 +649,9 @@ export interface Permissions {
     edit?: boolean;
     delete?: boolean;
 }
-export interface Currency {
+export interface ShipthisBasic {
     _id?: ID;
     name?: string;
     _cls_?: string;
-    _operation?: Operation;
-    __display?: string;
 }
 export {};

@@ -1,6 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.selectGoogleLocation = exports.getReportView = exports.conversation = exports.getLocation = exports.getGenericAutoComplete = exports.getExchangeRateForCurrency = exports.deleteGenericCollectionItem = exports.updateGenericCollectionItem = exports.createGenericCollectionItem = exports.getListGenericCollection = exports.getOneGenericCollectionItem = void 0;
+exports.getListGeneric = exports.selectGoogleLocation = exports.getReportView = exports.conversation = exports.getLocation = exports.getGenericAutoComplete = exports.getExchangeRateForCurrency = exports.deleteGenericCollectionItem = exports.updateGenericCollectionItem = exports.createGenericCollectionItem = exports.getListGenericCollection = exports.getOneGenericCollectionItem = void 0;
+const getListGeneric = async (obj, collectionName, params) => {
+    if (!params) {
+        params = {};
+    }
+    return obj.internalRequest(obj, 'POST', `/report-view/${collectionName}`, {
+        params,
+    });
+};
+exports.getListGeneric = getListGeneric;
 const getListGenericCollection = async (obj, collectionName, params) => {
     if (!params) {
         params = {};

@@ -1,4 +1,4 @@
-import { Company, Currency, ID, MasterReference, Operation, OperationExecutive, PrimaryContactPerson } from './collection.interface';
+import { Company, ShipthisBasic, ID, MasterReference, Operation, OperationExecutive, PrimaryContactPerson } from './collection.interface';
 import { ICustomDate } from './custom-date';
 export interface InvoiceInterface {
     items?: Array<Items>;
@@ -36,12 +36,12 @@ export interface InvoiceInterface {
     exchange_rate?: number;
     invoice_order_reference?: InvoiceOrderReference;
     bank_details?: BankDetails;
-    sales_person: SalesPerson;
+    sales_person: ShipthisBasic;
 }
 export interface Items {
     quantity?: number;
     minimum_charge?: number;
-    currency?: Currency;
+    currency?: ShipthisBasic;
     exchange_rate?: number;
     total_amount?: number;
     total_amount_invoice_currency?: number;
@@ -126,7 +126,6 @@ export interface CurrencyType {
     value?: string;
     _cls_?: string;
     _operation?: Operation;
-    __display?: string;
 }
 export interface Tax {
     _id: ID;
@@ -134,7 +133,6 @@ export interface Tax {
     rate?: number;
     _cls_?: string;
     _operation?: Operation;
-    __display?: string;
 }
 export interface InvoicePaymentTerm {
     _id: ID;
@@ -143,8 +141,6 @@ export interface InvoicePaymentTerm {
     name?: string;
     order?: number;
     _operation?: Operation;
-    __display?: string;
-    __scp?: any;
     invoice_total?: number;
     invoice_tax_total?: number;
     invoice_sub_total?: number;
@@ -165,7 +161,6 @@ export interface TaxType {
     rate?: number;
     _cls_?: string;
     _operation?: Operation;
-    __display?: string;
 }
 export interface InvoiceOrderReference {
     _id: ID;
@@ -181,7 +176,6 @@ export interface InvoiceOrderReference {
         address?: string;
         __warn?: string;
         need_insurance?: string;
-        __display?: string;
     };
     shipment_type?: string;
     shipment_name?: string;
@@ -191,19 +185,10 @@ export interface InvoiceOrderReference {
     shipment_status?: string;
     _cls_?: string;
     created_at?: ICustomDate;
-    __display?: string;
 }
 export interface BankDetails {
     _id: ID;
     description?: string;
-    currency?: Currency;
+    currency?: ShipthisBasic;
     _cls_?: string;
-    __display?: string;
-}
-export interface SalesPerson {
-    _id: ID;
-    name?: string;
-    _cls_?: string;
-    _operation?: Operation;
-    __display?: string;
 }

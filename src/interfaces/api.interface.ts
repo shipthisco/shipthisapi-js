@@ -57,8 +57,8 @@ export interface RequestPortType {
 }
 
 export interface RequestAirportType {
-  location: CountryOfOrigin;
-  custom: {
+  location?: CountryOfOrigin;
+  custom?: {
     new_field: string;
   };
   name: string;
