@@ -156,7 +156,7 @@ class ShipthisAPI {
             (0, request_1.internalRequest)(this, 'POST', '/user-auth/set-password-via-token', {
                 requestData: {
                     token: token,
-                    new_password: new_password
+                    new_password: new_password,
                 },
             })
                 .then((data) => {
