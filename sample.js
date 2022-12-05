@@ -5,6 +5,7 @@ import {ShipthisAPI} from "./dist/shipthisapi-js/main.js";
 let param = {
     'userType': 'employee',
     'organisationId': 'demo',
+    'xApiKey': 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.Yxb3BQ.P6RFy5SNBOHaktPtS1JmmD9Jfu8'
 }
 let shipthisApi = new ShipthisAPI(param)
 await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
@@ -28,7 +29,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //     console.log('in err')
 //     console.log(err);
 //   })
-// // shipthisApi.Shipment.getAirShipment()
+// // shipthisApi.Shipment.getAirFreight()
 // // .then((data) => {
 // //     console.log(data);
 // // })
@@ -40,7 +41,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 // Get all Air Shipments info
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/air_shipment?location=new_york
-// shipthisApi.Shipment.getAirShipments()
+// shipthisApi.Shipment.getAllAirFreight()
 // .then((data) => {
 //     console.log(data);
 // }).catch((err) => console.log(err.message))
@@ -48,7 +49,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 // Get all Sea Shipments info
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/sea_shipment?location=new_york
-// shipthisApi.Shipment.getSeaShipments()
+// shipthisApi.Shipment.getAllSeaFreight()
 // .then((data) => {
 //     console.log(data);
 // }).catch((err) => console.log(err.message))
@@ -56,7 +57,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 // Get all Land Shipments info
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/land_shipment?location=new_york
-// shipthisApi.Shipment.getLandShipments()
+// shipthisApi.Shipment.getAllLandFreight()
 // .then((data) => {
 //     console.log(data);
 // }).catch((err) => console.log(err.message))
@@ -65,13 +66,13 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // ====
 // Get Single Air shipment information
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/air_shipment/62febd45d3cb7fafac203f37
-// shipthisApi.Shipment.getAirShipment("62febd45d3cb7fafac203f37").then((data) => console.log(data)).catch((err) => err.message)
+// shipthisApi.Shipment.getAirFreight("62febd45d3cb7fafac203f37").then((data) => console.log(data)).catch((err) => err.message)
 
 
 
 // Update Air Shipments Details
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/air_shipment/62febd45d3cb7fafac203f37?location=new_york
-// shipthisApi.Shipment.updateAirShipment("62febd45d3cb7fafac203f37")
+// shipthisApi.Shipment.updateAirFreight("62febd45d3cb7fafac203f37")
 // .then((data) => {
 //     console.log(data);
 // }).catch((err) => console.log(err.message))
@@ -83,7 +84,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //         "port_of_loading": {},
 //         "port_of_discharge": {},
 //         "job_id": "",
-//         "shipment_name": "This is a test for Air Shipments",
+//         "shipment_name": "This is a test for Air Shipmentsssss",
 //         "shipment_class": "house",
 //         "customer_name": {},
 //         "shipment_type": "import",
@@ -99,7 +100,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // const getAirPort = await shipthisApi.Shipment.getAirPort()
 // const getShipmentTerms = await shipthisApi.Shipment.getShipmentTerms()
 // const getShipper= await shipthisApi.Shipment.getShipper("", "62f43e1ebca73696c1ac45d4")
-// const getConsigneeName= await shipthisApi.Shipment.getConsigneeName("", "62f43e1ebca73696c1ac45d4")
+// const getConsigneeName= await shipthisApi.Shipment.getConsignee("", "62f43e1ebca73696c1ac45d4")
 // const getPickUpNDelivery = await shipthisApi.Shipment.getPickUpNDelivery("", "62f43e1ebca73696c1ac45d4")
 // const getNotifyParty = await shipthisApi.Shipment.getNotifyParty("", "62f43e1ebca73696c1ac45d4")
 // const getGoogleLocation = await shipthisApi.Shipment.getGoogleLocation()
@@ -115,7 +116,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // requiredFieldsAir.shipment_term = getShipmentTerms.items[0]
 // requiredFieldsAir.operation_executive = getOperationExecutive.items[0]
 // requiredFieldsAir.quotation_reference = getQuotationReference.items[0]
-// const res = shipthisApi.Shipment.createAirShipment(requiredFieldsAir)
+// const res = await shipthisApi.Shipment.createAirFreight(requiredFieldsAir)
 // console.log(res)
 
 
@@ -136,9 +137,9 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // requiredFieldsSea.customer_name = getCustomers.items[0]
 // requiredFieldsSea.shipment_term = getShipmentTerms.items[0]
 // requiredFieldsSea.operation_executive = getOperationExecutive.items[0]
-// url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/shipping_line?&only=name,carrier_code,cbsa_code,shipthis_code&general_filter={}&location=new_york&region_override=null
+// url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/shipping_line?&only=name,carrier_code,cbsa_code,shipthis_code&geral_filter={}&location=new_york&region_override=null
 // const getShippingLineName  = await shipthisApi.Shipment.getShippingLineName()
-// const res = shipthisApi.Shipment.createSeaShipment(requiredFieldsSea)
+// const res = shipthisApi.Shipment.createSeaFreight(requiredFieldsSea)
 
 
 // create land shipment
@@ -157,7 +158,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // requiredFieldsLand.customer_name = getCustomers.items[0]
 // requiredFieldsLand.shipment_term = getShipmentTerms.items[0]
 // requiredFieldsLand.operation_executive = getOperationExecutive.items[0]
-// const res = shipthisApi.Shipment.createLandShipment(requiredFieldsLand)
+// const res = shipthisApi.Shipment.createLandFreight(requiredFieldsLand)
 
 // create new customer
 // const createNewCustomer = {
@@ -253,7 +254,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 
 
 // Delete the shipments
-// shipthisApi.Shipment.createAirShipment("62febd45d3cb7fafac203f37").catch((err) => console.log(err.message))
+// shipthisApi.Shipment.createAirFreight("62febd45d3cb7fafac203f37").catch((err) => console.log(err.message))
 
 // shipthisApi.getReportView(shipthisApi, 'invoice_manage', '1632700800000', '1664236799000', 'nasau', 'json', true, {
 //   "user_filter": {
@@ -463,4 +464,11 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // }
 // const res = await shipthisApi.Shipment.getSomeShipments(filter)
 // console.log(res)
+
+
+// get all airport 
+// const res = await shipthisApi.Setup.getAllAirport()
+
+// get Customers
+
 

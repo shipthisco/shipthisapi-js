@@ -7,58 +7,61 @@ class Shipment {
     constructor(obj) {
         this.obj = obj;
     }
+    getSomeShipments(filter) {
+        return this.obj.getListGeneric(this.obj, 'shipment_list_all', filter);
+    }
     getAllShipments() {
         return this.obj.getListGenericCollection(this.obj, 'shipment_v2');
     }
-    getAirShipments() {
+    getAllAirFreight() {
         return this.obj.getListGenericCollection(this.obj, 'air_shipment');
     }
-    getSeaShipments() {
+    getAllSeaFreight() {
         return this.obj.getListGenericCollection(this.obj, 'sea_shipment');
     }
-    getLandShipments() {
+    getAllLandFreight() {
         return this.obj.getListGenericCollection(this.obj, 'land_shipment');
     }
-    getAirShipment(ObjectId) {
+    getAirFreight(ObjectId) {
         return this.obj.getOneGenericCollectionItem(this.obj, 'air_shipment', ObjectId);
     }
-    getSeaShipment(ObjectId) {
+    getSeaFreight(ObjectId) {
         return this.obj.getOneGenericCollectionItem(this.obj, 'sea_shipment', ObjectId);
     }
-    getLandShipment(ObjectId) {
+    getLandFreight(ObjectId) {
         return this.obj.getOneGenericCollectionItem(this.obj, 'land_shipment', ObjectId);
     }
-    updateAirShipment(ObjectId, updatedData) {
+    updateAirFreight(ObjectId, updatedData) {
         const Data = { ...request_body_1.requestAirShipment, ...updatedData };
         return this.obj.updateGenericCollectionItem(this.obj, 'air_shipment', ObjectId, Data);
     }
-    updateSeaShipment(ObjectId, updatedData) {
+    updateSeaFreight(ObjectId, updatedData) {
         const Data = { ...request_body_1.requestSeaShipement, ...updatedData };
         return this.obj.updateGenericCollectionItem(this.obj, 'sea_shipment', ObjectId, Data);
     }
-    updateLandShipment(ObjectId, updatedData) {
+    updateLandFreight(ObjectId, updatedData) {
         const Data = { ...request_body_1.requestLandShipment, ...updatedData };
         return this.obj.updateGenericCollectionItem(this.obj, 'land_shipment', ObjectId, Data);
     }
-    createAirShipment(data) {
+    createAirFreight(data) {
         const Data = { ...request_body_1.requestAirShipment, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'air_shipment', Data);
     }
-    createSeaShipment(data) {
+    createSeaFreight(data) {
         const Data = { ...request_body_1.requestSeaShipement, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'sea_shipment', Data);
     }
-    createLandShipment(data) {
+    createLandFreight(data) {
         const Data = { ...request_body_1.requestLandShipment, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'land_shipment', Data);
     }
-    deleteAirShipment(ObjectId) {
+    deleteAirFreight(ObjectId) {
         return this.obj.deleteGenericCollectionItem(this.obj, 'air_shipment', ObjectId);
     }
-    deleteSeaShipment(ObjectId) {
+    deleteSeaFreight(ObjectId) {
         return this.obj.deleteGenericCollectionItem(this.obj, 'sea_shipment', ObjectId);
     }
-    deleteLandShipment(ObjectId) {
+    deleteLandFreight(ObjectId) {
         return this.obj.deleteGenericCollectionItem(this.obj, 'land_shipment', ObjectId);
     }
     getAirPort(data = '') {
@@ -265,19 +268,57 @@ class Shipment {
         const updatedData = (0, commonUtils_1.managePayload)(data, fields, display_fields, general_filters);
         return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
     }
-    getVehicleType(data) {
+    getVehicleType(data = '') {
         const updatedData = (0, commonUtils_1.managePayload)(data);
         return this.obj.getGenericAutoComplete(this.obj, 'vehicle_type', updatedData);
     }
-    getPackageType(data) {
+    async getPackageTypeList(data = '') {
         const updatedData = (0, commonUtils_1.managePayload)(data);
         return this.obj.getGenericAutoComplete(this.obj, 'package_type', updatedData);
     }
-    ltloads(data) {
-        return this.obj.createGenericCollectionItem(this.obj, 'ltl_load', data);
+    async getPackageType({ data = '', }) {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        const res = await this.obj.getGenericAutoComplete(this.obj, 'package_type', updatedData);
+        return res.items[0];
+    }
+    getContainerType(data = '') {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        return this.obj.getGenericAutoComplete(this.obj, 'container_type', updatedData);
+    }
+    getHarzardUnNumber(data = '') {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        return this.obj.getGenericAutoComplete(this.obj, 'hazard_un_number', updatedData);
+    }
+    getHarzardClass(data = '') {
+        const updatedData = (0, commonUtils_1.managePayload)(data);
+        return this.obj.getGenericAutoComplete(this.obj, 'hazard_class', updatedData);
     }
     initiaConversation(data) {
         return this.obj.conversation(this.obj, 'conversation', data);
+    }
+    createAirLoad(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'air_load', data);
+    }
+    createSeaFclLoad(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'fcl_load', data);
+    }
+    createSeaLclLoad(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'lcl_load', data);
+    }
+    createSeaRoroLoad(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'roro_load', data);
+    }
+    createSeaBulkLoad(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'bulk_load', data);
+    }
+    createLandFtlLoad(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'ftl_load', data);
+    }
+    createLandltlLoad(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'ltl_load', data);
+    }
+    createLandFclLoad(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'fcl_load', data);
     }
 }
 exports.Shipment = Shipment;

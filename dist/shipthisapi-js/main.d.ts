@@ -2,6 +2,9 @@ import { ApiOptions } from './interfaces/api.interface';
 import { Shipment } from './collections/shipment';
 import { Organisation } from './interfaces/info.interface';
 import { Invoice } from './collections/invoice';
+import { Setup } from './collections/setup';
+import { Quotation } from './collections/quotation';
+import { Customer } from './collections/customer';
 export declare class ShipthisAPI {
     serverUrl: string;
     base_api_endpoint: string;
@@ -17,6 +20,7 @@ export declare class ShipthisAPI {
     selectedProfile: any;
     isSessionValid: boolean;
     internalRequest: (obj: ShipthisAPI, method: import("axios").Method, path: string, options?: import("./interfaces/api.interface").RequestOptions) => Promise<any>;
+    getListGeneric: (obj: any, collectionName: string, params: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     uploadFile: (obj: ShipthisAPI, file: File) => Promise<any>;
     getListGenericCollection: (obj: ShipthisAPI, collectionName: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: any, objectId: string) => Promise<any>;
@@ -31,6 +35,9 @@ export declare class ShipthisAPI {
     getReportView: (obj: any, report_name: string, start_date: string, end_date: string, location: any, output_type: string, skip_meta: string, post_data: any) => Promise<any>;
     Shipment: Shipment;
     Invoice: Invoice;
+    Setup: Setup;
+    Quotation: Quotation;
+    Customer: Customer;
     constructor(init: ApiOptions);
     connect(locationId?: any): Promise<unknown>;
     disconnect(): void;

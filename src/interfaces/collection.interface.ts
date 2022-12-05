@@ -27,7 +27,7 @@ export interface AirShipment {
   shipment_type: ShipmentType;
   shipment_term: ShipMethod;
   shipment_name: string;
-  is_consolidated_shipment: boolean;
+  is_consolidated_shipment?: boolean;
   master_shipment_cost_allocation?: boolean;
   enable_automated_tracking?: boolean;
   custom?: {
@@ -69,12 +69,12 @@ export interface AirShipment {
   destination_agent_show_on_master?: boolean;
   foforwarding_agent_address?: string;
   destination_agent_address?: string;
-  consolidator: Consolidator;
+  consolidator?: Consolidator;
   consolidator_address?: string;
   place_of_consolidation_address?: string;
   notify_party?: NotifyAndAlsoNotifyParty;
   notify_party_address?: string;
-  carrier_code?: string;
+  carrier_code: string;
   // portOfDischarge?: string; /*
   portOfDestination: PortOfDestination;
   dischargeSublocationCode: DisAndDesSublocationCode;
@@ -83,24 +83,24 @@ export interface AirShipment {
   previousCCN?: string;
   consolidationIndicator?: string;
   override_cargo_control_number?: string;
-  pod_documents: any[];
-  skus: any[];
-  under_watchlist: boolean;
-  notify_events_via_email: boolean;
-  tags: any[];
-  mawb_rate_class_code: string;
-  pick_charge_from_invoice: boolean;
-  hawb_override_dimensions: boolean;
-  hawb_rate_class_code: string;
-  hawb_rate_or_charge: number;
-  hawb_rate_total: number;
-  hawb_has_other_charges: boolean;
-  documents: any[];
-  customer_documents: any[];
-  customer_uploaded_documents: any[];
-  job_status: string;
-  shipment_status: string;
-  __events: {
+  pod_documents?: any[];
+  skus?: any[];
+  under_watchlist?: boolean;
+  notify_events_via_email?: boolean;
+  tags?: any[];
+  mawb_rate_class_code?: string;
+  pick_charge_from_invoice?: boolean;
+  hawb_override_dimensions?: boolean;
+  hawb_rate_class_code?: string;
+  hawb_rate_or_charge?: number;
+  hawb_rate_total?: number;
+  hawb_has_other_charges?: boolean;
+  documents?: any[];
+  customer_documents?: any[];
+  customer_uploaded_documents?: any[];
+  job_status?: string;
+  shipment_status?: string;
+  __events?: {
     opened__date: {
       $date: Date;
     };

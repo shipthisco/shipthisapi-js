@@ -18,6 +18,8 @@ import { Shipment } from './collections/shipment';
 import { Organisation } from './interfaces/info.interface';
 import { Invoice } from './collections/invoice';
 import { Setup } from './collections/setup';
+import { Quotation } from './collections/quotation';
+import { Customer } from './collections/customer';
 
 export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co';
@@ -56,6 +58,8 @@ export class ShipthisAPI {
   public Shipment: Shipment;
   public Invoice: Invoice;
   public Setup: Setup;
+  public Quotation: Quotation;
+  public Customer: Customer;
 
   /**
    *  Initializer

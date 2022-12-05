@@ -1,4 +1,4 @@
-import { ShipthisAPI } from "../main";
+import { ShipthisAPI } from '../main';
 export declare class Invoice {
     obj: ShipthisAPI;
     constructor(obj: any);

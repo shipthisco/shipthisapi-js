@@ -645,3 +645,182 @@ export const fclLandLoad = {
     },
   ],
 };
+
+export const quotationObj = {
+  stats: {
+    gross_wt: {
+      kg: 0,
+      lb: 0,
+      mt: 0,
+    },
+    chargeable_wt_167: {
+      kg: 0,
+      lb: 0,
+      mt: 0,
+    },
+    aggregate_chargeable_wt_167: {
+      kg: 0,
+      lb: 0,
+      mt: 0,
+    },
+    volume: {
+      cbm: 0,
+      cft: 0,
+      cbi: 0,
+    },
+    package_str: '',
+    volume_str: '',
+    total_unit: 0,
+    container: {},
+    container_count: 0,
+    vehicle: {
+      Shipthis: 0,
+    },
+    vehicle_count: 0,
+    container_teu: 0,
+    load_str: '',
+  },
+  some_random_field: '',
+  shipment_type: '',
+  order_ref_no: [],
+  origin: {},
+  destination: {
+    location: {},
+    airport_of_destination: null,
+    port_of_destination: null,
+    location_type: '',
+    pincode: '',
+    drop_address: '',
+  },
+  documents: [],
+  cargo_value: {},
+  insurance: {
+    need_insurance: false,
+  },
+  refrigeration: {
+    need_refrigeration: false,
+  },
+  additional: {
+    is_hazardous: false,
+    comments: '',
+  },
+  quotation_number: '',
+  lcls: [],
+  fcls: [],
+  details: [],
+  ltls: [],
+  shipment_term: {},
+  shipment_movement_type: '',
+  customer_name: {},
+  shipper_name: {},
+  consignee_name: {},
+  sales_executive: {},
+  request_received_from: '',
+  movement_type: '',
+  product_type: {},
+  ftls: [
+    {
+      weight_unit: '',
+      description: '',
+      vehicle_type: {},
+      item_stats: {
+        gross_wt: {
+          kg: 0,
+          lb: 0,
+          mt: 0,
+        },
+        chargeable_wt_167: {
+          kg: 0,
+          lb: 0,
+          mt: 0,
+        },
+        volume: {
+          cbm: 0,
+          cft: 0,
+          cbi: 0,
+        },
+        package_str: '',
+        volume_str: '',
+        load_str: '',
+      },
+      gross_wt: 0,
+      vehicle_count: 0,
+    },
+  ],
+};
+
+export const customerObj = {
+  reqbody: {
+    opening_balance: {},
+    account_contact_person: {
+      same_as_primary: false,
+      additional_emails: [],
+      enable_portal_access: false,
+    },
+    __scp: {},
+    company: {
+      is_agent: false,
+      name: 'Shipthis',
+      phone: '12345678901 ',
+      client_code: '123',
+      website: 'shipthis.com',
+      fax_no: '123',
+    },
+    primary_contact_person: {
+      additional_emails: [],
+      enable_portal_access: false,
+      salutation: 'mr',
+      first_name: 'Shipthis',
+      last_name: 'co',
+      name: 'Shipthis co',
+      email: 'shipthis.co@gmail.com',
+    },
+    address: {
+      city: {},
+    },
+    __events: {
+      lead__date: {
+        $date: 1670198400000,
+      },
+      lead__comments: '',
+    },
+    accounting: {
+      credit_limit: 0,
+      external_balance: 0,
+      account_credit_block: false,
+      block_reason: 'Exceeded Credit Terms',
+      payment_term: {
+        _id: {
+          $oid: '5b83eb933a90d40532b4b794',
+        },
+        no_of_days: 15,
+        name: 'Net 15',
+        order: 0,
+        _cls_: 'payment_term',
+        __display: 'Net 15',
+      },
+      currency: {},
+    },
+    is_inter_branch: false,
+    need_insurance: false,
+    automatic_ar_reminder: {
+      enable_automatic_reminder: false,
+    },
+    automatic_ar_aging_reminder: {
+      enable_automatic_reminder: false,
+    },
+    notification: {
+      sea_shipment: {},
+      air_shipment: {},
+      land_shipment: {},
+      clearance_job: {},
+      documentation_job: {},
+    },
+    documents: [],
+    customer_lifecycle: 'lead',
+    full_address: '\r\nF :123\r\nE :shipthis.co@gmail.com\r\nT :12345678901 ',
+    full_address_field_compute: '',
+  },
+  action_op_data: {},
+  'captcha-response': {},
+};

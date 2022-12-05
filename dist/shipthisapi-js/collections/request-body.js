@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createNewShipper = exports.createNewCustomer = exports.invoiceRequestData = exports.invoiceRequiredData = exports.referenceCustomerPayload = exports.referencePortPayload = exports.partiesPayload = exports.requestLandShipment = exports.requestSeaShipement = exports.requestAirShipment = exports.freightChargeTeam = exports.movementType = exports.requiredShipmentClass = exports.requiredShipmentType = exports.requiredData = void 0;
+exports.customerObj = exports.quotationObj = exports.fclLandLoad = exports.ltlLandLoad = exports.ftlLandLoad = exports.BulkSeaLoad = exports.RoroSeaLoad = exports.lclSeaLoad = exports.Airload = exports.fclSeaLoad = exports.createNewShipper = exports.createNewCustomer = exports.invoiceRequestData = exports.invoiceRequiredData = exports.referenceCustomerPayload = exports.referencePortPayload = exports.partiesPayload = exports.requestLandShipment = exports.requestSeaShipement = exports.requestAirShipment = exports.freightChargeTeam = exports.movementType = exports.requiredShipmentClass = exports.requiredShipmentType = exports.requiredData = void 0;
 exports.requiredData = [
     'customer_name',
     'shipment_class',
@@ -282,7 +282,6 @@ exports.invoiceRequestData = {
     'captcha-response': {},
 };
 exports.createNewCustomer = {
-    __scp: {},
     opening_balance: {},
     account_contact_person: {
         same_as_primary: false,
@@ -340,7 +339,6 @@ exports.createNewCustomer = {
     },
 };
 exports.createNewShipper = {
-    __scp: {},
     company: {
         party_type: [],
         name: '',
@@ -353,4 +351,459 @@ exports.createNewShipper = {
     },
     full_address: '',
     full_address_field: '',
+};
+exports.fclSeaLoad = {
+    shipment: [
+        {
+            _cls_: 'sea_shipment',
+            _id: {
+                $oid: '',
+            },
+        },
+    ],
+    description: '',
+    weight_unit: '',
+    hazard_details: {
+        is_hazardous: false,
+    },
+    container_type: {},
+    container_no: '',
+    gross_wt: 0,
+    net_wt: 0,
+    cbm: 0,
+    cft: 0,
+    seal_no: '',
+    custom_seal_no: '',
+    pickup_number: '',
+    packages: [],
+};
+exports.Airload = {
+    shipment: [
+        {
+            _cls_: 'air_shipment',
+            _id: {
+                $oid: '',
+            },
+        },
+    ],
+    description: '',
+    cbm_compute: '',
+    weight_unit: '',
+    dimensions: [],
+    hazard_details: {
+        is_hazardous: false,
+    },
+    package_type: {},
+    package_quantity: 0,
+    total_units: 0,
+    chargeable_wt: 0,
+    net_wt: 0,
+    gross_wt: 0,
+    cft: 0,
+    cbm: 0,
+    gross_wt_kg: 0,
+};
+exports.lclSeaLoad = {
+    shipment: [
+        {
+            _cls_: 'sea_shipment',
+            _id: {
+                $oid: '',
+            },
+        },
+    ],
+    description: '',
+    package_quantity: 0,
+    total_units: 0,
+    weight_unit: '',
+    length_unit: '',
+    custom: {
+        vehicle_type: '',
+    },
+    hazard_details: {
+        is_hazardous: false,
+        un_number: {},
+        hazard_class: {},
+        hazardouse_level: '',
+        temp_unit: '',
+        emergency_contact: '',
+        flash_point: 0,
+        hazard_special_instruction: '',
+    },
+    container_type: {},
+    package_type: {},
+    container_no: '',
+    marks_and_no: '',
+    seal_no: '',
+    custom_seal_no: '',
+    number_and_kind_of_package_override: '',
+    hs_code: '',
+    per_unit_weight: 0,
+    gross_wt: 0,
+    net_wt: 0,
+    chargeable_wt: 0,
+    length: 0,
+    width: 0,
+    height: 0,
+    cbm: 0,
+    cft: 0,
+};
+exports.RoroSeaLoad = {
+    shipment: [
+        {
+            _cls_: 'sea_shipment',
+            _id: {
+                $oid: '',
+            },
+        },
+    ],
+    description: '',
+    package_quantity: 0,
+    total_units: 0,
+    weight_unit: '',
+    length_unit: '',
+    hazard_details: {
+        is_hazardous: false,
+        un_number: {},
+        hazard_class: {},
+        hazardouse_level: '',
+        temp_unit: '',
+        emergency_contact: '',
+        flash_point: 0,
+        hazard_special_instruction: '',
+    },
+    package_type: {},
+    per_unit_weight: 0,
+    gross_wt: 0,
+    chargeable_wt: 0,
+    length: 0,
+    width: 0,
+    height: 0,
+    cbm: 0,
+    cft: 0,
+    vin_no: '',
+    make: '',
+    model: '',
+    year: '',
+};
+exports.BulkSeaLoad = {
+    shipment: [
+        {
+            _cls_: 'sea_shipment',
+            _id: {
+                $oid: '',
+            },
+        },
+    ],
+    description: '',
+    hazard_details: {
+        is_hazardous: false,
+        un_number: {},
+        hazard_class: {},
+        hazardouse_level: '',
+        temp_unit: '',
+        flash_point: 0,
+        emergency_contact: '',
+        hazard_special_instruction: '',
+    },
+    bulk_cargo_type: '',
+    gross_wt: 0,
+    loading_rate: 0,
+    discharging_rate: 0,
+    additional_information: '',
+};
+exports.ftlLandLoad = {
+    shipment: [
+        {
+            _cls_: 'land_shipment',
+            _id: {
+                $oid: '',
+            },
+        },
+    ],
+    description: '',
+    weight_unit: '',
+    hazard_details: {
+        is_hazardous: false,
+    },
+    packages: [
+        {
+            description: '',
+            length_unit: '',
+            weight_unit: '',
+            package_type: {},
+            package_quantity: 0,
+            length: 0,
+            width: 0,
+            height: 0,
+            cbm: 0,
+            cft: 0,
+            gross_wt: 0,
+            net_wt: 0,
+        },
+    ],
+    marks_and_no: '',
+    vehicle_type: {},
+    vehicle_no: '',
+    seal_no: '',
+    gross_wt: 0,
+    net_wt: 0,
+};
+exports.ltlLandLoad = {
+    shipment: [
+        {
+            _cls_: 'land_shipment',
+            _id: {
+                $oid: '',
+            },
+        },
+    ],
+    description: '',
+    package_quantity: 0,
+    total_units: 0,
+    weight_unit: '',
+    length_unit: '',
+    hazard_details: {
+        is_hazardous: false,
+        un_number: {},
+        hazard_class: {},
+        hazardouse_level: '',
+        temp_unit: '',
+        flash_point: 0,
+        emergency_contact: '',
+        hazard_special_instruction: '',
+    },
+    vehicle_type: {},
+    vehicle_no: '',
+    marks_and_no: '',
+    hs_code: '',
+    seal_no: '',
+    package_type: {},
+    per_unit_weight: 0,
+    gross_wt: 0,
+    chargeable_wt: 0,
+    length: 0,
+    width: 0,
+    height: 0,
+    cbm: 0,
+    cft: 0,
+};
+exports.fclLandLoad = {
+    shipment: [
+        {
+            _cls_: 'land_shipment',
+            _id: {
+                $oid: '',
+            },
+        },
+    ],
+    description: '',
+    weight_unit: '',
+    hazard_details: {
+        is_hazardous: false,
+    },
+    container_type: {},
+    container_no: '',
+    marks_and_no: '',
+    gross_wt: 0,
+    net_wt: 0,
+    number_and_kind_of_package_override: '',
+    cbm: 0,
+    cft: 0,
+    seal_no: '',
+    custom_seal_no: '',
+    pickup_number: '',
+    packages: [
+        {
+            description: '',
+            length_unit: '',
+            weight_unit: '',
+            package_type: {},
+            package_quantity: 0,
+            length: 0,
+            width: 0,
+            height: 7,
+            cbm: 0.010332,
+            cft: 0.365,
+            gross_wt: 5,
+            total_units: 4,
+        },
+    ],
+};
+exports.quotationObj = {
+    stats: {
+        gross_wt: {
+            kg: 0,
+            lb: 0,
+            mt: 0,
+        },
+        chargeable_wt_167: {
+            kg: 0,
+            lb: 0,
+            mt: 0,
+        },
+        aggregate_chargeable_wt_167: {
+            kg: 0,
+            lb: 0,
+            mt: 0,
+        },
+        volume: {
+            cbm: 0,
+            cft: 0,
+            cbi: 0,
+        },
+        package_str: '',
+        volume_str: '',
+        total_unit: 0,
+        container: {},
+        container_count: 0,
+        vehicle: {
+            Shipthis: 0,
+        },
+        vehicle_count: 0,
+        container_teu: 0,
+        load_str: '',
+    },
+    some_random_field: '',
+    shipment_type: '',
+    order_ref_no: [],
+    origin: {},
+    destination: {
+        location: {},
+        airport_of_destination: null,
+        port_of_destination: null,
+        location_type: '',
+        pincode: '',
+        drop_address: '',
+    },
+    documents: [],
+    cargo_value: {},
+    insurance: {
+        need_insurance: false,
+    },
+    refrigeration: {
+        need_refrigeration: false,
+    },
+    additional: {
+        is_hazardous: false,
+        comments: '',
+    },
+    quotation_number: '',
+    lcls: [],
+    fcls: [],
+    details: [],
+    ltls: [],
+    shipment_term: {},
+    shipment_movement_type: '',
+    customer_name: {},
+    shipper_name: {},
+    consignee_name: {},
+    sales_executive: {},
+    request_received_from: '',
+    movement_type: '',
+    product_type: {},
+    ftls: [
+        {
+            weight_unit: '',
+            description: '',
+            vehicle_type: {},
+            item_stats: {
+                gross_wt: {
+                    kg: 0,
+                    lb: 0,
+                    mt: 0,
+                },
+                chargeable_wt_167: {
+                    kg: 0,
+                    lb: 0,
+                    mt: 0,
+                },
+                volume: {
+                    cbm: 0,
+                    cft: 0,
+                    cbi: 0,
+                },
+                package_str: '',
+                volume_str: '',
+                load_str: '',
+            },
+            gross_wt: 0,
+            vehicle_count: 0,
+        },
+    ],
+};
+exports.customerObj = {
+    reqbody: {
+        opening_balance: {},
+        account_contact_person: {
+            same_as_primary: false,
+            additional_emails: [],
+            enable_portal_access: false,
+        },
+        __scp: {},
+        company: {
+            is_agent: false,
+            name: 'Shipthis',
+            phone: '12345678901 ',
+            client_code: '123',
+            website: 'shipthis.com',
+            fax_no: '123',
+        },
+        primary_contact_person: {
+            additional_emails: [],
+            enable_portal_access: false,
+            salutation: 'mr',
+            first_name: 'Shipthis',
+            last_name: 'co',
+            name: 'Shipthis co',
+            email: 'shipthis.co@gmail.com',
+        },
+        address: {
+            city: {},
+        },
+        __events: {
+            lead__date: {
+                $date: 1670198400000,
+            },
+            lead__comments: '',
+        },
+        accounting: {
+            credit_limit: 0,
+            external_balance: 0,
+            account_credit_block: false,
+            block_reason: 'Exceeded Credit Terms',
+            payment_term: {
+                _id: {
+                    $oid: '5b83eb933a90d40532b4b794',
+                },
+                no_of_days: 15,
+                name: 'Net 15',
+                order: 0,
+                _cls_: 'payment_term',
+                __display: 'Net 15',
+            },
+            currency: {},
+        },
+        is_inter_branch: false,
+        need_insurance: false,
+        automatic_ar_reminder: {
+            enable_automatic_reminder: false,
+        },
+        automatic_ar_aging_reminder: {
+            enable_automatic_reminder: false,
+        },
+        notification: {
+            sea_shipment: {},
+            air_shipment: {},
+            land_shipment: {},
+            clearance_job: {},
+            documentation_job: {},
+        },
+        documents: [],
+        customer_lifecycle: 'lead',
+        full_address: '\r\nF :123\r\nE :shipthis.co@gmail.com\r\nT :12345678901 ',
+        full_address_field_compute: '',
+    },
+    action_op_data: {},
+    'captcha-response': {},
 };
