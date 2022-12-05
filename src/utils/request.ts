@@ -40,7 +40,7 @@ const internalRequest = async (
   const config: AxiosRequestConfig = {
     method,
     url:
-      obj.base_api_endpoint + path + (query_params ? '?' + query_params : ''),
+      (obj.serverUrl || obj.base_api_endpoint) + '/api/v3/' +path + (query_params ? '?' + query_params : ''),
     headers,
     params: options?.params || {},
   };

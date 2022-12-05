@@ -24,7 +24,7 @@ import { Customer } from './collections/customer';
 export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co';
 
-  base_api_endpoint = 'https://api.shipthis.co/api/v3/';
+  base_api_endpoint = 'https://api.shipthis.co';
   file_upload_api_endpoint = 'https://upload.shipthis.co/file_upload';
   xApiKey: string;
   authorization: string;

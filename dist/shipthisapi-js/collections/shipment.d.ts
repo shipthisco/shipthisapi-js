@@ -27,6 +27,8 @@ export declare class Shipment {
     createCustomer(data: AddNewCustomerData): Promise<any>;
     createCustomerParty(data: AddNewShipper, id: string): Promise<any>;
     getShipmentTerms(data: any): Promise<any>;
+    addNewCustomer(data: AddNewCustomerData): Promise<any>;
+    getAllShipmentTerms(): Promise<any>;
     getQuotationReference(data?: any): Promise<any>;
     getMasterShipment(data?: any): Promise<any>;
     getConsignee(data: string, id: string): Promise<any>;

@@ -11,13 +11,13 @@ let shipthisApi = new ShipthisAPI(param)
 await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
 
 // Login via Email and Password
-// await shipthisApi.loginViaPassword('your@gmail.com', 'password');
+// await shipthisApi.loginViaPassword('abc@xyz.com', 'password');
 //  'userType': 'customer',
-//  'organisationId': 'shipbeaconexpress'
+//  'organisationId': 'shipthis'
 // }
 // let shipthisApi = new ShipthisAPI(param)
 // const a = await shipthisApi.connect();
-// const a = await shipthisApi.loginViaPassword('ahmed@shipthis.co', 'password');
+// const a = await shipthisApi.loginViaPassword('test@shipthis.co', 'password');
 
 // console.log(shipthisApi.organisation);
 

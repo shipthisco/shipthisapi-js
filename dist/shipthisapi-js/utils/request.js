@@ -28,7 +28,7 @@ const internalRequest = async (obj, method, path, options) => {
     const query_params = options?.queryParams || null;
     const config = {
         method,
-        url: obj.base_api_endpoint + path + (query_params ? '?' + query_params : ''),
+        url: (obj.serverUrl || obj.base_api_endpoint) + '/api/v3/' + path + (query_params ? '?' + query_params : ''),
         headers,
         params: options?.params || {},
     };
