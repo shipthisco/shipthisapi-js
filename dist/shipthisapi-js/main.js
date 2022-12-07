@@ -9,7 +9,7 @@ class ShipthisAPI {
     constructor(init) {
         this.serverUrl = 'https://api.shipthis.co';
         this.base_api_endpoint = 'https://api.shipthis.co';
-        this.file_upload_api_endpoint = 'https://upload.shipthis.co/file_upload';
+        this.file_upload_api_endpoint = 'https://upload.shipthis.co/api/v3/file-upload';
         this.profiles = [];
         this.internalRequest = request_1.internalRequest;
         this.getListGeneric = generic_1.getListGeneric;
