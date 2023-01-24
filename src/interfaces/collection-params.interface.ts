@@ -16,6 +16,7 @@ export interface CollectionParams {
   sort_order?: string;
   start_date?: number;
   end_date?: number;
+  search_query?: string;
 }
 export interface GeneralFilter {
   job_status?: JobStatus;
