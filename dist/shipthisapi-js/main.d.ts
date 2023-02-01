@@ -31,6 +31,10 @@ export declare class ShipthisAPI {
     getGenericAutoComplete: (obj: ShipthisAPI, referenceName: string, data: any) => Promise<any>;
     getLocation: (obj: ShipthisAPI, collectionName: string, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     selectGoogleLocation: (obj: ShipthisAPI, collectionName: string, params: import("./interfaces/collection-params.interface").SelectGoogleLocationParams) => Promise<any>;
+    setJobStatus: (obj: any, collectionName: string, objectId: string, index: any) => Promise<any>;
+    getJobStatus: (obj: any, collectionName: string, objectId: string) => Promise<any>;
+    getWorkflowReport: (obj: any, objectId: string) => Promise<any>;
+    setWorkflowReport: (obj: any, objectId: string) => Promise<any>;
     conversation: (obj: ShipthisAPI, collectionName: string, data: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     getReportView: (obj: any, report_name: string, start_date: string, end_date: string, location: any, output_type: string, skip_meta: string, post_data: any) => Promise<any>;
     Shipment: Shipment;

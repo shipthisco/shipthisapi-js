@@ -11,6 +11,10 @@ import {
   updateGenericCollectionItem,
   selectGoogleLocation,
   getListGeneric,
+  setJobStatus,
+  getJobStatus,
+  getWorkflowReport,
+  setWorkflowReport
 } from './collections/generic';
 import { ApiOptions } from './interfaces/api.interface';
 import { internalRequest, uploadFile } from './utils/request';
@@ -49,6 +53,10 @@ export class ShipthisAPI {
   public getGenericAutoComplete = getGenericAutoComplete;
   public getLocation = getLocation;
   public selectGoogleLocation = selectGoogleLocation;
+  public setJobStatus = setJobStatus;
+  public getJobStatus = getJobStatus;
+  public getWorkflowReport = getWorkflowReport;
+  public setWorkflowReport = setWorkflowReport;
   public conversation = conversation;
 
   public getReportView = getReportView;

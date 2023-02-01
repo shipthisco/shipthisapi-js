@@ -31,5 +31,7 @@ tmp/
 
 # Misc
 .DS_Store
+scratch.js
+tempfiles/
 
 dist/

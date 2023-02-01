@@ -23,6 +23,10 @@ class ShipthisAPI {
         this.getGenericAutoComplete = generic_1.getGenericAutoComplete;
         this.getLocation = generic_1.getLocation;
         this.selectGoogleLocation = generic_1.selectGoogleLocation;
+        this.setJobStatus = generic_1.setJobStatus;
+        this.getJobStatus = generic_1.getJobStatus;
+        this.getWorkflowReport = generic_1.getWorkflowReport;
+        this.setWorkflowReport = generic_1.setWorkflowReport;
         this.conversation = generic_1.conversation;
         this.getReportView = generic_1.getReportView;
         this.organisationId = init.organisationId;

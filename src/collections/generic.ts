@@ -79,6 +79,54 @@ const updateGenericCollectionItem = async (
   );
 };
 
+const setJobStatus = async (
+  obj,
+  collectionName: string,
+  objectId: string,
+  index: any,
+) => {
+  return obj.internalRequest(
+    obj,
+    'POST',
+    `/workflow/${collectionName}/job_status/${objectId}`,
+    { action_index: index },
+  );
+}
+
+const getJobStatus = async (
+  obj,
+  collectionName: string,
+  objectId: string
+) => {
+  return obj.internalRequest(
+    obj,
+    'GET',
+    `/workflow/${collectionName}/job_status/${objectId}`,
+  );
+}
+
+const getWorkflowReport = async (
+  obj,
+  objectId: string
+) => {
+  return obj.internalRequest(
+    obj,
+    'GET',
+    `/incollection/workflow/${objectId}`
+  );
+}
+
+const setWorkflowReport = async (
+  obj,
+  objectId: string
+) => {
+  return obj.internalRequest(
+    obj,
+    'PUT',
+    `/incollection/workflow/${objectId}`
+  );
+}
+
 // get the exchange rate for currencies in Invoice
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/thirdparty/currency?source=EUR&target=USD&date=1662508800000
 const getExchangeRateForCurrency = async (
@@ -186,4 +234,8 @@ export {
   getReportView,
   selectGoogleLocation,
   getListGeneric,
+  setJobStatus,
+  getJobStatus,
+  getWorkflowReport,
+  setWorkflowReport
 };
