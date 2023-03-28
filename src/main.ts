@@ -223,12 +223,15 @@ export class ShipthisAPI {
   /**
    * Customer Forgot Password
    */
-  public async customerForgotPassword(email: string, captcha?: any) {
+  public async customerForgotPassword(email: string, recaptcha_response?: string) {
     return new Promise<any>((resolve, reject) => {
       internalRequest(this, 'POST', '/user-auth/forgot-password', {
         requestData: {
           email: email.toLowerCase(),
-          captcha: captcha
+          captcha: {
+            captcha_name: 'default',
+            captcha_response: recaptcha_response
+          }
         },
       })
         .then((data: any) => {
