@@ -15,6 +15,7 @@ class ShipthisAPI {
         this.getListGeneric = generic_1.getListGeneric;
         this.uploadFile = request_1.uploadFile;
         this.getListGenericCollection = generic_1.getListGenericCollection;
+        this.getSearchListCollection = generic_1.getSearchListCollection;
         this.getOneGenericCollectionItem = generic_1.getOneGenericCollectionItem;
         this.createGenericCollectionItem = generic_1.createGenericCollectionItem;
         this.updateGenericCollectionItem = generic_1.updateGenericCollectionItem;
@@ -140,11 +141,15 @@ class ShipthisAPI {
             });
         });
     }
-    async customerForgotPassword(email) {
+    async customerForgotPassword(email, recaptcha_response) {
         return new Promise((resolve, reject) => {
             (0, request_1.internalRequest)(this, 'POST', '/user-auth/forgot-password', {
                 requestData: {
-                    email: email,
+                    email: email.toLowerCase(),
+                    captcha: {
+                        captcha_name: 'default',
+                        captcha_response: recaptcha_response
+                    }
                 },
             })
                 .then((data) => {

@@ -2,6 +2,7 @@ import { CollectionParams, SelectGoogleLocationParams } from '../interfaces/coll
 import { ShipthisAPI } from '../main';
 declare const getListGeneric: (obj: any, collectionName: string, params: CollectionParams) => Promise<any>;
 declare const getListGenericCollection: (obj: ShipthisAPI, collectionName: any, params?: CollectionParams) => Promise<any>;
+declare const getSearchListCollection: (obj: ShipthisAPI, collectionName: any, queryFilter: any, params?: CollectionParams) => Promise<any>;
 declare const getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: any, objectId: string) => Promise<any>;
 declare const createGenericCollectionItem: (obj: any, collectionName: string, itemData: any, params?: CollectionParams) => Promise<any>;
 declare const updateGenericCollectionItem: (obj: any, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
@@ -16,4 +17,4 @@ declare const selectGoogleLocation: (obj: ShipthisAPI, collectionName: string, p
 declare const conversation: (obj: ShipthisAPI, collectionName: string, data: any, params?: CollectionParams) => Promise<any>;
 declare const deleteGenericCollectionItem: (obj: any, collectionName: string, objectId: string) => Promise<any>;
 declare const getReportView: (obj: any, report_name: string, start_date: string, end_date: string, location: any, output_type: string, skip_meta: string, post_data: any) => Promise<any>;
-export { getOneGenericCollectionItem, getListGenericCollection, createGenericCollectionItem, updateGenericCollectionItem, deleteGenericCollectionItem, getExchangeRateForCurrency, getGenericAutoComplete, getLocation, conversation, getReportView, selectGoogleLocation, getListGeneric, setJobStatus, getJobStatus, getWorkflowReport, setWorkflowReport };
+export { getOneGenericCollectionItem, getListGenericCollection, getSearchListCollection, createGenericCollectionItem, updateGenericCollectionItem, deleteGenericCollectionItem, getExchangeRateForCurrency, getGenericAutoComplete, getLocation, conversation, getReportView, selectGoogleLocation, getListGeneric, setJobStatus, getJobStatus, getWorkflowReport, setWorkflowReport };

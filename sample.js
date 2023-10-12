@@ -1,15 +1,20 @@
 import {ShipthisAPI} from "./dist/shipthisapi-js/main.js";
 
-// let x_api_key = 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.YkboiA.85PdomGGEPA8i5SeDyI0leZ7sR0'
+// // let x_api_key = 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.YkboiA.85PdomGGEPA8i5SeDyI0leZ7sR0'
 
 let param = {
     'userType': 'employee',
     'organisationId': 'demo',
-    'xApiKey': 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.Yxb3BQ.P6RFy5SNBOHaktPtS1JmmD9Jfu8'
+    'xApiKey': 'WyJqdW5haWRAc2hpcHRoaXMuY28iLCJkZW1vIl0.ZSeXZA.p4NyXrhiSqmTZoW7bOsnHi5RSaQ'
 }
 let shipthisApi = new ShipthisAPI(param)
-await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
-
+// await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
+await shipthisApi.getSearchListCollection(shipthisApi, "airport","aqsa").then((res)=>{
+    console.log(res);
+ })
+ .catch((err)=>{
+    console.log(err);
+ })
 // Login via Email and Password
 // await shipthisApi.loginViaPassword('abc@xyz.com', 'password');
 //  'userType': 'customer',

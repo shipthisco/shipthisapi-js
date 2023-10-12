@@ -38,6 +38,20 @@ const getListGenericCollection = async (
   });
 };
 
+const getSearchListCollection =async (
+  obj:ShipthisAPI,
+  collectionName,
+  queryFilter,
+  params?: CollectionParams,
+  ) => {
+    if (!params) {
+      params = {};
+    }
+    return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}?search_query=${queryFilter}`, {
+      params,
+    });
+}
+
 const getOneGenericCollectionItem = async (
   obj: ShipthisAPI,
   collectionName,
@@ -224,6 +238,7 @@ const getReportView = async (
 export {
   getOneGenericCollectionItem,
   getListGenericCollection,
+  getSearchListCollection,
   createGenericCollectionItem,
   updateGenericCollectionItem,
   deleteGenericCollectionItem,
