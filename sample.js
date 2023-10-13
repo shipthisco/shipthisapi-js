@@ -1,6 +1,6 @@
 import {ShipthisAPI} from "./dist/shipthisapi-js/main.js";
 
-// // let x_api_key = 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.YkboiA.85PdomGGEPA8i5SeDyI0leZ7sR0'
+// let x_api_key = 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.YkboiA.85PdomGGEPA8i5SeDyI0leZ7sR0'
 
 let param = {
     'userType': 'employee',
@@ -8,13 +8,22 @@ let param = {
     'xApiKey': 'WyJqdW5haWRAc2hpcHRoaXMuY28iLCJkZW1vIl0.ZSeXZA.p4NyXrhiSqmTZoW7bOsnHi5RSaQ'
 }
 let shipthisApi = new ShipthisAPI(param)
-// await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
-await shipthisApi.getSearchListCollection(shipthisApi, "airport","aqsa").then((res)=>{
-    console.log(res);
- })
- .catch((err)=>{
-    console.log(err);
- })
+await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
+//Search list collection with all the query fileds parameter
+// await shipthisApi.getFullSearchListCollection(shipthisApi, "airport","aqsa","25","1",[{"sort_by":"created_at","sort_order":"dsc"}],"json",false,[],{"status":{"$in":["due","partial"]},"_state":{"$nin":["void"]}},"invoice_number,invoice_order_reference.job_id,invoice_order_reference._id,invoice_order_reference._cls_,invoice_order_reference._id,customer.company.name,customer._id,status,invoice_total,invoice_amount_paid,invoice_amount_due,_state","new_york",false).then((res)=>{
+//     console.log(res);
+//  })
+//  .catch((err)=>{
+//     console.log(err);
+//  })
+
+//serch List collection for single search parameter
+// await shipthisApi.getSearchListCollection(shipthisApi, "airport","aqsa").then((res)=>{
+//     console.log(res);
+//  })
+//  .catch((err)=>{
+//     console.log(err);
+//  })
 // Login via Email and Password
 // await shipthisApi.loginViaPassword('abc@xyz.com', 'password');
 //  'userType': 'customer',

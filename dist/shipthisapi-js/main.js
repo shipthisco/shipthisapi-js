@@ -16,6 +16,7 @@ class ShipthisAPI {
         this.uploadFile = request_1.uploadFile;
         this.getListGenericCollection = generic_1.getListGenericCollection;
         this.getSearchListCollection = generic_1.getSearchListCollection;
+        this.getFullSearchListCollection = generic_1.getFullSearchListCollection;
         this.getOneGenericCollectionItem = generic_1.getOneGenericCollectionItem;
         this.createGenericCollectionItem = generic_1.createGenericCollectionItem;
         this.updateGenericCollectionItem = generic_1.updateGenericCollectionItem;

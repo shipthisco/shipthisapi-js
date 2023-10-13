@@ -3,6 +3,7 @@ import {
   deleteGenericCollectionItem,
   getListGenericCollection,
   getSearchListCollection,
+  getFullSearchListCollection,
   getOneGenericCollectionItem,
   getExchangeRateForCurrency,
   getGenericAutoComplete,
@@ -47,6 +48,7 @@ export class ShipthisAPI {
   public uploadFile = uploadFile;
   public getListGenericCollection = getListGenericCollection;
   public getSearchListCollection = getSearchListCollection;
+  public getFullSearchListCollection = getFullSearchListCollection;
   public getOneGenericCollectionItem = getOneGenericCollectionItem;
   public createGenericCollectionItem = createGenericCollectionItem;
   public updateGenericCollectionItem = updateGenericCollectionItem;

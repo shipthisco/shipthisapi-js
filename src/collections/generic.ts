@@ -51,6 +51,29 @@ const getSearchListCollection =async (
       params,
     });
 }
+const getFullSearchListCollection =async (
+  obj:ShipthisAPI,
+  collectionName,
+  search_query,
+  count,
+  page,
+  multi_sort,
+  output_type,
+  meta,
+  queryFilterV2,
+  general_filter,
+  only,
+  location,
+  region_override,
+  params?: CollectionParams,
+  ) => {
+    if (!params) {
+      params = {};
+    }
+    return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}?search_query=${search_query}&count=${count}&queryFilterV2=${queryFilterV2}&page=${page}&multi_sort=${multi_sort}&output_type=${output_type}&meta=${meta}&general_filter=${general_filter}&only=${only}&location=${location}&region_override=${region_override}`, {
+      params,
+    });
+}
 
 const getOneGenericCollectionItem = async (
   obj: ShipthisAPI,
@@ -239,6 +262,7 @@ export {
   getOneGenericCollectionItem,
   getListGenericCollection,
   getSearchListCollection,
+  getFullSearchListCollection,
   createGenericCollectionItem,
   updateGenericCollectionItem,
   deleteGenericCollectionItem,
