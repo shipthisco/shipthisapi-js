@@ -99,3 +99,16 @@ export interface RequestAWBType {
     start_number: number;
     end_number: number;
 }
+export interface allQueryFieldsPayload {
+    search_query: string;
+    count: number;
+    page: number;
+    multi_sort: object;
+    output_type: string;
+    meta: boolean;
+    queryFilterV2: Array<string>;
+    general_filter: object;
+    only: string;
+    location: string;
+    region_override: boolean;
+}

@@ -1,6 +1,7 @@
 import {
   RequestAirportType,
   RequestAWBType,
+  allQueryFieldsPayload,
   RequestContainerType,
   RequestCommonType,
   RequestPortType,
@@ -126,3 +127,17 @@ export const requestAWBData: RequestAWBType = {
   start_number: 0,
   end_number: 0,
 };
+
+export const requestqueryData: allQueryFieldsPayload={
+  search_query:"",
+  count:0,
+  page:0,
+  multi_sort:{},
+  output_type:"",
+  meta:false,
+  queryFilterV2:[],
+  general_filter:{},
+  only:"",
+  location:"",
+  region_override:false,
+}

@@ -28,11 +28,11 @@ const getSearchListCollection = async (obj, collectionName, queryFilter, params)
     });
 };
 exports.getSearchListCollection = getSearchListCollection;
-const getFullSearchListCollection = async (obj, collectionName, search_query, count, page, multi_sort, output_type, meta, queryFilterV2, general_filter, only, location, region_override, params) => {
+const getFullSearchListCollection = async (obj, collectionName, queryParams, params) => {
     if (!params) {
         params = {};
     }
-    return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}?search_query=${search_query}&count=${count}&queryFilterV2=${queryFilterV2}&page=${page}&multi_sort=${multi_sort}&output_type=${output_type}&meta=${meta}&general_filter=${general_filter}&only=${only}&location=${location}&region_override=${region_override}`, {
+    return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}?count=${queryParams.count}&page=${queryParams.page}&search_query=${queryParams.search_query}&multi_sort=${JSON.stringify(queryParams.multi_sort)}&output_type=${queryParams.output_type}&meta=${queryParams.meta}&queryFilterV2=${queryParams.queryFilterV2}&general_filter=${queryParams.general_filter}&only=${queryParams.only}&location=${queryParams.location}&region_override=${queryParams.region_override}`, {
         params,
     });
 };
