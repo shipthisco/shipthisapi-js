@@ -112,7 +112,7 @@ exports.requestqueryData = {
     search_query: "",
     count: 0,
     page: 0,
-    multi_sort: {},
+    multi_sort: [],
     output_type: "",
     meta: false,
     queryFilterV2: [],

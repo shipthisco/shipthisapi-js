@@ -24,7 +24,7 @@ export declare class ShipthisAPI {
     uploadFile: (obj: ShipthisAPI, file: File) => Promise<any>;
     getListGenericCollection: (obj: ShipthisAPI, collectionName: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     getSearchListCollection: (obj: ShipthisAPI, collectionName: any, queryFilter: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
-    getFullSearchListCollection: (obj: ShipthisAPI, collectionName: string, queryParams: import("./interfaces/api.interface").allQueryFieldsPayload, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
+    getFullSearchListCollection: (obj: ShipthisAPI, collectionName: any, queryParams: import("./interfaces/api.interface").AllQueryFieldsPayload, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     getOneGenericCollectionItem: (obj: ShipthisAPI, collectionName: any, objectId: string) => Promise<any>;
     createGenericCollectionItem: (obj: any, collectionName: string, itemData: any, params?: import("./interfaces/collection-params.interface").CollectionParams) => Promise<any>;
     updateGenericCollectionItem: (obj: any, collectionName: string, objectId: string, updatedData: any) => Promise<any>;

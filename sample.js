@@ -16,34 +16,34 @@ await shipthisApi
 
 //Search list collection with all the query fileds parameter
 // const queryPayload={
-//     search_query:"aqsa",
+//   search_query:"AIR00360",
 //   count:25,
 //   page:1,
-//   multi_sort:[{ sort_by: 'created_at', sort_order: 'dsc' }],
+//   multi_sort:[{"sort_by":"created_at","sort_order":"dsc"}],
 //   output_type:"json",
 //   meta:false,
 //   queryFilterV2:[],
-//   general_filter:{ status: { $in: ['due', 'partial'] }, _state: { $nin: ['void'] } },
-//   only:"'invoice_number,invoice_order_reference.job_id,invoice_order_reference._id,invoice_order_reference._cls_,invoice_order_reference._id,customer.company.name,customer._id,status,invoice_total,invoice_amount_paid,invoice_amount_due,_state'",
+//   general_filter:{"job_status":{"$nin":["closed","cancelled","ops_complete"]}},
+//   only:"job_id,shipment_name,shipment_status,customer_name.company.name,customer_name._id,customer_name._cls_,customer_name._id,consignee_name.company.name,consignee_name._id,shipper_name.company.name,shipper_name._id,mawb_no,hawb_no",
 //   location:"new_york",
 //   region_override:false,
 // }
 // await shipthisApi
 //   .getFullSearchListCollection(
 //     shipthisApi,
-//     "airport",
+//     "air_shipment",
 //     queryPayload
 //   )
 //   .then((res) => {
-//     console.log(res);
+//     console.log(res.items);
 //   })
 //   .catch((err) => {
 //     console.log(err);
 //   });
 
 //serch List collection for single search parameter
-// await shipthisApi.getSearchListCollection(shipthisApi, "airport","aqsa").then((res)=>{
-//     console.log(res);
+// await shipthisApi.getSearchListCollection(shipthisApi, "airport","Pinal").then((res)=>{
+//     console.log(res.items);
 //  })
 //  .catch((err)=>{
 //     console.log(err);

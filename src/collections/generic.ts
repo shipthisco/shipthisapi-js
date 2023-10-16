@@ -1,4 +1,4 @@
-import { allQueryFieldsPayload } from '../interfaces/api.interface';
+import { AllQueryFieldsPayload } from '../interfaces/api.interface';
 import {
   CollectionParams,
   SelectGoogleLocationParams,
@@ -54,14 +54,14 @@ const getSearchListCollection =async (
 }
 const getFullSearchListCollection =async (
   obj:ShipthisAPI,
-  collectionName:string,
-  queryParams: allQueryFieldsPayload,
+  collectionName,
+  queryParams: AllQueryFieldsPayload,
   params?: CollectionParams,
   ) => {
     if (!params) {
       params = {};
     }
-    return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}?count=${queryParams.count}&page=${queryParams.page}&search_query=${queryParams.search_query}&multi_sort=${JSON.stringify(queryParams.multi_sort)}&output_type=${queryParams.output_type}&meta=${queryParams.meta}&queryFilterV2=${queryParams.queryFilterV2}&general_filter=${queryParams.general_filter}&only=${queryParams.only}&location=${queryParams.location}&region_override=${queryParams.region_override}`, {
+    return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}?search_query=${queryParams.search_query}&count=${queryParams.count}&page=${queryParams.page}&multi_sort=${JSON.stringify(queryParams.multi_sort)}&output_type=${queryParams.output_type}&meta=${queryParams.meta}&queryFilterV2=${queryParams.queryFilterV2}&general_filter=${JSON.stringify(queryParams.general_filter)}&only=${queryParams.only}&location=${queryParams.location}&region_override=${queryParams.region_override}`, {
       params,
     });
 }

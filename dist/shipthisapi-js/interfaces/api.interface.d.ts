@@ -99,16 +99,30 @@ export interface RequestAWBType {
     start_number: number;
     end_number: number;
 }
-export interface allQueryFieldsPayload {
+export interface AllQueryFieldsPayload {
     search_query: string;
     count: number;
     page: number;
-    multi_sort: object;
+    multi_sort: MultiSort[];
     output_type: string;
     meta: boolean;
-    queryFilterV2: Array<string>;
-    general_filter: object;
+    queryFilterV2: [];
+    general_filter: GeneralFilters;
     only: string;
     location: string;
     region_override: boolean;
+}
+export interface MultiSort {
+    sort_by: string;
+    sort_order: string;
+}
+export interface GeneralFilters {
+    job_status?: GeneralFilterStatus;
+    _state?: GeneralFilters_state;
+}
+export interface GeneralFilterStatus {
+    $in: [];
+}
+export interface GeneralFilters_state {
+    $nin: [];
 }
