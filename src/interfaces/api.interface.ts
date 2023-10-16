@@ -112,23 +112,23 @@ export interface RequestAWBType {
   end_number: number;
 }
 
-export interface AllQueryFieldsPayload{
-  search_query:string,
-  count:number,
-  page:number,
-  multi_sort:MultiSort[],
-  output_type:string,
-  meta:boolean,
-  queryFilterV2:[],
-  general_filter:any,
-  only:string,
-  location:string,
-  region_override:boolean,
+export interface AllQueryFieldsPayload {
+  search_query: string;
+  count: number;
+  page: number;
+  multi_sort: MultiSort[];
+  output_type: string;
+  meta: boolean;
+  queryFilterV2: [];
+  general_filter: any;
+  only: string;
+  location: string;
+  region_override: boolean;
 }
 
-export interface MultiSort{
-  sort_by:string,
-  sort_order:string,
+export interface MultiSort {
+  sort_by: string;
+  sort_order: string;
 }
 
 // export interface GeneralFilters{
