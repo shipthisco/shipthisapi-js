@@ -6,7 +6,7 @@ let param = {
   userType: 'employee',
   organisationId: 'demo',
   xApiKey:
-    'WyJqdW5haWRAc2hpcHRoaXMuY28iLCJkZW1vIl0.ZSeXZA.p4NyXrhiSqmTZoW7bOsnHi5RSaQ',
+    '<Your API Key>',
 };
 let shipthisApi = new ShipthisAPI(param);
 await shipthisApi
