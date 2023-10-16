@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setWorkflowReport = exports.getWorkflowReport = exports.getJobStatus = exports.setJobStatus = exports.getListGeneric = exports.selectGoogleLocation = exports.getReportView = exports.conversation = exports.getLocation = exports.getGenericAutoComplete = exports.getExchangeRateForCurrency = exports.deleteGenericCollectionItem = exports.updateGenericCollectionItem = exports.createGenericCollectionItem = exports.getListGenericCollection = exports.getOneGenericCollectionItem = void 0;
+exports.setWorkflowReport = exports.getWorkflowReport = exports.getJobStatus = exports.setJobStatus = exports.getListGeneric = exports.selectGoogleLocation = exports.getReportView = exports.conversation = exports.getLocation = exports.getGenericAutoComplete = exports.getExchangeRateForCurrency = exports.deleteGenericCollectionItem = exports.updateGenericCollectionItem = exports.createGenericCollectionItem = exports.getFullSearchListCollection = exports.getSearchListCollection = exports.getListGenericCollection = exports.getOneGenericCollectionItem = void 0;
 const getListGeneric = async (obj, collectionName, params) => {
     if (!params) {
         params = {};
@@ -19,6 +19,24 @@ const getListGenericCollection = async (obj, collectionName, params) => {
     });
 };
 exports.getListGenericCollection = getListGenericCollection;
+const getSearchListCollection = async (obj, collectionName, queryFilter, params) => {
+    if (!params) {
+        params = {};
+    }
+    return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}?search_query=${queryFilter}`, {
+        params,
+    });
+};
+exports.getSearchListCollection = getSearchListCollection;
+const getFullSearchListCollection = async (obj, collectionName, queryParams, params) => {
+    if (!params) {
+        params = {};
+    }
+    return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}?search_query=${queryParams.search_query}&count=${queryParams.count}&page=${queryParams.page}&multi_sort=${JSON.stringify(queryParams.multi_sort)}&output_type=${queryParams.output_type}&meta=${queryParams.meta}&queryFilterV2=${queryParams.queryFilterV2}&general_filter=${JSON.stringify(queryParams.general_filter)}&only=${queryParams.only}&location=${queryParams.location}&region_override=${queryParams.region_override}`, {
+        params,
+    });
+};
+exports.getFullSearchListCollection = getFullSearchListCollection;
 const getOneGenericCollectionItem = async (obj, collectionName, objectId) => {
     return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}/${objectId}`);
 };

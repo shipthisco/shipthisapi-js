@@ -1,3 +1,4 @@
+import { AllQueryFieldsPayload } from '../interfaces/api.interface';
 import {
   CollectionParams,
   SelectGoogleLocationParams,
@@ -36,6 +37,55 @@ const getListGenericCollection = async (
   return obj.internalRequest(obj, 'GET', `/incollection/${collectionName}`, {
     params,
   });
+};
+
+const getSearchListCollection = async (
+  obj: ShipthisAPI,
+  collectionName,
+  queryFilter,
+  params?: CollectionParams,
+) => {
+  if (!params) {
+    params = {};
+  }
+  return obj.internalRequest(
+    obj,
+    'GET',
+    `/incollection/${collectionName}?search_query=${queryFilter}`,
+    {
+      params,
+    },
+  );
+};
+const getFullSearchListCollection = async (
+  obj: ShipthisAPI,
+  collectionName,
+  queryParams: AllQueryFieldsPayload,
+  params?: CollectionParams,
+) => {
+  if (!params) {
+    params = {};
+  }
+  return obj.internalRequest(
+    obj,
+    'GET',
+    `/incollection/${collectionName}?search_query=${
+      queryParams.search_query
+    }&count=${queryParams.count}&page=${
+      queryParams.page
+    }&multi_sort=${JSON.stringify(queryParams.multi_sort)}&output_type=${
+      queryParams.output_type
+    }&meta=${queryParams.meta}&queryFilterV2=${
+      queryParams.queryFilterV2
+    }&general_filter=${JSON.stringify(queryParams.general_filter)}&only=${
+      queryParams.only
+    }&location=${queryParams.location}&region_override=${
+      queryParams.region_override
+    }`,
+    {
+      params,
+    },
+  );
 };
 
 const getOneGenericCollectionItem = async (
@@ -91,41 +141,23 @@ const setJobStatus = async (
     `/workflow/${collectionName}/job_status/${objectId}`,
     { action_index: index },
   );
-}
+};
 
-const getJobStatus = async (
-  obj,
-  collectionName: string,
-  objectId: string
-) => {
+const getJobStatus = async (obj, collectionName: string, objectId: string) => {
   return obj.internalRequest(
     obj,
     'GET',
     `/workflow/${collectionName}/job_status/${objectId}`,
   );
-}
+};
 
-const getWorkflowReport = async (
-  obj,
-  objectId: string
-) => {
-  return obj.internalRequest(
-    obj,
-    'GET',
-    `/incollection/workflow/${objectId}`
-  );
-}
+const getWorkflowReport = async (obj, objectId: string) => {
+  return obj.internalRequest(obj, 'GET', `/incollection/workflow/${objectId}`);
+};
 
-const setWorkflowReport = async (
-  obj,
-  objectId: string
-) => {
-  return obj.internalRequest(
-    obj,
-    'PUT',
-    `/incollection/workflow/${objectId}`
-  );
-}
+const setWorkflowReport = async (obj, objectId: string) => {
+  return obj.internalRequest(obj, 'PUT', `/incollection/workflow/${objectId}`);
+};
 
 // get the exchange rate for currencies in Invoice
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/thirdparty/currency?source=EUR&target=USD&date=1662508800000
@@ -224,6 +256,8 @@ const getReportView = async (
 export {
   getOneGenericCollectionItem,
   getListGenericCollection,
+  getSearchListCollection,
+  getFullSearchListCollection,
   createGenericCollectionItem,
   updateGenericCollectionItem,
   deleteGenericCollectionItem,
@@ -237,5 +271,5 @@ export {
   setJobStatus,
   getJobStatus,
   getWorkflowReport,
-  setWorkflowReport
+  setWorkflowReport,
 };

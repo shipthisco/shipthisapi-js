@@ -1,15 +1,51 @@
-import {ShipthisAPI} from "./dist/shipthisapi-js/main.js";
-
-// let x_api_key = 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.YkboiA.85PdomGGEPA8i5SeDyI0leZ7sR0'
+import { ShipthisAPI } from './dist/shipthisapi-js/main.js';
 
 let param = {
-    'userType': 'employee',
-    'organisationId': 'demo',
-    'xApiKey': 'WyJhc2hpc2hrbXIyMjEwQGdtYWlsLmNvbSIsImRlbW8iXQ.Yxb3BQ.P6RFy5SNBOHaktPtS1JmmD9Jfu8'
-}
-let shipthisApi = new ShipthisAPI(param)
-await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err.message);
+  userType: 'employee',
+  organisationId: 'demo',
+  xApiKey:
+    '<Your API Key>',
+};
+let shipthisApi = new ShipthisAPI(param);
+await shipthisApi
+  .connect()
+  .then((data) => console.log(data))
+  .catch((err) => err.message);
 
+//Search list collection with all the query fileds parameter
+// const queryPayload={
+//   search_query:"AIR00360",
+//   count:25,
+//   page:1,
+//   multi_sort:[{"sort_by":"created_at","sort_order":"dsc"}],
+//   output_type:"json",
+//   meta:false,
+//   queryFilterV2:[],
+//   general_filter:{"job_status":{"$nin":["closed","cancelled","ops_complete"]}},
+//   only:"job_id,shipment_name,shipment_status,customer_name.company.name,customer_name._id,customer_name._cls_,customer_name._id,consignee_name.company.name,consignee_name._id,shipper_name.company.name,shipper_name._id,mawb_no,hawb_no",
+//   location:"new_york",
+//   region_override:false,
+// }
+// await shipthisApi
+//   .getFullSearchListCollection(
+//     shipthisApi,
+//     "air_shipment",
+//     queryPayload
+//   )
+//   .then((res) => {
+//     console.log(res.items);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+//serch List collection for single search parameter
+// await shipthisApi.getSearchListCollection(shipthisApi, "airport","Pinal").then((res)=>{
+//     console.log(res.items);
+//  })
+//  .catch((err)=>{
+//     console.log(err);
+//  })
 // Login via Email and Password
 // await shipthisApi.loginViaPassword('abc@xyz.com', 'password');
 //  'userType': 'customer',
@@ -38,14 +74,12 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // shipthisApi.Shipment.getShipmentTerms("cfr")
 // .then((data) => console.log("All Shipments : ",data)).catch((err) => err.message)
 
-
 // Get all Air Shipments info
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/air_shipment?location=new_york
 // shipthisApi.Shipment.getAllAirFreight()
 // .then((data) => {
 //     console.log(data);
 // }).catch((err) => console.log(err.message))
-
 
 // Get all Sea Shipments info
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/sea_shipment?location=new_york
@@ -54,7 +88,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //     console.log(data);
 // }).catch((err) => console.log(err.message))
 
-
 // Get all Land Shipments info
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/land_shipment?location=new_york
 // shipthisApi.Shipment.getAllLandFreight()
@@ -62,13 +95,10 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //     console.log(data);
 // }).catch((err) => console.log(err.message))
 
-
 // ====
 // Get Single Air shipment information
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/air_shipment/62febd45d3cb7fafac203f37
 // shipthisApi.Shipment.getAirFreight("62febd45d3cb7fafac203f37").then((data) => console.log(data)).catch((err) => err.message)
-
-
 
 // Update Air Shipments Details
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/air_shipment/62febd45d3cb7fafac203f37?location=new_york
@@ -76,7 +106,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // .then((data) => {
 //     console.log(data);
 // }).catch((err) => console.log(err.message))
-
 
 // Create Air Shipments Details
 // url :
@@ -119,8 +148,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // const res = await shipthisApi.Shipment.createAirFreight(requiredFieldsAir)
 // console.log(res)
 
-
-
 // Create Sea Shipment
 // const requiredFieldsSea = {
 //     "job_id": "",
@@ -140,7 +167,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // url : https://asia-south1.gcp.api.shipthis.co/api/v3/incollection/shipping_line?&only=name,carrier_code,cbsa_code,shipthis_code&geral_filter={}&location=new_york&region_override=null
 // const getShippingLineName  = await shipthisApi.Shipment.getShippingLineName()
 // const res = shipthisApi.Shipment.createSeaFreight(requiredFieldsSea)
-
 
 // create land shipment
 // const requiredFieldsLand = {
@@ -221,7 +247,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // const createNew = await shipthisApi.Shipment.createCustomer(createNewCustomer)
 // console.log(createNew)
 
-
 // const createNewShipper = {
 //     "company": {
 //       "name": "new company consignee",
@@ -244,14 +269,11 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // const createNewShipperr = await shipthisApi.Shipment.createCustomerParty(createNewShipper, "6346bbcd2d632f192bdd1dca")
 // console.log(createNewShipperr)
 
-
-
 // get Quotation reference
 // shipthisApi.Shipment.getQuotationReference().then((data) => console.log(data)).catch((err) => console.log(err));
 
 // Miscellaneous functions
 // shipthisApi.Shipment.getCustomers("mar").then((data) => console.log(data)).catch((err) => console.log(err.message))
-
 
 // Delete the shipments
 // shipthisApi.Shipment.createAirFreight("62febd45d3cb7fafac203f37").catch((err) => console.log(err.message))
@@ -267,7 +289,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //   .then((data) => {
 //     console.log(data);
 //   })
-
 
 // Setup
 
@@ -309,7 +330,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // const res = await shipthisApi.Setup.getPort(categoriesData)
 // console.log(res)
 
-
 // AWB Block
 
 // const AWBData = {
@@ -335,7 +355,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //     "end_number": 123444
 // }
 // const res = await shipthisApi.Setup.getAWBBlock(AWBData)
-
 
 // check for loads
 // for Air Shipments there is only one type of load
@@ -367,7 +386,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //     gross_wt_kg: 0,
 //   };
 // const res = await shipthisApi.Shipment.createAirLoad(payload)
-
 
 // for Sea Shipments there are 4 types of loads
 // 1. fcl loads
@@ -404,7 +422,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //   }
 //   const res = await shipthisApi.Shipment.createSeaFclLoad(payload)
 //   console.log(res)
-
 
 // for land shipments there are 3 types
 // 1. fcl load
@@ -452,7 +469,6 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 //   const res = await shipthisApi.Shipment.createLandFtlLoad(payload)
 //   console.log(res)
 
-
 // get some shipments by giving count and page
 // const filter = {
 //   count : 20,
@@ -465,10 +481,7 @@ await shipthisApi.connect().then((data) => console.log(data)).catch((err) => err
 // const res = await shipthisApi.Shipment.getSomeShipments(filter)
 // console.log(res)
 
-
-// get all airport 
+// get all airport
 // const res = await shipthisApi.Setup.getAllAirport()
 
 // get Customers
-
-

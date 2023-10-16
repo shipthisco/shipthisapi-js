@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.requestAWBData = exports.requestVesselData = exports.requestShippingLine = exports.requestShipmentTermsData = exports.requestAirportData = exports.requestPortData = exports.requestProdData = exports.requestVehicleData = exports.requestCommonData = exports.requestCatData = void 0;
+exports.requestqueryData = exports.requestAWBData = exports.requestVesselData = exports.requestShippingLine = exports.requestShipmentTermsData = exports.requestAirportData = exports.requestPortData = exports.requestProdData = exports.requestVehicleData = exports.requestCommonData = exports.requestCatData = void 0;
 exports.requestCatData = {
     name: '',
     max_cbm: 0,
@@ -107,4 +107,17 @@ exports.requestAWBData = {
     prefix: '',
     start_number: 0,
     end_number: 0,
+};
+exports.requestqueryData = {
+    search_query: "",
+    count: 0,
+    page: 0,
+    multi_sort: [],
+    output_type: "",
+    meta: false,
+    queryFilterV2: [],
+    general_filter: {},
+    only: "",
+    location: "",
+    region_override: false,
 };
