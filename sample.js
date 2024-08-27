@@ -4,7 +4,7 @@ let param = {
   userType: 'employee',
   organisationId: 'base-dev',
   xApiKey:
-    'WyJzdWJocmFkd2lwQHNoaXB0aGlzLmNvIiwiYmFzZS1kZXYiXQ.Zsx1xw.y0Kt9MOLi58LX2vMG3RPsSNGDl8',
+    '<API_KEY>',
   locationId:'beijing',
   regionId:'china'
 };
