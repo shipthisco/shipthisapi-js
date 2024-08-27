@@ -26,3 +26,4 @@ class Invoice {
     }
 }
 exports.Invoice = Invoice;
+//# sourceMappingURL=invoice.js.map

@@ -34,51 +34,52 @@ class ShipthisAPI {
         this.organisationId = init.organisationId;
         this.userType = init.userType;
         this.xApiKey = init.xApiKey;
-        this.authorization = init.authorization;
         this.selectedRegion = init.regionId || '';
         this.selectedLocation = init.locationId || '';
-        this.isSessionValid = false;
-        this.getInfo().then((infoResponse) => {
-            this.onInfoChange(infoResponse);
-        });
+        this.isConnectionValid = false;
     }
-    connect(locationId = null) {
-        return new Promise((resolve) => {
-            this.getInfo().then((resp) => {
+    connect() {
+        return new Promise((resolve, reject) => {
+            this.getInfo()
+                .then((resp) => {
                 this.onInfoChange(resp);
-                if (!locationId) {
+                if (!this.selectedLocation) {
                     this.selectedRegion = resp?.organisation?.regions[0]?.region_id;
                     this.selectedLocation =
                         resp?.organisation?.regions[0]?.locations[0]?.location_id;
+                    this.isConnectionValid = true;
                 }
                 else {
-                    let foundLocation = false;
-                    for (let i = 0; i < this.organisation.regions.length; i++) {
-                        for (let j = 0; j < this.organisation.regions[i].locations.length; j++) {
-                            if (this.organisation.regions[i][j].location_id === locationId) {
-                                this.selectedRegion = this.organisation.regions[i].region_id;
-                                this.selectedLocation =
-                                    this.organisation.regions[i].locations[j].location_id;
-                                foundLocation = true;
-                                break;
-                            }
-                            if (foundLocation) {
-                                break;
-                            }
-                        }
+                    const region = this.organisation.regions.find((region) => region.region_id === this.selectedRegion);
+                    if (!region) {
+                        this.connectionErrorMessage = 'Region Not Found';
+                        reject({
+                            message: this.connectionErrorMessage,
+                        });
                     }
+                    const location = region.locations.find((location) => location.location_id === this.selectedLocation);
+                    if (!location) {
+                        this.connectionErrorMessage = 'Location Not Found';
+                        reject({
+                            message: this.connectionErrorMessage,
+                        });
+                    }
+                    this.isConnectionValid = true;
                 }
                 resolve({
-                    selectedRegion: this.selectedRegion,
-                    selectedLocation: this.selectedLocation,
+                    region: this.selectedRegion,
+                    selectedLocation: this.selectedLocation
+                });
+            })
+                .catch((err) => {
+                reject({
+                    message: err,
                 });
             });
         });
     }
     disconnect() {
         this.xApiKey = null;
-        this.authorization = null;
-        this.isSessionValid = false;
     }
     async loginViaPassword(email, password) {
         return new Promise((resolve, reject) => {
@@ -101,19 +102,11 @@ class ShipthisAPI {
         });
     }
     onInfoChange(response) {
-        if (response?.user?.auth_token) {
-            if (Array.isArray(response.user.auth_token)) {
-                this.authorization = response.user.auth_token[0];
-            }
-            else {
-                this.authorization = response.user.auth_token;
-            }
-            this.isSessionValid = true;
-        }
         if (response?.profiles) {
             this.selectedProfile = response.profiles[0];
         }
         this.organisation = response.organisation;
+        this.isSessionValid = true;
         this.serverUrl = response.api_endpoint;
         this.setObjectReferences();
     }
@@ -149,8 +142,8 @@ class ShipthisAPI {
                     email: email.toLowerCase(),
                     captcha: {
                         captcha_name: 'default',
-                        captcha_response: recaptcha_response
-                    }
+                        captcha_response: recaptcha_response,
+                    },
                 },
             })
                 .then((data) => {
@@ -197,3 +190,4 @@ class ShipthisAPI {
     }
 }
 exports.ShipthisAPI = ShipthisAPI;
+//# sourceMappingURL=main.js.map

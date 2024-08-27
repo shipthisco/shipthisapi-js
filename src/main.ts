@@ -16,16 +16,21 @@ import {
   setJobStatus,
   getJobStatus,
   getWorkflowReport,
-  setWorkflowReport
+  setWorkflowReport,
 } from './collections/generic';
 import { ApiOptions } from './interfaces/api.interface';
 import { internalRequest, uploadFile } from './utils/request';
 import { Shipment } from './collections/shipment';
-import { Organisation } from './interfaces/info.interface';
+import {
+  Organisation,
+  Region,
+  ShipthisLocation,
+} from './interfaces/info.interface';
 import { Invoice } from './collections/invoice';
 import { Setup } from './collections/setup';
 import { Quotation } from './collections/quotation';
 import { Customer } from './collections/customer';
+import { rejects } from 'assert';
 
 export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co';
@@ -42,6 +47,8 @@ export class ShipthisAPI {
   profiles = [];
   selectedProfile;
   isSessionValid: boolean;
+  isConnectionValid: boolean;
+  connectionErrorMessage: string;
 
   public internalRequest = internalRequest;
   public getListGeneric = getListGeneric;
@@ -81,56 +88,58 @@ export class ShipthisAPI {
     this.organisationId = init.organisationId;
     this.userType = init.userType;
     this.xApiKey = init.xApiKey;
-    this.authorization = init.authorization;
     this.selectedRegion = init.regionId || '';
     this.selectedLocation = init.locationId || '';
-    this.isSessionValid = false;
-    this.getInfo().then((infoResponse) => {
-      this.onInfoChange(infoResponse);
-    });
+    this.isConnectionValid = false;
   }
 
-  public connect(locationId = null) {
-    return new Promise((resolve) => {
-      this.getInfo().then((resp: any) => {
-        this.onInfoChange(resp);
-        if (!locationId) {
-          this.selectedRegion = resp?.organisation?.regions[0]?.region_id;
-          this.selectedLocation =
-            resp?.organisation?.regions[0]?.locations[0]?.location_id;
-        } else {
-          let foundLocation = false;
-          for (let i = 0; i < this.organisation.regions.length; i++) {
-            for (
-              let j = 0;
-              j < this.organisation.regions[i].locations.length;
-              j++
-            ) {
-              if (this.organisation.regions[i][j].location_id === locationId) {
-                this.selectedRegion = this.organisation.regions[i].region_id;
-                this.selectedLocation =
-                  this.organisation.regions[i].locations[j].location_id;
-                foundLocation = true;
-                break;
-              }
-              if (foundLocation) {
-                break;
-              }
+  public connect() {
+    return new Promise((resolve, reject) => {
+      this.getInfo()
+        .then((resp: any) => {
+          this.onInfoChange(resp);
+          if (!this.selectedLocation) {
+            this.selectedRegion = resp?.organisation?.regions[0]?.region_id;
+            this.selectedLocation =
+              resp?.organisation?.regions[0]?.locations[0]?.location_id;
+            this.isConnectionValid = true;
+          } else {
+            const region = this.organisation.regions.find(
+              (region) => region.region_id === this.selectedRegion,
+            );
+            if (!region) {
+              this.connectionErrorMessage = 'Region Not Found';
+              reject({
+                message: this.connectionErrorMessage,
+              });
             }
+            const location = region.locations.find(
+              (location: ShipthisLocation) =>
+                location.location_id === this.selectedLocation,
+            );
+            if (!location) {
+              this.connectionErrorMessage = 'Location Not Found';
+              reject({
+                message: this.connectionErrorMessage,
+              });
+            }
+            this.isConnectionValid = true;
           }
-        }
-        resolve({
-          selectedRegion: this.selectedRegion,
-          selectedLocation: this.selectedLocation,
+          resolve({
+            region:this.selectedRegion,
+            selectedLocation: this.selectedLocation
+          })
+        })
+        .catch((err) => {
+          reject({
+            message: err,
+          });
         });
-      });
     });
   }
 
   public disconnect() {
     this.xApiKey = null;
-    this.authorization = null;
-    this.isSessionValid = false;
   }
 
   // Session
@@ -163,18 +172,19 @@ export class ShipthisAPI {
   }
 
   onInfoChange(response: any) {
-    if (response?.user?.auth_token) {
-      if (Array.isArray(response.user.auth_token)) {
-        this.authorization = response.user.auth_token[0];
-      } else {
-        this.authorization = response.user.auth_token;
-      }
-      this.isSessionValid = true;
-    }
+    // if (response?.user?.auth_token) {
+    //   if (Array.isArray(response.user.auth_token)) {
+    //     this.authorization = response.user.auth_token[0];
+    //   } else {
+    //     this.authorization = response.user.auth_token;
+    //   }
+    //   this.isSessionValid = true;
+    // }
     if (response?.profiles) {
       this.selectedProfile = response.profiles[0];
     }
     this.organisation = response.organisation;
+    this.isSessionValid = true;
     this.serverUrl = response.api_endpoint;
     this.setObjectReferences();
   }
@@ -227,15 +237,18 @@ export class ShipthisAPI {
   /**
    * Customer Forgot Password
    */
-  public async customerForgotPassword(email: string, recaptcha_response?: string) {
+  public async customerForgotPassword(
+    email: string,
+    recaptcha_response?: string,
+  ) {
     return new Promise<any>((resolve, reject) => {
       internalRequest(this, 'POST', '/user-auth/forgot-password', {
         requestData: {
           email: email.toLowerCase(),
           captcha: {
             captcha_name: 'default',
-            captcha_response: recaptcha_response
-          }
+            captcha_response: recaptcha_response,
+          },
         },
       })
         .then((data: any) => {

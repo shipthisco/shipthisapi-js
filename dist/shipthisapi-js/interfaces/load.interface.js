@@ -7,21 +7,22 @@ var HazardousLevelType;
     HazardousLevelType["LOW"] = "low";
     HazardousLevelType["MEDIUM"] = "medium";
     HazardousLevelType["HIGH"] = "high";
-})(HazardousLevelType = exports.HazardousLevelType || (exports.HazardousLevelType = {}));
+})(HazardousLevelType || (exports.HazardousLevelType = HazardousLevelType = {}));
 var Temp;
 (function (Temp) {
     Temp["F"] = "fahrenheit";
     Temp["C"] = "celsius";
-})(Temp = exports.Temp || (exports.Temp = {}));
+})(Temp || (exports.Temp = Temp = {}));
 var WeightUnit;
 (function (WeightUnit) {
     WeightUnit["Kg"] = "kg";
     WeightUnit["Lb"] = "lb";
-})(WeightUnit = exports.WeightUnit || (exports.WeightUnit = {}));
+})(WeightUnit || (exports.WeightUnit = WeightUnit = {}));
 var LengthUnit;
 (function (LengthUnit) {
     LengthUnit["Cm"] = "cm";
     LengthUnit["Mtr"] = "mtr";
     LengthUnit["Inches"] = "inches";
     LengthUnit["Ft"] = "ft";
-})(LengthUnit = exports.LengthUnit || (exports.LengthUnit = {}));
+})(LengthUnit || (exports.LengthUnit = LengthUnit = {}));
+//# sourceMappingURL=load.interface.js.map

@@ -13,3 +13,4 @@ const managePayload = (filter_txt = null, fields = null, display_fields = null, 
     return updatedData;
 };
 exports.managePayload = managePayload;
+//# sourceMappingURL=commonUtils.js.map
