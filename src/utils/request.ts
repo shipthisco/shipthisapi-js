@@ -14,10 +14,6 @@ const prepareHeaders = async (obj: ShipthisAPI) => {
     region: obj.selectedRegion || '',
     location: obj.selectedLocation || '',
   };
-  if (obj.authorization) {
-    headers['authorization'] = obj.authorization;
-    headers['authToken'] = obj.authorization;
-  }
   if (obj.xApiKey) {
     headers['x-api-key'] = obj.xApiKey || '';
   }
@@ -30,6 +26,11 @@ const internalRequest = async (
   path: string,
   options?: RequestOptions,
 ) => {
+  // console.log("Request",obj.isConnectionValid);
+  if (obj.isSessionValid && !obj.isConnectionValid) {
+    throw Error(obj.connectionErrorMessage);
+  }
+
   if (path.charAt(0) === '/') {
     path = path.substring(1);
   }
@@ -40,7 +41,10 @@ const internalRequest = async (
   const config: AxiosRequestConfig = {
     method,
     url:
-      (obj.serverUrl || obj.base_api_endpoint) + '/api/v3/' +path + (query_params ? '?' + query_params : ''),
+      (obj.serverUrl || obj.base_api_endpoint) +
+      '/api/v3/' +
+      path +
+      (query_params ? '?' + query_params : ''),
     headers,
     params: options?.params || {},
   };

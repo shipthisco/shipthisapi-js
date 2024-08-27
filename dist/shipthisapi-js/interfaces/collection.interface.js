@@ -12,3 +12,4 @@ var ShipmentType;
     ShipmentType["Export"] = "export";
     ShipmentType["CrossTrade"] = "cross_trade";
 })(ShipmentType || (ShipmentType = {}));
+//# sourceMappingURL=collection.interface.js.map

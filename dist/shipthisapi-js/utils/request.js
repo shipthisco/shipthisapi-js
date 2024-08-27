@@ -9,16 +9,15 @@ const prepareHeaders = async (obj) => {
         region: obj.selectedRegion || '',
         location: obj.selectedLocation || '',
     };
-    if (obj.authorization) {
-        headers['authorization'] = obj.authorization;
-        headers['authToken'] = obj.authorization;
-    }
     if (obj.xApiKey) {
         headers['x-api-key'] = obj.xApiKey || '';
     }
     return headers;
 };
 const internalRequest = async (obj, method, path, options) => {
+    if (obj.isSessionValid && !obj.isConnectionValid) {
+        throw Error(obj.connectionErrorMessage);
+    }
     if (path.charAt(0) === '/') {
         path = path.substring(1);
     }
@@ -28,7 +27,10 @@ const internalRequest = async (obj, method, path, options) => {
     const query_params = options?.queryParams || null;
     const config = {
         method,
-        url: (obj.serverUrl || obj.base_api_endpoint) + '/api/v3/' + path + (query_params ? '?' + query_params : ''),
+        url: (obj.serverUrl || obj.base_api_endpoint) +
+            '/api/v3/' +
+            path +
+            (query_params ? '?' + query_params : ''),
         headers,
         params: options?.params || {},
     };
@@ -68,3 +70,4 @@ const uploadFile = async (obj, file) => {
     }
 };
 exports.uploadFile = uploadFile;
+//# sourceMappingURL=request.js.map

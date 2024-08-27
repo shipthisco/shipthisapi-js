@@ -807,3 +807,4 @@ exports.customerObj = {
     action_op_data: {},
     'captcha-response': {},
 };
+//# sourceMappingURL=request-body.js.map

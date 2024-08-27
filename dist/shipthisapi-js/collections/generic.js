@@ -112,3 +112,4 @@ const getReportView = async (obj, report_name, start_date, end_date, location, o
     });
 };
 exports.getReportView = getReportView;
+//# sourceMappingURL=generic.js.map
