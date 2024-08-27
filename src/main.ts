@@ -23,14 +23,12 @@ import { internalRequest, uploadFile } from './utils/request';
 import { Shipment } from './collections/shipment';
 import {
   Organisation,
-  Region,
   ShipthisLocation,
 } from './interfaces/info.interface';
 import { Invoice } from './collections/invoice';
 import { Setup } from './collections/setup';
 import { Quotation } from './collections/quotation';
 import { Customer } from './collections/customer';
-import { rejects } from 'assert';
 
 export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co';
