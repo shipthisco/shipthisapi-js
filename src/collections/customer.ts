@@ -1,9 +1,10 @@
 import {
   RequestCustomerSegmentType,
   RequestCustomerType,
-} from '../interfaces/customer.interface';
-import { ShipthisAPI } from '../main';
-import { managePayload } from '../utils/commonUtils';
+} from '../interfaces/customer.interface.js';
+import { ShipthisAPI } from '../main.js';
+import { managePayload } from '../utils/commonUtils.js';
+import { createGenericCollectionItem } from './generic.js';
 
 export class Customer {
   public obj: ShipthisAPI;
@@ -21,11 +22,15 @@ export class Customer {
   }
 
   public createCustomer(data: RequestCustomerType) {
-    return this.obj.createGenericCollectionItem(this.obj, 'customer', data);
+    return this.obj.createGenericCollectionItem(
+      this.obj as any,
+      'customer',
+      data,
+    );
   }
 
   public deleteCustomer(ObjectId: string) {
-    return this.obj.deleteGenericCollectionItem(this.obj, '', ObjectId);
+    return this.obj.deleteGenericCollectionItem(this.obj as any, '', ObjectId);
   }
 
   // get all customer Segment
@@ -35,16 +40,19 @@ export class Customer {
 
   // add new customer segment
   public createCustomerSegment(data: RequestCustomerSegmentType) {
-    return this.obj.createGenericCollectionItem(
-      this.obj,
-      'customer_segment',
-      data,
-    );
+    // @ts-ignore
+    return createGenericCollectionItem(this.obj, 'customer_segment', data);
+    // return this.obj.createGenericCollectionItem(
+    //   this.obj,
+    //   'customer_segment',
+    //   data,
+    // );
   }
 
   public getLinkedVendor(data = '') {
     const fields = ['company'];
     const display_fields = ['company.name'];
+    // @ts-ignore
     const updatedData = managePayload(data, fields, display_fields);
     return this.obj.getGenericAutoComplete(this.obj, 'employee', updatedData);
   }
@@ -55,11 +63,11 @@ export class Customer {
     const general_filters =
       '{"roles.name":{"$in":["operations","front_desk","pricing","operations_head"]}}';
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
+      data as any,
+      fields as any,
+      display_fields as any,
       null,
-      general_filters,
+      general_filters as any,
     );
     return this.obj.getGenericAutoComplete(this.obj, 'employee', updatedData);
   }
@@ -67,7 +75,11 @@ export class Customer {
   public getPaymentTerm(data = '') {
     const fields = ['name', 'order', 'no_of_days', 'start_from_end_of_month'];
     const display_fields = ['name'];
-    const updatedData = managePayload(data, fields, display_fields);
+    const updatedData = managePayload(
+      data as any,
+      fields as any,
+      display_fields as any,
+    );
     return this.obj.getGenericAutoComplete(this.obj, 'employee', updatedData);
   }
 }

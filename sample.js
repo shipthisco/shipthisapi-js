@@ -2,20 +2,22 @@ import { ShipthisAPI } from './dist/shipthisapi-js/main.js';
 
 let param = {
   userType: 'employee',
-  organisationId: 'base-dev',
+  organisationId: 'demo',
   xApiKey:
-    '<API_KEY>',
-  locationId:'beijing',
-  regionId:'china'
+    'WyJhbGlAc2hpcHRoaXMuY28iLCJkZW1vIl0.Z_j8gA.ww4RActIXIVpOf_DkjGdhnQvad0',
+  locationId: 'new_york',
+  regionId: 'usa',
 };
 let shipthisApi = new ShipthisAPI(param);
 await shipthisApi
   .connect()
   .then((data) => console.log(data))
   .catch((err) => console.log(err));
-  
 
-await shipthisApi.getListGenericCollection(shipthisApi,'air_shipment').then(d=>console.log(d)).catch(e=>console.log(e));
+await shipthisApi
+  .getListGenericCollection(shipthisApi, 'air_shipment')
+  .then((d) => console.log())
+  .catch((e) => console.log(e));
 
 //Search list collection with all the query fileds parameter
 // const queryPayload={

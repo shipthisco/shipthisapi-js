@@ -4,11 +4,11 @@ import axios, {
   AxiosResponse,
   Method,
 } from 'axios';
-import { RequestOptions } from '../interfaces/api.interface';
-import { ShipthisAPI } from '../main';
+import { RequestOptions } from '../interfaces/api.interface.js';
+import { ShipthisAPI } from '../main.js';
 
 const prepareHeaders = async (obj: ShipthisAPI) => {
-  const headers: AxiosRequestHeaders = {
+  const headers: AxiosRequestHeaders | any = {
     organisation: obj.organisationId,
     usertype: obj.userType,
     region: obj.selectedRegion || '',

@@ -1,6 +1,6 @@
-import { RequestQuotationType } from '../interfaces/quotation.interface';
-import { ShipthisAPI } from '../main';
-import { quotationObj } from './request-body';
+import { RequestQuotationType } from '../interfaces/quotation.interface.js';
+import { ShipthisAPI } from '../main.js';
+import { quotationObj } from './request-body.js';
 
 export class Quotation {
   public obj: ShipthisAPI;
@@ -35,7 +35,7 @@ export class Quotation {
   // Delete Quotation
   public deleteQuotation(objectId: string) {
     return this.obj.deleteGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'quotation',
       objectId,
     );

@@ -1,8 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Invoice = void 0;
-const request_body_1 = require("./request-body");
-class Invoice {
+import { invoiceRequestData } from './request-body.js';
+export class Invoice {
+    obj;
     constructor(obj) {
         this.obj = obj;
     }
@@ -14,16 +12,17 @@ class Invoice {
     }
     createInvoice(invoiceData) {
         const exchangeRate = this.obj.getExchangeRateForCurrency(this.obj, invoiceData?.invoice_currency);
-        const updatedData = { ...request_body_1.invoiceRequestData, ...invoiceData };
+        // exchangeRate.data.rate
+        const updatedData = { ...invoiceRequestData, ...invoiceData };
         updatedData.exchange_rate = exchangeRate;
         return this.obj.getOneGenericCollectionItem(this.obj, 'invoice', updatedData);
     }
+    // update invoice
     updateInvoice(objectId, updatedData) {
         return this.obj.updateGenericCollectionItem(this.obj, 'invoice', objectId, updatedData);
     }
+    // delete invoice
     deleteInvoice(objectId) {
         return this.obj.deleteGenericCollectionItem(this.obj, 'invoice', objectId);
     }
 }
-exports.Invoice = Invoice;
-//# sourceMappingURL=invoice.js.map

@@ -8,9 +8,9 @@ import {
   RequestShippingLineType,
   RequestVehicleType,
   RequestVesselType,
-} from '../interfaces/api.interface';
-import { ShipthisAPI } from '../main';
-import { managePayload } from '../utils/commonUtils';
+} from '../interfaces/api.interface.js';
+import { ShipthisAPI } from '../main.js';
+import { managePayload } from '../utils/commonUtils.js';
 import {
   requestAirportData,
   requestAWBData,
@@ -21,7 +21,7 @@ import {
   requestShippingLine,
   requestVehicleData,
   requestVesselData,
-} from './request.setup';
+} from './request.setup.js';
 
 export class Setup {
   public obj: ShipthisAPI;
@@ -204,7 +204,7 @@ export class Setup {
 
   public async createAirport(data: RequestAirportType) {
     const location = await this.obj.Shipment.getGoogleLocation(
-      data.location.bold,
+      data?.location?.bold,
     );
     const selectLocation = await this.obj.Shipment.selectGoogleLocations(
       location.items[0].place_id,
@@ -255,9 +255,9 @@ export class Setup {
     const fields = ['name', 'code'];
     const display_fields = ['name'];
     const updatedData = managePayload(
-      data.airline as string,
-      fields,
-      display_fields,
+      data?.airline as any,
+      fields as any,
+      display_fields as any,
     );
     const res = await this.obj.getGenericAutoComplete(
       this.obj,
@@ -275,7 +275,7 @@ export class Setup {
 
   // delete Operation
   private deleteOperation(id: string, collectionName: string) {
-    return this.obj.deleteGenericCollectionItem(this.obj, collectionName, id);
+    return this.obj.deleteGenericCollectionItem(this.obj as any, collectionName, id);
   }
 
   public deletePort(id: string) {

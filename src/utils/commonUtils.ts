@@ -1,4 +1,4 @@
-import { referencePortPayload } from '../collections/request-body'
+import { referencePortPayload } from '../collections/request-body.js'
 export const managePayload = (filter_txt = null, fields = null, display_fields = null, input_filters = null, general_filters = null) => {
     const updatedData = {
       fields: fields ?? referencePortPayload.fields,

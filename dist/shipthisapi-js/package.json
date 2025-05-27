@@ -1,9 +1,9 @@
 {
   "name": "shipthisapi-js",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Wrapper for shipthis api",
   "engines": {
-    "node": ">= 14.15 <17"
+    "node": ">=18"
   },
   "author": "Mayur Rawte",
   "license": "Apache-2.0",

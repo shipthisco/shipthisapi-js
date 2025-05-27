@@ -129,7 +129,7 @@ export interface Address {
     country?: null;
     pincode?: null;
 }
-export declare type Theme = any;
+export type Theme = any;
 export interface Financial {
     tin_no?: null;
     financial_year_start_day?: string;
