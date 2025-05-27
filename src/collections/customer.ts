@@ -40,7 +40,6 @@ export class Customer {
 
   // add new customer segment
   public createCustomerSegment(data: RequestCustomerSegmentType) {
-    // @ts-ignore
     return createGenericCollectionItem(this.obj, 'customer_segment', data);
     // return this.obj.createGenericCollectionItem(
     //   this.obj,
@@ -52,7 +51,6 @@ export class Customer {
   public getLinkedVendor(data = '') {
     const fields = ['company'];
     const display_fields = ['company.name'];
-    // @ts-ignore
     const updatedData = managePayload(data, fields, display_fields);
     return this.obj.getGenericAutoComplete(this.obj, 'employee', updatedData);
   }
@@ -66,7 +64,7 @@ export class Customer {
       data as any,
       fields as any,
       display_fields as any,
-      null,
+      undefined,
       general_filters as any,
     );
     return this.obj.getGenericAutoComplete(this.obj, 'employee', updatedData);

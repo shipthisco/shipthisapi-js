@@ -3,8 +3,7 @@ import { ShipthisAPI } from './dist/shipthisapi-js/main.js';
 let param = {
   userType: 'employee',
   organisationId: 'demo',
-  xApiKey:
-    'WyJhbGlAc2hpcHRoaXMuY28iLCJkZW1vIl0.Z_j8gA.ww4RActIXIVpOf_DkjGdhnQvad0',
+  xApiKey: '<x-api-key>',
   locationId: 'new_york',
   regionId: 'usa',
 };

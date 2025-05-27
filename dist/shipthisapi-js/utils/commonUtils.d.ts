@@ -1,4 +1,4 @@
-export declare const managePayload: (filter_txt?: null, fields?: null, display_fields?: null, input_filters?: null, general_filters?: null) => {
+export declare const managePayload: (filter_txt?: string | null, fields?: string[] | null, display_fields?: string[] | null, input_filters?: string | null, general_filters?: string | null) => {
     fields: string[];
     display_fields: string[];
     filter_txt: string;
