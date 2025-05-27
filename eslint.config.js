@@ -24,5 +24,9 @@ export default [
       '@typescript-eslint': tsPlugin,
       jest: jestPlugin,
     },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      // add other rules here
+    },
   },
 ];

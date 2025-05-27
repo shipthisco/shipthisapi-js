@@ -28,7 +28,7 @@
     "build": "tsc -p tsconfig.prod.json",
     "postbuild": "node ./scripts/pre-publish",
     "build:watch": "tsc -w -p tsconfig.prod.json",
-    "lint": "eslint ./src --ext .ts",
+    "lint": "eslint ./src",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
@@ -39,6 +39,6 @@
     "tslib": "~2.8.1"
   },
   "volta": {
-    "node": "16.13.0"
+    "node": "20.11.1"
   }
 }
