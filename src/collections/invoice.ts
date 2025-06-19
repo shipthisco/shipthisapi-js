@@ -1,9 +1,9 @@
-import { ShipthisAPI } from '../main';
-import { invoiceRequestData } from './request-body';
+import { ShipthisAPI } from '../main.js';
+import { invoiceRequestData } from './request-body.js';
 
 export class Invoice {
   public obj: ShipthisAPI;
-  constructor(obj) {
+  constructor(obj:any) {
     this.obj = obj;
   }
   getInvoiceList() {
@@ -38,6 +38,6 @@ export class Invoice {
   }
   // delete invoice
   deleteInvoice(objectId: string) {
-    return this.obj.deleteGenericCollectionItem(this.obj, 'invoice', objectId);
+    return this.obj.deleteGenericCollectionItem(this.obj as any, 'invoice', objectId);
   }
 }

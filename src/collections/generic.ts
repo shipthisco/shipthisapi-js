@@ -1,9 +1,9 @@
-import { AllQueryFieldsPayload } from '../interfaces/api.interface';
+import { AllQueryFieldsPayload } from '../interfaces/api.interface.js';
 import {
   CollectionParams,
   SelectGoogleLocationParams,
-} from '../interfaces/collection-params.interface';
-import { ShipthisAPI } from '../main';
+} from '../interfaces/collection-params.interface.js';
+import { ShipthisAPI } from '../main.js';
 
 /**
  *  GENERIC CRUD
@@ -28,7 +28,7 @@ const getListGeneric = async (
 
 const getListGenericCollection = async (
   obj: ShipthisAPI,
-  collectionName,
+  collectionName: any,
   params?: CollectionParams,
 ) => {
   if (!params) {
@@ -41,8 +41,8 @@ const getListGenericCollection = async (
 
 const getSearchListCollection = async (
   obj: ShipthisAPI,
-  collectionName,
-  queryFilter,
+  collectionName: any,
+  queryFilter: any,
   params?: CollectionParams,
 ) => {
   if (!params) {
@@ -59,7 +59,7 @@ const getSearchListCollection = async (
 };
 const getFullSearchListCollection = async (
   obj: ShipthisAPI,
-  collectionName,
+  collectionName: any,
   queryParams: AllQueryFieldsPayload,
   params?: CollectionParams,
 ) => {
@@ -90,7 +90,7 @@ const getFullSearchListCollection = async (
 
 const getOneGenericCollectionItem = async (
   obj: ShipthisAPI,
-  collectionName,
+  collectionName: any,
   objectId: string,
 ) => {
   return obj.internalRequest(
@@ -101,7 +101,7 @@ const getOneGenericCollectionItem = async (
 };
 
 const createGenericCollectionItem = async (
-  obj,
+  obj: { internalRequest: (arg0: any, arg1: string, arg2: string, arg3: { requestData: { reqbody: any; }; params: CollectionParams; }) => any; } | ShipthisAPI,
   collectionName: string,
   itemData: any,
   params?: CollectionParams,
@@ -116,7 +116,7 @@ const createGenericCollectionItem = async (
 };
 
 const updateGenericCollectionItem = async (
-  obj,
+  obj: { internalRequest: (arg0: any, arg1: string, arg2: string, arg3: { requestData: any; }) => any; } | ShipthisAPI,
   collectionName: string,
   objectId: string,
   updatedData: any,
@@ -130,7 +130,7 @@ const updateGenericCollectionItem = async (
 };
 
 const setJobStatus = async (
-  obj,
+  obj: { internalRequest: (arg0: any, arg1: string, arg2: string, arg3: { action_index: any; }) => any; },
   collectionName: string,
   objectId: string,
   index: any,
@@ -143,7 +143,7 @@ const setJobStatus = async (
   );
 };
 
-const getJobStatus = async (obj, collectionName: string, objectId: string) => {
+const getJobStatus = async (obj: { internalRequest: (arg0: any, arg1: string, arg2: string) => any; }, collectionName: string, objectId: string) => {
   return obj.internalRequest(
     obj,
     'GET',
@@ -151,11 +151,11 @@ const getJobStatus = async (obj, collectionName: string, objectId: string) => {
   );
 };
 
-const getWorkflowReport = async (obj, objectId: string) => {
+const getWorkflowReport = async (obj: { internalRequest: (arg0: any, arg1: string, arg2: string) => any; }, objectId: string) => {
   return obj.internalRequest(obj, 'GET', `/incollection/workflow/${objectId}`);
 };
 
-const setWorkflowReport = async (obj, objectId: string) => {
+const setWorkflowReport = async (obj: { internalRequest: (arg0: any, arg1: string, arg2: string) => any; }, objectId: string) => {
   return obj.internalRequest(obj, 'PUT', `/incollection/workflow/${objectId}`);
 };
 
@@ -226,7 +226,7 @@ const conversation = async (
   return obj.internalRequest(obj, 'POST', collectionName, data);
 };
 const deleteGenericCollectionItem = async (
-  obj,
+  obj: { internalRequest: (arg0: any, arg1: string, arg2: string) => any; },
   collectionName: string,
   objectId: string,
 ) => {
@@ -238,11 +238,11 @@ const deleteGenericCollectionItem = async (
 };
 
 const getReportView = async (
-  obj,
+  obj: { internalRequest: (arg0: any, arg1: string, arg2: string, arg3: { params: { start_date: string; end_date: string; output_type: string; skip_meta: string; location: any; }; requestData: any; }) => any; },
   report_name: string,
   start_date: string,
   end_date: string,
-  location,
+  location: any,
   output_type = 'json',
   skip_meta = 'true',
   post_data: any,

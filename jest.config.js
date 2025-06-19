@@ -7,17 +7,11 @@ export default {
       useESM: true,
     },
   },
-  moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.js$': '$1',
-  },
   transform: {
-    "^.+\\.ts$": "ts-jest"
+    '^.+\\.ts$': 'ts-jest',
   },
   testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.ts$',
   coverageDirectory: 'coverage',
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-  ],
-  testTimeout: 30000
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts'],
+  testTimeout: 30000,
 };

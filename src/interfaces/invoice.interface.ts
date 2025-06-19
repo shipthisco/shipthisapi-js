@@ -6,8 +6,8 @@ import {
   Operation,
   OperationExecutive,
   PrimaryContactPerson,
-} from './collection.interface';
-import { ICustomDate } from './custom-date';
+} from './collection.interface.js';
+import { ICustomDate } from './custom-date.js';
 
 export interface InvoiceInterface {
   items?: Array<Items>;

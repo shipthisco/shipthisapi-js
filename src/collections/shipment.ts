@@ -1,4 +1,4 @@
-import { ShipthisAPI } from '../main';
+import { ShipthisAPI } from '../main.js';
 import {
   requestAirShipment,
   referencePortPayload,
@@ -7,8 +7,8 @@ import {
   requestLandShipment,
   createNewCustomer,
   createNewShipper,
-} from './request-body';
-import { managePayload } from '../utils/commonUtils';
+} from './request-body.js';
+import { managePayload } from '../utils/commonUtils.js';
 import {
   AddNewCustomerData,
   AddNewShipper,
@@ -20,13 +20,13 @@ import {
   RequestlclSeaLoad,
   RequestltlLandLoad,
   RequestRoroSeaLoad,
-} from '../interfaces/load.interface';
-import { ConversationPayload } from '../interfaces/conversation.interface';
+} from '../interfaces/load.interface.js';
+import { ConversationPayload } from '../interfaces/conversation.interface.js';
 import {
   AirShipment,
   LandShipment,
   SeaShipment,
-} from '../interfaces/collection.interface';
+} from '../interfaces/collection.interface.js';
 export class Shipment {
   public obj: ShipthisAPI;
 
@@ -34,7 +34,7 @@ export class Shipment {
     this.obj = obj;
   }
 
-  public getSomeShipments(filter) {
+  public getSomeShipments(filter: any) {
     return this.obj.getListGeneric(this.obj, 'shipment_list_all', filter);
   }
 
@@ -55,21 +55,21 @@ export class Shipment {
   // Get single shipment with jobid
   public getAirFreight(ObjectId: string) {
     return this.obj.getOneGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'air_shipment',
       ObjectId,
     );
   }
   public getSeaFreight(ObjectId: string) {
     return this.obj.getOneGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'sea_shipment',
       ObjectId,
     );
   }
   public getLandFreight(ObjectId: string) {
     return this.obj.getOneGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'land_shipment',
       ObjectId,
     );
@@ -79,7 +79,7 @@ export class Shipment {
   public updateAirFreight(ObjectId: string, updatedData: AirShipment) {
     const Data = { ...requestAirShipment, ...updatedData };
     return this.obj.updateGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'air_shipment',
       ObjectId,
       Data,
@@ -88,7 +88,7 @@ export class Shipment {
   public updateSeaFreight(ObjectId: string, updatedData: SeaShipment) {
     const Data = { ...requestSeaShipement, ...updatedData };
     return this.obj.updateGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'sea_shipment',
       ObjectId,
       Data,
@@ -97,7 +97,7 @@ export class Shipment {
   public updateLandFreight(ObjectId: string, updatedData: LandShipment) {
     const Data = { ...requestLandShipment, ...updatedData };
     return this.obj.updateGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'land_shipment',
       ObjectId,
       Data,
@@ -107,18 +107,26 @@ export class Shipment {
   // Create
   public createAirFreight(data: AirShipment) {
     const Data = { ...requestAirShipment, ...data };
-    return this.obj.createGenericCollectionItem(this.obj, 'air_shipment', Data);
+    return this.obj.createGenericCollectionItem(
+      this.obj as any,
+      'air_shipment',
+      Data,
+    );
   }
 
   // create Sea shipment
   public createSeaFreight(data: SeaShipment) {
     const Data = { ...requestSeaShipement, ...data };
-    return this.obj.createGenericCollectionItem(this.obj, 'sea_shipment', Data);
+    return this.obj.createGenericCollectionItem(
+      this.obj as any,
+      'sea_shipment',
+      Data,
+    );
   }
   public createLandFreight(data: LandShipment) {
     const Data = { ...requestLandShipment, ...data };
     return this.obj.createGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'land_shipment',
       Data,
     );
@@ -127,21 +135,21 @@ export class Shipment {
   // Delete
   public deleteAirFreight(ObjectId: string) {
     return this.obj.deleteGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'air_shipment',
       ObjectId,
     );
   }
   public deleteSeaFreight(ObjectId: string) {
     return this.obj.deleteGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'sea_shipment',
       ObjectId,
     );
   }
   public deleteLandFreight(ObjectId: string) {
     return this.obj.deleteGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'land_shipment',
       ObjectId,
     );
@@ -170,7 +178,7 @@ export class Shipment {
     const newCustomerData = { ...createNewCustomer, ...data };
     newCustomerData.accounting.currency = currency.items[0];
     return this.obj.createGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'customer',
       newCustomerData,
     );
@@ -181,7 +189,7 @@ export class Shipment {
     const newCustomerData = { ...createNewShipper, ...data };
     const params = { input_filters: { 'customer._id': `${id}` } };
     return this.obj.createGenericCollectionItem(
-      this.obj,
+      this.obj as any,
       'customer_party',
       newCustomerData,
       params,
@@ -189,7 +197,7 @@ export class Shipment {
   }
 
   // get all shipment terms
-  public getShipmentTerms(data) {
+  public getShipmentTerms(data: any) {
     if (!data) {
       return this.obj.getListGenericCollection(this.obj, 'shipment_term', {
         only: 'name,code,order',
@@ -209,8 +217,8 @@ export class Shipment {
   public getQuotationReference(data = null) {
     const updatedData = managePayload(
       data,
-      ['quotation_number'],
-      ['quotation_number'],
+      ['quotation_number'] as any,
+      ['quotation_number'] as any,
     );
     return this.obj.getGenericAutoComplete(this.obj, 'quotation', updatedData);
   }
@@ -220,9 +228,13 @@ export class Shipment {
   public getMasterShipment(data = null) {
     const fields = ['company.name', 'full_address', 'address', 'tin_no'];
     const display_fields = ['company.name'];
-    const updatedData = managePayload(data, fields, display_fields);
+    const updatedData = managePayload(
+      data,
+      fields as any,
+      display_fields as any,
+    );
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'sea_shipment',
       updatedData,
     );
@@ -241,13 +253,13 @@ export class Shipment {
     const display_fields = ['company.name'];
     const input_filters = JSON.stringify({ 'customer._id': `${id}` });
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
-      input_filters,
+      data as any,
+      fields as any,
+      display_fields as any,
+      input_filters as any,
     );
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'customer_party',
       updatedData,
     );
@@ -257,13 +269,13 @@ export class Shipment {
     const display_fields = ['company.name'];
     const input_filters = JSON.stringify({ 'customer._id': `${id}` });
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
-      input_filters,
+      data as any,
+      fields as any,
+      display_fields as any,
+      input_filters as any,
     );
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'customer_party',
       updatedData,
     );
@@ -274,14 +286,14 @@ export class Shipment {
     const display_fields = ['company.name'];
     const input_filters = JSON.stringify({ 'customer._id': `${id}` });
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
-      input_filters,
+      data as any,
+      fields as any,
+      display_fields as any,
+      input_filters as any,
     );
 
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'customer_party',
       updatedData,
     );
@@ -293,13 +305,13 @@ export class Shipment {
     const display_fields = ['company.name'];
     const input_filters = JSON.stringify({ 'customer._id': `${id}` });
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
-      input_filters,
+      data as any,
+      fields as any,
+      display_fields as any,
+      input_filters as any,
     );
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'customer_party',
       updatedData,
     );
@@ -331,7 +343,7 @@ export class Shipment {
       'tin_no',
     ];
     const display_fields = ['company.name'];
-    const updatedData = managePayload(data, fields, display_fields);
+    const updatedData = managePayload(data as any, fields as any, display_fields as any);
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
 
@@ -343,11 +355,11 @@ export class Shipment {
       'company.vendor_type': 'consolidator',
     });
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
+      data as any,
+      fields as any,
+      display_fields as any, 
       null,
-      general_filters,
+      general_filters as any,
     );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
@@ -359,11 +371,11 @@ export class Shipment {
     const general_filters =
       '{\n    "company.vendor_type":"place_of_consolidation"\n}';
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
+      data as any,
+      fields as any,
+      display_fields as any, 
       null,
-      general_filters,
+      general_filters as any,
     );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
@@ -378,7 +390,7 @@ export class Shipment {
   }
 
   public getOperationExecutive(data = '') {
-    const updatedData = managePayload(data);
+    const updatedData = managePayload(data as any);
     return this.obj.getGenericAutoComplete(this.obj, 'employee', updatedData);
   }
 
@@ -401,7 +413,7 @@ export class Shipment {
   }
   // get single currency
   public getCurrency(data = '') {
-    const updatedData = managePayload(data);
+    const updatedData = managePayload(data as any);
     return this.obj.getGenericAutoComplete(this.obj, 'currency', updatedData);
   }
   // get cartage By and custom clearance by
@@ -412,10 +424,10 @@ export class Shipment {
     const general_filters =
       '{\n    "company.vendor_type":"place_of_consolidation"\n}';
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
-      general_filters,
+      data as any,
+      fields as any,
+      display_fields as any,
+      general_filters as any,
     );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
@@ -442,7 +454,7 @@ export class Shipment {
   public getVesselName(data = '') {
     const fields = ['_id', 'name'];
     const display_fields = ['name'];
-    const updatedData = managePayload(data, fields, display_fields);
+    const updatedData = managePayload(data as any, fields as any, display_fields as any);
     return this.obj.getGenericAutoComplete(this.obj, 'vessel', updatedData);
   }
 
@@ -456,9 +468,9 @@ export class Shipment {
   public getPickup(data = '') {
     const fields = ['company', 'full_address', 'address', 'tin_no'];
     const display_fields = ['company.name'];
-    const updatedData = managePayload(data, fields, display_fields);
+    const updatedData = managePayload(data as any, fields as any, display_fields as any);
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'customer_party',
       updatedData,
     );
@@ -476,10 +488,10 @@ export class Shipment {
     const display_fields = ['company.name'];
     const general_filters = '{\n    "company.vendor_type":"customs_agent"\n}';
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
-      general_filters,
+      data as any,
+      fields as any,
+      display_fields as any,
+      general_filters as any,
     );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
@@ -496,26 +508,26 @@ export class Shipment {
     const display_fields = ['company.name'];
     const general_filters = '{"company.vendor_type":"carrier"}';
     const updatedData = managePayload(
-      data,
-      fields,
-      display_fields,
-      general_filters,
+      data as any,
+      fields as any,
+      display_fields as any,
+      general_filters as any,
     );
     return this.obj.getGenericAutoComplete(this.obj, 'vendor', updatedData);
   }
   public getVehicleType(data = '') {
-    const updatedData = managePayload(data);
+    const updatedData = managePayload(data as any);
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'vehicle_type',
       updatedData,
     );
   }
 
   public async getPackageTypeList(data = ''): Promise<{ items: LoadType[] }> {
-    const updatedData = managePayload(data);
+    const updatedData = managePayload(data as any);
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'package_type',
       updatedData,
     );
@@ -526,9 +538,9 @@ export class Shipment {
   }: {
     data: string;
   }): Promise<LoadType> {
-    const updatedData = managePayload(data);
+    const updatedData = managePayload(data as any);
     const res = await this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'package_type',
       updatedData,
     );
@@ -536,27 +548,27 @@ export class Shipment {
   }
 
   public getContainerType(data = '') {
-    const updatedData = managePayload(data);
+    const updatedData = managePayload(data as any);
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'container_type',
       updatedData,
     );
   }
 
   public getHarzardUnNumber(data = '') {
-    const updatedData = managePayload(data);
+    const updatedData = managePayload(data as any);
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'hazard_un_number',
       updatedData,
     );
   }
 
   public getHarzardClass(data = '') {
-    const updatedData = managePayload(data);
+    const updatedData = managePayload(data as any);
     return this.obj.getGenericAutoComplete(
-      this.obj,
+      this.obj as any,
       'hazard_class',
       updatedData,
     );

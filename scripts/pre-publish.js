@@ -30,5 +30,8 @@ const PROJECT_NAME = 'shipthisapi-js';
   );
 
   const filesToCopyFromRoot = ['README.md', 'LICENSE'];
-  filesToCopyFromRoot.forEach(async (file) => await copyFile('./' + file, `./dist/${PROJECT_NAME}/${file}`));
+for (const file of filesToCopyFromRoot) {
+  await copyFile('./' + file, `./dist/${PROJECT_NAME}/${file}`);
+}
+
 })()

@@ -1,7 +1,7 @@
-import { ShipthisAPI } from '../main';
-import { AddNewCustomerData, AddNewShipper, LoadType, RequestAirLoad, RequestBulkSeaLoad, RequestfclSeaLoad, RequestftlLandLoad, RequestlclSeaLoad, RequestltlLandLoad, RequestRoroSeaLoad } from '../interfaces/load.interface';
-import { ConversationPayload } from '../interfaces/conversation.interface';
-import { AirShipment, LandShipment, SeaShipment } from '../interfaces/collection.interface';
+import { ShipthisAPI } from '../main.js';
+import { AddNewCustomerData, AddNewShipper, LoadType, RequestAirLoad, RequestBulkSeaLoad, RequestfclSeaLoad, RequestftlLandLoad, RequestlclSeaLoad, RequestltlLandLoad, RequestRoroSeaLoad } from '../interfaces/load.interface.js';
+import { ConversationPayload } from '../interfaces/conversation.interface.js';
+import { AirShipment, LandShipment, SeaShipment } from '../interfaces/collection.interface.js';
 export declare class Shipment {
     obj: ShipthisAPI;
     constructor(obj: ShipthisAPI);
@@ -27,12 +27,12 @@ export declare class Shipment {
     createCustomer(data: AddNewCustomerData): Promise<any>;
     createCustomerParty(data: AddNewShipper, id: string): Promise<any>;
     getShipmentTerms(data: any): Promise<any>;
-    getQuotationReference(data?: any): Promise<any>;
-    getMasterShipment(data?: any): Promise<any>;
-    getConsignee(data: string, id: string): Promise<any>;
-    getShipper(data: string, id: string): Promise<any>;
-    getPickUpNDelivery(data: string, id: string): Promise<any>;
-    getNotifyParty(data: string, id: string): Promise<any>;
+    getQuotationReference(data?: null): Promise<any>;
+    getMasterShipment(data?: null): Promise<any>;
+    getConsignee(data: string | undefined, id: string): Promise<any>;
+    getShipper(data: string | undefined, id: string): Promise<any>;
+    getPickUpNDelivery(data: string | undefined, id: string): Promise<any>;
+    getNotifyParty(data: string | undefined, id: string): Promise<any>;
     getGoogleLocation(data?: string): Promise<any>;
     selectGoogleLocations(placeId: string, description: string): Promise<any>;
     getForwordingAgent(data?: string): Promise<any>;

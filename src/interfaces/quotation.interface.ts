@@ -6,8 +6,8 @@ import {
   OperationExecutive,
   PrimaryContactPerson,
   ShipthisBasic,
-} from './collection.interface';
-import { WeightUnit } from './load.interface';
+} from './collection.interface.js';
+import { WeightUnit } from './load.interface.js';
 
 export interface RequestQuotationType {
   stats?: {

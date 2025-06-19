@@ -1,4 +1,4 @@
-import { ID, ShipMethod, ShipthisBasic } from './collection.interface';
+import { ID, ShipMethod, ShipthisBasic } from './collection.interface.js';
 
 export enum HazardousLevelType {
   NA = 'na',

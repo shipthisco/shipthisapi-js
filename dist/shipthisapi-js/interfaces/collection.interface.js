@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var ShipmentClass;
 (function (ShipmentClass) {
     ShipmentClass["House"] = "house";
@@ -12,4 +10,7 @@ var ShipmentType;
     ShipmentType["Export"] = "export";
     ShipmentType["CrossTrade"] = "cross_trade";
 })(ShipmentType || (ShipmentType = {}));
-//# sourceMappingURL=collection.interface.js.map
+export {};
+// Invoice interface
+// export interface Invoice {
+// }

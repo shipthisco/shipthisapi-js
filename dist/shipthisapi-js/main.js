@@ -1,36 +1,56 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ShipthisAPI = void 0;
-const generic_1 = require("./collections/generic");
-const request_1 = require("./utils/request");
-const shipment_1 = require("./collections/shipment");
-const setup_1 = require("./collections/setup");
-class ShipthisAPI {
+import { createGenericCollectionItem, deleteGenericCollectionItem, getListGenericCollection, getSearchListCollection, getFullSearchListCollection, getOneGenericCollectionItem, getExchangeRateForCurrency, getGenericAutoComplete, getLocation, conversation, getReportView, updateGenericCollectionItem, selectGoogleLocation, getListGeneric, setJobStatus, getJobStatus, getWorkflowReport, setWorkflowReport, } from './collections/generic.js';
+import { internalRequest, uploadFile } from './utils/request.js';
+import { Shipment } from './collections/shipment.js';
+import { Setup } from './collections/setup.js';
+export class ShipthisAPI {
+    serverUrl = 'https://api.shipthis.co';
+    base_api_endpoint = 'https://api.shipthis.co';
+    file_upload_api_endpoint = 'https://upload.shipthis.co/api/v3/file-upload';
+    xApiKey;
+    authorization;
+    organisationId;
+    organisation;
+    userType;
+    selectedRegion;
+    selectedLocation;
+    profiles = [];
+    selectedProfile;
+    isSessionValid;
+    isConnectionValid;
+    connectionErrorMessage;
+    internalRequest = internalRequest;
+    getListGeneric = getListGeneric;
+    uploadFile = uploadFile;
+    getListGenericCollection = getListGenericCollection;
+    getSearchListCollection = getSearchListCollection;
+    getFullSearchListCollection = getFullSearchListCollection;
+    getOneGenericCollectionItem = getOneGenericCollectionItem;
+    createGenericCollectionItem = createGenericCollectionItem;
+    updateGenericCollectionItem = updateGenericCollectionItem;
+    deleteGenericCollectionItem = deleteGenericCollectionItem;
+    getExchangeRateForCurrency = getExchangeRateForCurrency;
+    getGenericAutoComplete = getGenericAutoComplete;
+    getLocation = getLocation;
+    selectGoogleLocation = selectGoogleLocation;
+    setJobStatus = setJobStatus;
+    getJobStatus = getJobStatus;
+    getWorkflowReport = getWorkflowReport;
+    setWorkflowReport = setWorkflowReport;
+    conversation = conversation;
+    getReportView = getReportView;
+    /**
+     * Collection Definition
+     */
+    Shipment;
+    Invoice;
+    Setup;
+    Quotation;
+    Customer;
+    /**
+     *  Initializer
+     * @param init
+     */
     constructor(init) {
-        this.serverUrl = 'https://api.shipthis.co';
-        this.base_api_endpoint = 'https://api.shipthis.co';
-        this.file_upload_api_endpoint = 'https://upload.shipthis.co/api/v3/file-upload';
-        this.profiles = [];
-        this.internalRequest = request_1.internalRequest;
-        this.getListGeneric = generic_1.getListGeneric;
-        this.uploadFile = request_1.uploadFile;
-        this.getListGenericCollection = generic_1.getListGenericCollection;
-        this.getSearchListCollection = generic_1.getSearchListCollection;
-        this.getFullSearchListCollection = generic_1.getFullSearchListCollection;
-        this.getOneGenericCollectionItem = generic_1.getOneGenericCollectionItem;
-        this.createGenericCollectionItem = generic_1.createGenericCollectionItem;
-        this.updateGenericCollectionItem = generic_1.updateGenericCollectionItem;
-        this.deleteGenericCollectionItem = generic_1.deleteGenericCollectionItem;
-        this.getExchangeRateForCurrency = generic_1.getExchangeRateForCurrency;
-        this.getGenericAutoComplete = generic_1.getGenericAutoComplete;
-        this.getLocation = generic_1.getLocation;
-        this.selectGoogleLocation = generic_1.selectGoogleLocation;
-        this.setJobStatus = generic_1.setJobStatus;
-        this.getJobStatus = generic_1.getJobStatus;
-        this.getWorkflowReport = generic_1.getWorkflowReport;
-        this.setWorkflowReport = generic_1.setWorkflowReport;
-        this.conversation = generic_1.conversation;
-        this.getReportView = generic_1.getReportView;
         this.organisationId = init.organisationId;
         this.userType = init.userType;
         this.xApiKey = init.xApiKey;
@@ -50,14 +70,14 @@ class ShipthisAPI {
                     this.isConnectionValid = true;
                 }
                 else {
-                    const region = this.organisation.regions.find((region) => region.region_id === this.selectedRegion);
+                    const region = this.organisation?.regions?.find((region) => region.region_id === this.selectedRegion);
                     if (!region) {
                         this.connectionErrorMessage = 'Region Not Found';
                         reject({
                             message: this.connectionErrorMessage,
                         });
                     }
-                    const location = region.locations.find((location) => location.location_id === this.selectedLocation);
+                    const location = region?.locations?.find((location) => location.location_id === this.selectedLocation);
                     if (!location) {
                         this.connectionErrorMessage = 'Location Not Found';
                         reject({
@@ -68,7 +88,7 @@ class ShipthisAPI {
                 }
                 resolve({
                     region: this.selectedRegion,
-                    selectedLocation: this.selectedLocation
+                    selectedLocation: this.selectedLocation,
                 });
             })
                 .catch((err) => {
@@ -81,8 +101,15 @@ class ShipthisAPI {
     disconnect() {
         this.xApiKey = null;
     }
+    // Session
+    /**
+     * Login Via Password
+     * @param email
+     * @param password
+     */
     async loginViaPassword(email, password) {
         return new Promise((resolve, reject) => {
+            // TODO remove this on backend update
             const basePath = '/user-auth/login';
             this.internalRequest(this, 'POST', basePath, {
                 requestData: {
@@ -102,6 +129,14 @@ class ShipthisAPI {
         });
     }
     onInfoChange(response) {
+        // if (response?.user?.auth_token) {
+        //   if (Array.isArray(response.user.auth_token)) {
+        //     this.authorization = response.user.auth_token[0];
+        //   } else {
+        //     this.authorization = response.user.auth_token;
+        //   }
+        //   this.isSessionValid = true;
+        // }
         if (response?.profiles) {
             this.selectedProfile = response.profiles[0];
         }
@@ -110,9 +145,18 @@ class ShipthisAPI {
         this.serverUrl = response.api_endpoint;
         this.setObjectReferences();
     }
+    /**
+     * Customer User Registration
+     * @param email
+     * @param password
+     * @param firstName
+     * @param lastName
+     * @param companyName
+     * @param acceptTermsAndConditions
+     */
     async customerUserRegistration(email, password, firstName, lastName, companyName, phone, acceptTermsAndConditions, accounting, address) {
         return new Promise((resolve, reject) => {
-            (0, request_1.internalRequest)(this, 'POST', '/customer/auth/register', {
+            internalRequest(this, 'POST', '/customer/auth/register', {
                 requestData: {
                     email: email,
                     password: password,
@@ -135,9 +179,12 @@ class ShipthisAPI {
             });
         });
     }
+    /**
+     * Customer Forgot Password
+     */
     async customerForgotPassword(email, recaptcha_response) {
         return new Promise((resolve, reject) => {
-            (0, request_1.internalRequest)(this, 'POST', '/user-auth/forgot-password', {
+            internalRequest(this, 'POST', '/user-auth/forgot-password', {
                 requestData: {
                     email: email.toLowerCase(),
                     captcha: {
@@ -154,9 +201,12 @@ class ShipthisAPI {
             });
         });
     }
+    /**
+     * Set Password Via Token (Forgot Password)
+     */
     async setPasswordViaToken(token, new_password) {
         return new Promise((resolve, reject) => {
-            (0, request_1.internalRequest)(this, 'POST', '/user-auth/set-password-via-token', {
+            internalRequest(this, 'POST', '/user-auth/set-password-via-token', {
                 requestData: {
                     token: token,
                     new_password: new_password,
@@ -178,9 +228,13 @@ class ShipthisAPI {
         this.selectedLocation = locationId;
     }
     setObjectReferences() {
-        this.Shipment = new shipment_1.Shipment(this);
-        this.Setup = new setup_1.Setup(this);
+        this.Shipment = new Shipment(this);
+        this.Setup = new Setup(this);
     }
+    /**
+     * Gets the initial configuration information
+     * @returns {Promise<AxiosResponse<ShipthisApiResponse<InfoData>>>}
+     */
     getInfo() {
         return this.internalRequest(this, 'GET', 'user-auth' + '/info');
     }
@@ -189,5 +243,3 @@ class ShipthisAPI {
             query);
     }
 }
-exports.ShipthisAPI = ShipthisAPI;
-//# sourceMappingURL=main.js.map

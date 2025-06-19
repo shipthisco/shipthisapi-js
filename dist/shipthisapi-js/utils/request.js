@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadFile = exports.internalRequest = void 0;
-const axios_1 = require("axios");
+import axios from 'axios';
 const prepareHeaders = async (obj) => {
     const headers = {
         organisation: obj.organisationId,
@@ -15,6 +12,7 @@ const prepareHeaders = async (obj) => {
     return headers;
 };
 const internalRequest = async (obj, method, path, options) => {
+    // console.log("Request",obj.isConnectionValid);
     if (obj.isSessionValid && !obj.isConnectionValid) {
         throw Error(obj.connectionErrorMessage);
     }
@@ -37,7 +35,7 @@ const internalRequest = async (obj, method, path, options) => {
     if (['post', 'POST', 'put', 'PUT', 'patch', 'PATCH'].includes(method)) {
         config.data = options?.requestData || {};
     }
-    const result = await axios_1.default.request(config);
+    const result = await axios.request(config);
     if (result.status === 200 && result?.data?.success) {
         return result?.data?.data;
     }
@@ -52,13 +50,17 @@ const internalRequest = async (obj, method, path, options) => {
         }
     }
 };
-exports.internalRequest = internalRequest;
+/**
+ * Upload file
+ * @param obj Shipthis Object
+ * @param file File to be uploaded
+ */
 const uploadFile = async (obj, file) => {
     const headers = await prepareHeaders(obj);
     headers['Content-Type'] = 'multipart/form-data';
     const formData = new FormData();
     formData.append('file', file);
-    const result = await axios_1.default.post(obj.file_upload_api_endpoint, formData, {
+    const result = await axios.post(obj.file_upload_api_endpoint, formData, {
         headers: headers,
     });
     if (result.status === 200) {
@@ -69,5 +71,4 @@ const uploadFile = async (obj, file) => {
         throw new Error('File Upload Error');
     }
 };
-exports.uploadFile = uploadFile;
-//# sourceMappingURL=request.js.map
+export { internalRequest, uploadFile };

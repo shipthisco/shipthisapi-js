@@ -1,4 +1,4 @@
-import { CountryOfOrigin, PortOfDestination } from './collection.interface';
+import { CountryOfOrigin, PortOfDestination } from './collection.interface.js';
 
 export interface ApiEssentials {
   x_api_key: string;

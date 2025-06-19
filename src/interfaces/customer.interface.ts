@@ -2,7 +2,7 @@ import {
   ID,
   PrimaryContactPerson,
   ShipthisBasic,
-} from './collection.interface';
+} from './collection.interface.js';
 
 export interface RequestCustomerSegmentType {
   code: string;

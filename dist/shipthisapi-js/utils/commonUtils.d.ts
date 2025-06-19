@@ -1,7 +1,7 @@
-export declare const managePayload: (filter_txt?: any, fields?: any, display_fields?: any, input_filters?: any, general_filters?: any) => {
-    fields: any;
-    display_fields: any;
-    filter_txt: any;
-    input_filters: any;
-    general_filters: any;
+export declare const managePayload: (filter_txt?: string | null, fields?: string[] | null, display_fields?: string[] | null, input_filters?: string | null, general_filters?: string | null) => {
+    fields: string[];
+    display_fields: string[];
+    filter_txt: string;
+    input_filters: string;
+    general_filters: string;
 };

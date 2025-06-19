@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.customerObj = exports.quotationObj = exports.fclLandLoad = exports.ltlLandLoad = exports.ftlLandLoad = exports.BulkSeaLoad = exports.RoroSeaLoad = exports.lclSeaLoad = exports.Airload = exports.fclSeaLoad = exports.createNewShipper = exports.createNewCustomer = exports.invoiceRequestData = exports.invoiceRequiredData = exports.referenceCustomerPayload = exports.referencePortPayload = exports.partiesPayload = exports.requestLandShipment = exports.requestSeaShipement = exports.requestAirShipment = exports.freightChargeTeam = exports.movementType = exports.requiredShipmentClass = exports.requiredShipmentType = exports.requiredData = void 0;
-exports.requiredData = [
+export const requiredData = [
     'customer_name',
     'shipment_class',
     'shipment_type',
@@ -12,16 +9,17 @@ exports.requiredData = [
     'port_of_loading',
     'carrier_code',
 ];
-exports.requiredShipmentType = ['import', 'export', 'cross_trade'];
-exports.requiredShipmentClass = ['direct', 'house', 'master'];
-exports.movementType = [
+export const requiredShipmentType = ['import', 'export', 'cross_trade'];
+export const requiredShipmentClass = ['direct', 'house', 'master'];
+export const movementType = [
     'door_to_door',
     'door_to_port',
     'port_to_port',
     'port_to_door',
 ];
-exports.freightChargeTeam = ['prepaid', 'collect', 'third_party'];
-exports.requestAirShipment = {
+export const freightChargeTeam = ['prepaid', 'collect', 'third_party'];
+// request data for Air shipment
+export const requestAirShipment = {
     port_of_loading: {},
     port_of_discharge: {},
     job_id: '',
@@ -35,7 +33,7 @@ exports.requestAirShipment = {
     hawb_rates: '',
     __events: {
         opened__date: {
-            $date: new Date().getTime(),
+            $date: new Date().getTime(), // pass current date in milliseconds
         },
         opened__comments: '',
     },
@@ -80,7 +78,8 @@ exports.requestAirShipment = {
     shipment_class: '',
     master_shipment_cost_allocation: '',
 };
-exports.requestSeaShipement = {
+// request data for sea shipemnt
+export const requestSeaShipement = {
     __scp: {},
     'port_of_loading.transit_time': '',
     __events: {
@@ -139,7 +138,8 @@ exports.requestSeaShipement = {
     shipment_name: '',
     volume: '',
 };
-exports.requestLandShipment = {
+// request data for land shipment
+export const requestLandShipment = {
     __scp: {},
     __events: {
         opened__date: {
@@ -184,7 +184,7 @@ exports.requestLandShipment = {
     shipment_term: {},
     shipment_name: '',
 };
-exports.partiesPayload = {
+export const partiesPayload = {
     fields: [
         'company.name',
         'full_address',
@@ -197,14 +197,14 @@ exports.partiesPayload = {
     input_filters: '{}',
     general_filters: '{}',
 };
-exports.referencePortPayload = {
+export const referencePortPayload = {
     fields: ['name', 'location', 'code'],
     display_fields: ['code', 'name'],
     filter_txt: '',
     input_filters: '{}',
     general_filters: '{}',
 };
-exports.referenceCustomerPayload = {
+export const referenceCustomerPayload = {
     fields: [
         'primary_contact_person',
         'company',
@@ -220,8 +220,8 @@ exports.referenceCustomerPayload = {
     input_filters: '{}',
     general_filters: '{}',
 };
-exports.invoiceRequiredData = ['customer', 'invoice_currency'];
-exports.invoiceRequestData = {
+export const invoiceRequiredData = ['customer', 'invoice_currency'];
+export const invoiceRequestData = {
     reqbody: {
         items: [],
         invoice_payment_term: {},
@@ -281,7 +281,7 @@ exports.invoiceRequestData = {
     action_op_data: {},
     'captcha-response': {},
 };
-exports.createNewCustomer = {
+export const createNewCustomer = {
     opening_balance: {},
     account_contact_person: {
         same_as_primary: false,
@@ -316,7 +316,7 @@ exports.createNewCustomer = {
         external_balance: 0,
         account_credit_block: false,
         block_reason: 'Exceeded Credit Terms',
-        currency: {},
+        currency: {}, // refernce field currency
         is_inter_branch: false,
         need_insurance: false,
         automatic_ar_reminder: {
@@ -338,7 +338,7 @@ exports.createNewCustomer = {
         full_address_field_compute: '',
     },
 };
-exports.createNewShipper = {
+export const createNewShipper = {
     company: {
         party_type: [],
         name: '',
@@ -352,7 +352,7 @@ exports.createNewShipper = {
     full_address: '',
     full_address_field: '',
 };
-exports.fclSeaLoad = {
+export const fclSeaLoad = {
     shipment: [
         {
             _cls_: 'sea_shipment',
@@ -377,7 +377,7 @@ exports.fclSeaLoad = {
     pickup_number: '',
     packages: [],
 };
-exports.Airload = {
+export const Airload = {
     shipment: [
         {
             _cls_: 'air_shipment',
@@ -403,7 +403,7 @@ exports.Airload = {
     cbm: 0,
     gross_wt_kg: 0,
 };
-exports.lclSeaLoad = {
+export const lclSeaLoad = {
     shipment: [
         {
             _cls_: 'sea_shipment',
@@ -448,7 +448,7 @@ exports.lclSeaLoad = {
     cbm: 0,
     cft: 0,
 };
-exports.RoroSeaLoad = {
+export const RoroSeaLoad = {
     shipment: [
         {
             _cls_: 'sea_shipment',
@@ -486,7 +486,7 @@ exports.RoroSeaLoad = {
     model: '',
     year: '',
 };
-exports.BulkSeaLoad = {
+export const BulkSeaLoad = {
     shipment: [
         {
             _cls_: 'sea_shipment',
@@ -512,7 +512,7 @@ exports.BulkSeaLoad = {
     discharging_rate: 0,
     additional_information: '',
 };
-exports.ftlLandLoad = {
+export const ftlLandLoad = {
     shipment: [
         {
             _cls_: 'land_shipment',
@@ -549,7 +549,7 @@ exports.ftlLandLoad = {
     gross_wt: 0,
     net_wt: 0,
 };
-exports.ltlLandLoad = {
+export const ltlLandLoad = {
     shipment: [
         {
             _cls_: 'land_shipment',
@@ -588,7 +588,7 @@ exports.ltlLandLoad = {
     cbm: 0,
     cft: 0,
 };
-exports.fclLandLoad = {
+export const fclLandLoad = {
     shipment: [
         {
             _cls_: 'land_shipment',
@@ -630,7 +630,7 @@ exports.fclLandLoad = {
         },
     ],
 };
-exports.quotationObj = {
+export const quotationObj = {
     stats: {
         gross_wt: {
             kg: 0,
@@ -732,7 +732,7 @@ exports.quotationObj = {
         },
     ],
 };
-exports.customerObj = {
+export const customerObj = {
     reqbody: {
         opening_balance: {},
         account_contact_person: {
@@ -807,4 +807,3 @@ exports.customerObj = {
     action_op_data: {},
     'captcha-response': {},
 };
-//# sourceMappingURL=request-body.js.map

@@ -1,12 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Setup = void 0;
-const commonUtils_1 = require("../utils/commonUtils");
-const request_setup_1 = require("./request.setup");
-class Setup {
+import { managePayload } from '../utils/commonUtils.js';
+import { requestAirportData, requestAWBData, requestCatData, requestCommonData, requestPortData, requestShipmentTermsData, requestShippingLine, requestVehicleData, requestVesselData, } from './request.setup.js';
+export class Setup {
+    obj;
     constructor(obj) {
         this.obj = obj;
     }
+    // get all
     getAllAirport() {
         return this.obj.getListGenericCollection(this.obj, 'airport');
     }
@@ -43,6 +42,7 @@ class Setup {
     getAllAWBBlock() {
         return this.obj.getListGenericCollection(this.obj, 'awb_block');
     }
+    // get one
     getAirport(objectId) {
         return this.obj.getOneGenericCollectionItem(this.obj, 'airport', objectId);
     }
@@ -79,66 +79,68 @@ class Setup {
     getAWBBlock(objectId) {
         return this.obj.getOneGenericCollectionItem(this.obj, 'awb_block', objectId);
     }
+    // create
     createContainerType(data) {
-        const updatedData = { requestCatData: request_setup_1.requestCatData, ...data };
+        const updatedData = { requestCatData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'container_type', updatedData);
     }
     createPackageType(data) {
-        const updatedData = { requestCommonData: request_setup_1.requestCommonData, ...data };
+        const updatedData = { requestCommonData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'package_type', updatedData);
     }
     createDocumentType(data) {
-        const updatedData = { requestCommonData: request_setup_1.requestCommonData, ...data };
+        const updatedData = { requestCommonData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'documentation_kind', updatedData);
     }
     createVehicleType(data) {
-        const updatedData = { requestVehicleData: request_setup_1.requestVehicleData, ...data };
+        const updatedData = { requestVehicleData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'vehicle_type', updatedData);
     }
     createProductType(data) {
-        const updatedData = { requestCommonData: request_setup_1.requestCommonData, ...data };
+        const updatedData = { requestCommonData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'product_type', updatedData);
     }
     createAirline(data) {
-        const updatedData = { requestCommonData: request_setup_1.requestCommonData, ...data };
+        const updatedData = { requestCommonData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'airline', updatedData);
     }
     async createPort(data) {
         const location = await this.obj.Shipment.getGoogleLocation(data.location.bold);
         const selectLocation = await this.obj.Shipment.selectGoogleLocations(location.items[0].place_id, location.items[0].description);
-        const updatedData = { requestPortData: request_setup_1.requestPortData, ...data, selectLocation };
+        const updatedData = { requestPortData, ...data, selectLocation };
         return this.obj.createGenericCollectionItem(this.obj, 'port', updatedData);
     }
     async createAirport(data) {
-        const location = await this.obj.Shipment.getGoogleLocation(data.location.bold);
+        const location = await this.obj.Shipment.getGoogleLocation(data?.location?.bold);
         const selectLocation = await this.obj.Shipment.selectGoogleLocations(location.items[0].place_id, location.items[0].description);
-        const updatedData = { requestAirportData: request_setup_1.requestAirportData, ...data, selectLocation };
+        const updatedData = { requestAirportData, ...data, selectLocation };
         return this.obj.createGenericCollectionItem(this.obj, 'airport', updatedData);
     }
     createShipmentTerms(data) {
-        const updatedData = { requestShipmentTermsData: request_setup_1.requestShipmentTermsData, ...data };
+        const updatedData = { requestShipmentTermsData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'shipment_term', updatedData);
     }
     async createShippingLine(data) {
-        const updatedData = { requestShippingLine: request_setup_1.requestShippingLine, ...data };
+        const updatedData = { requestShippingLine, ...data };
         const location = await this.obj.Shipment.getGoogleLocation(data.address);
         const selectLocation = await this.obj.Shipment.selectGoogleLocations(location.items[0].place_id, location.items[0].description);
         updatedData.address.city = selectLocation;
         return this.obj.createGenericCollectionItem(this.obj, 'shipping_line', updatedData);
     }
     async createVessel(data) {
-        const updatedData = { requestVesselData: request_setup_1.requestVesselData, ...data };
+        const updatedData = { requestVesselData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'vessel', updatedData);
     }
     async createAWBBlock(data) {
         const fields = ['name', 'code'];
         const display_fields = ['name'];
-        const updatedData = (0, commonUtils_1.managePayload)(data.airline, fields, display_fields);
+        const updatedData = managePayload(data?.airline, fields, display_fields);
         const res = await this.obj.getGenericAutoComplete(this.obj, 'airline', updatedData);
         data.airline = res.items[0];
-        const injectableDate = { requestAWBData: request_setup_1.requestAWBData, ...data };
+        const injectableDate = { requestAWBData, ...data };
         return this.obj.createGenericCollectionItem(this.obj, 'awb_block', injectableDate);
     }
+    // delete Operation
     deleteOperation(id, collectionName) {
         return this.obj.deleteGenericCollectionItem(this.obj, collectionName, id);
     }
@@ -178,6 +180,7 @@ class Setup {
     deleteAWBBlock(id) {
         return this.deleteOperation(id, 'awb_block');
     }
+    // update operations
     updatePort(id, data) {
         return this.obj.updateGenericCollectionItem(this.obj, 'port', id, data);
     }
@@ -215,5 +218,3 @@ class Setup {
         return this.obj.updateGenericCollectionItem(this.obj, 'awb_block', id, data);
     }
 }
-exports.Setup = Setup;
-//# sourceMappingURL=setup.js.map

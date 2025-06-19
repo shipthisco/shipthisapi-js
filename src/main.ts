@@ -17,36 +17,32 @@ import {
   getJobStatus,
   getWorkflowReport,
   setWorkflowReport,
-} from './collections/generic';
-import { ApiOptions } from './interfaces/api.interface';
-import { internalRequest, uploadFile } from './utils/request';
-import { Shipment } from './collections/shipment';
-import {
-  Organisation,
-  ShipthisLocation,
-} from './interfaces/info.interface';
-import { Invoice } from './collections/invoice';
-import { Setup } from './collections/setup';
-import { Quotation } from './collections/quotation';
-import { Customer } from './collections/customer';
+} from './collections/generic.js';
+import { ApiOptions } from './interfaces/api.interface.js';
+import { internalRequest, uploadFile } from './utils/request.js';
+import { Shipment } from './collections/shipment.js';
+import { Organisation, ShipthisLocation } from './interfaces/info.interface.js';
+import { Invoice } from './collections/invoice.js';
+import { Setup } from './collections/setup.js';
+import { Quotation } from './collections/quotation.js';
+import { Customer } from './collections/customer.js';
 
 export class ShipthisAPI {
   serverUrl = 'https://api.shipthis.co';
-
   base_api_endpoint = 'https://api.shipthis.co';
   file_upload_api_endpoint = 'https://upload.shipthis.co/api/v3/file-upload';
-  xApiKey: string;
-  authorization: string;
+  xApiKey?: string | null;
+  authorization: string | undefined;
   organisationId: string;
-  organisation: Organisation;
+  organisation: Organisation | undefined;
   userType: string;
   selectedRegion: string;
   selectedLocation: string;
   profiles = [];
-  selectedProfile;
-  isSessionValid: boolean;
+  selectedProfile: any;
+  isSessionValid: boolean | undefined;
   isConnectionValid: boolean;
-  connectionErrorMessage: string;
+  connectionErrorMessage: string | undefined;
 
   public internalRequest = internalRequest;
   public getListGeneric = getListGeneric;
@@ -72,11 +68,11 @@ export class ShipthisAPI {
   /**
    * Collection Definition
    */
-  public Shipment: Shipment;
-  public Invoice: Invoice;
-  public Setup: Setup;
-  public Quotation: Quotation;
-  public Customer: Customer;
+  public Shipment!: Shipment;
+  public Invoice!: Invoice;
+  public Setup!: Setup;
+  public Quotation!: Quotation;
+  public Customer!: Customer;
 
   /**
    *  Initializer
@@ -102,16 +98,17 @@ export class ShipthisAPI {
               resp?.organisation?.regions[0]?.locations[0]?.location_id;
             this.isConnectionValid = true;
           } else {
-            const region = this.organisation.regions.find(
+            const region = this.organisation?.regions?.find(
               (region) => region.region_id === this.selectedRegion,
             );
+
             if (!region) {
               this.connectionErrorMessage = 'Region Not Found';
               reject({
                 message: this.connectionErrorMessage,
               });
             }
-            const location = region.locations.find(
+            const location = region?.locations?.find(
               (location: ShipthisLocation) =>
                 location.location_id === this.selectedLocation,
             );
@@ -124,9 +121,9 @@ export class ShipthisAPI {
             this.isConnectionValid = true;
           }
           resolve({
-            region:this.selectedRegion,
-            selectedLocation: this.selectedLocation
-          })
+            region: this.selectedRegion,
+            selectedLocation: this.selectedLocation,
+          });
         })
         .catch((err) => {
           reject({

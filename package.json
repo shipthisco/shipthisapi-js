@@ -1,25 +1,25 @@
 {
   "name": "shipthisapi-js",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Wrapper for shipthis api",
   "engines": {
-    "node": ">= 14.15 <17"
+    "node": ">=18"
   },
   "type": "module",
   "devDependencies": {
-    "@types/jest": "~27.4",
-    "@types/node": "~16.11",
-    "@typescript-eslint/eslint-plugin": "~5.14",
-    "@typescript-eslint/parser": "~5.14",
-    "eslint": "~8.11",
-    "eslint-config-prettier": "~8.5",
-    "eslint-plugin-jest": "~26.1",
-    "jest": "~27.5",
-    "prettier": "~2.5",
-    "rimraf": "~3.0",
-    "ts-jest": "~27.1",
+    "@types/jest": "~29.5",
+    "@types/node": "~22.15",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9.27.0",
+    "eslint-config-prettier": "~10.1",
+    "eslint-plugin-jest": "~28.11",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.3",
+    "rimraf": "~6.0",
+    "ts-jest": "^29.3.4",
     "tsutils": "~3.21",
-    "typescript": "~4.6"
+    "typescript": "^5.8.3"
   },
   "scripts": {
     "start": "node dist/shipthisapi-js/main.js",
@@ -28,17 +28,17 @@
     "build": "tsc -p tsconfig.prod.json",
     "postbuild": "node ./scripts/pre-publish",
     "build:watch": "tsc -w -p tsconfig.prod.json",
-    "lint": "eslint ./src --ext .ts",
+    "lint": "eslint ./src",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
   "author": "Mayur Rawte",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^0.26.1",
-    "tslib": "~2.3.1"
+    "axios": "^1.9.0",
+    "tslib": "~2.8.1"
   },
   "volta": {
-    "node": "16.13.0"
+    "node": "20.11.1"
   }
 }

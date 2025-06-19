@@ -1,4 +1,4 @@
-import { CountryOfOrigin, PortOfDestination } from './collection.interface';
+import { CountryOfOrigin, PortOfDestination } from './collection.interface.js';
 export interface ApiEssentials {
     x_api_key: string;
     organisation_id: string;
@@ -6,7 +6,7 @@ export interface ApiEssentials {
     region_id: string;
     location_id: string;
 }
-export declare type UserType = 'employee' | 'customer' | 'vendor';
+export type UserType = 'employee' | 'customer' | 'vendor';
 export interface ApiOptions {
     organisationId: string;
     userType: UserType;
@@ -107,7 +107,7 @@ export interface AllQueryFieldsPayload {
     output_type: string;
     meta: boolean;
     queryFilterV2: [];
-    general_filter: GeneralFilters;
+    general_filter: any;
     only: string;
     location: string;
     region_override: boolean;
@@ -115,14 +115,4 @@ export interface AllQueryFieldsPayload {
 export interface MultiSort {
     sort_by: string;
     sort_order: string;
-}
-export interface GeneralFilters {
-    job_status?: GeneralFilterStatus;
-    _state?: GeneralFilters_state;
-}
-export interface GeneralFilterStatus {
-    $in: [];
-}
-export interface GeneralFilters_state {
-    $nin: [];
 }

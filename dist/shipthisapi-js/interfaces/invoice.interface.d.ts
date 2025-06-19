@@ -1,5 +1,5 @@
-import { Company, ShipthisBasic, ID, MasterReference, Operation, OperationExecutive, PrimaryContactPerson } from './collection.interface';
-import { ICustomDate } from './custom-date';
+import { Company, ShipthisBasic, ID, MasterReference, Operation, OperationExecutive, PrimaryContactPerson } from './collection.interface.js';
+import { ICustomDate } from './custom-date.js';
 export interface InvoiceInterface {
     items?: Array<Items>;
     invoice_payment_term: InvoicePaymentTerm;

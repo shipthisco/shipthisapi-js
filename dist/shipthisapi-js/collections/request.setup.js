@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.requestqueryData = exports.requestAWBData = exports.requestVesselData = exports.requestShippingLine = exports.requestShipmentTermsData = exports.requestAirportData = exports.requestPortData = exports.requestProdData = exports.requestVehicleData = exports.requestCommonData = exports.requestCatData = void 0;
-exports.requestCatData = {
+export const requestCatData = {
     name: '',
     max_cbm: 0,
     length: 0,
@@ -9,20 +6,20 @@ exports.requestCatData = {
     height: 0,
     max_weight: 0,
 };
-exports.requestCommonData = {
+export const requestCommonData = {
     name: '',
     code: '',
 };
-exports.requestVehicleData = {
+export const requestVehicleData = {
     name: '',
     code: '',
     container_size: '',
 };
-exports.requestProdData = {
+export const requestProdData = {
     name: '',
     code: '',
 };
-exports.requestPortData = {
+export const requestPortData = {
     location: {
         description: '',
         bold: '',
@@ -45,7 +42,7 @@ exports.requestPortData = {
     latitude: 0,
     longitude: 0,
 };
-exports.requestAirportData = {
+export const requestAirportData = {
     location: {
         description: '',
         bold: '',
@@ -65,12 +62,12 @@ exports.requestAirportData = {
     name: '',
     code: '',
 };
-exports.requestShipmentTermsData = {
+export const requestShipmentTermsData = {
     name: '',
     code: '',
     order: 0,
 };
-exports.requestShippingLine = {
+export const requestShippingLine = {
     address: {},
     name: '',
     code: '',
@@ -80,7 +77,7 @@ exports.requestShippingLine = {
     fax: '',
     email: '',
 };
-exports.requestVesselData = {
+export const requestVesselData = {
     name: '',
     code: '',
     imo: '',
@@ -88,7 +85,7 @@ exports.requestVesselData = {
     flag: '',
     type: '',
 };
-exports.requestAWBData = {
+export const requestAWBData = {
     available_count: 0,
     used: [],
     used_count: 0,
@@ -108,7 +105,7 @@ exports.requestAWBData = {
     start_number: 0,
     end_number: 0,
 };
-exports.requestqueryData = {
+export const requestqueryData = {
     search_query: "",
     count: 0,
     page: 0,
@@ -121,4 +118,3 @@ exports.requestqueryData = {
     location: "",
     region_override: false,
 };
-//# sourceMappingURL=request.setup.js.map

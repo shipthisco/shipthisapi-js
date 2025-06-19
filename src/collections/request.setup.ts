@@ -9,7 +9,7 @@ import {
   RequestShippingLineType,
   RequestVehicleType,
   RequestVesselType,
-} from '../interfaces/api.interface';
+} from '../interfaces/api.interface.js';
 
 export const requestCatData: RequestContainerType = {
   name: '',

@@ -26,7 +26,7 @@ export declare const requestAirShipment: {
     custom: {
         is_exhibition: boolean;
     };
-    order_ref_no: any[];
+    order_ref_no: never[];
     shipper_declared_value: {
         amount: number;
     };
@@ -44,20 +44,20 @@ export declare const requestAirShipment: {
     operation_executive: {};
     forwarding_agent_show_on_master: boolean;
     destination_agent_show_on_master: boolean;
-    pod_documents: any[];
-    skus: any[];
+    pod_documents: never[];
+    skus: never[];
     under_watchlist: boolean;
     notify_events_via_email: boolean;
-    tags: any[];
+    tags: never[];
     pick_charge_from_invoice: boolean;
     hawb_override_dimensions: boolean;
     hawb_rate_class_code: string;
     hawb_rate_or_charge: number;
     hawb_rate_total: number;
     hawb_has_other_charges: boolean;
-    documents: any[];
-    customer_documents: any[];
-    customer_uploaded_documents: any[];
+    documents: never[];
+    customer_documents: never[];
+    customer_uploaded_documents: never[];
     shipment_status: string;
     shipment_class: string;
     master_shipment_cost_allocation: string;
@@ -76,7 +76,7 @@ export declare const requestSeaShipement: {
     custom: {
         is_removal_shipment: boolean;
     };
-    order_ref_no: any[];
+    order_ref_no: never[];
     shipper_declared_value: {
         amount: number;
     };
@@ -101,14 +101,14 @@ export declare const requestSeaShipement: {
     forwarding_agent_show_on_master: boolean;
     destination_agent_show_on_master: boolean;
     has_switch_bl: boolean;
-    pod_documents: any[];
-    skus: any[];
+    pod_documents: never[];
+    skus: never[];
     under_watchlist: boolean;
     notify_events_via_email: boolean;
-    tags: any[];
-    documents: any[];
-    customer_documents: any[];
-    customer_uploaded_documents: any[];
+    tags: never[];
+    documents: never[];
+    customer_documents: never[];
+    customer_uploaded_documents: never[];
     shipment_status: string;
     job_id: string;
     product_type: string;
@@ -133,7 +133,7 @@ export declare const requestLandShipment: {
     master_shipment_cost_allocation: string;
     enable_automated_tracking: boolean;
     custom: {};
-    order_ref_no: any[];
+    order_ref_no: never[];
     shipper_declared_value: {
         amount: number;
     };
@@ -148,14 +148,14 @@ export declare const requestLandShipment: {
         location: {};
     };
     operation_executive: {};
-    pod_documents: any[];
-    skus: any[];
+    pod_documents: never[];
+    skus: never[];
     under_watchlist: boolean;
     notify_events_via_email: boolean;
-    tags: any[];
-    documents: any[];
-    customer_documents: any[];
-    customer_uploaded_documents: any[];
+    tags: never[];
+    documents: never[];
+    customer_documents: never[];
+    customer_uploaded_documents: never[];
     shipment_status: string;
     job_id: string;
     shipment_class: string;
@@ -190,7 +190,7 @@ export declare const referenceCustomerPayload: {
 export declare const invoiceRequiredData: string[];
 export declare const invoiceRequestData: {
     reqbody: {
-        items: any[];
+        items: never[];
         invoice_payment_term: {};
         __scp: {};
         invoice_total: number;
@@ -198,13 +198,13 @@ export declare const invoiceRequestData: {
         invoice_sub_total: number;
         invoice_service_total: number;
         invoice_currency_sub_total: {};
-        invoice_tax_breakup: any[];
-        invoice_rcm_breakup: any[];
+        invoice_tax_breakup: never[];
+        invoice_rcm_breakup: never[];
         invoice_rcm_tax_total: number;
         invoice_sub_total_base_currency: number;
         invoice_tax_total_base_currency: number;
         invoice_additional_charge: number;
-        charges_breakup: any[];
+        charges_breakup: never[];
         invoice_additional_charge_base_currency: number;
         invoice_total_base_currency: number;
         invoice_date: {
@@ -216,7 +216,7 @@ export declare const invoiceRequestData: {
         custom: {};
         adjustment_text: string;
         adjustment_amount: number;
-        documents: any[];
+        documents: never[];
         invoice_number: string;
         invoice_currency: {
             _id: {
@@ -252,7 +252,7 @@ export declare const createNewCustomer: {
     opening_balance: {};
     account_contact_person: {
         same_as_primary: boolean;
-        additional_emails: any[];
+        additional_emails: never[];
         enable_portal_access: boolean;
     };
     company: {
@@ -262,7 +262,7 @@ export declare const createNewCustomer: {
         client_code: string;
     };
     primary_contact_person: {
-        additional_emails: any[];
+        additional_emails: never[];
         enable_portal_access: boolean;
         first_name: string;
         last_name: string;
@@ -299,7 +299,7 @@ export declare const createNewCustomer: {
             clearance_job: {};
             documentation_job: {};
         };
-        documents: any[];
+        documents: never[];
         customer_lifecycle: string;
         full_address: string;
         full_address_field_compute: string;
@@ -307,7 +307,7 @@ export declare const createNewCustomer: {
 };
 export declare const createNewShipper: {
     company: {
-        party_type: any[];
+        party_type: never[];
         name: string;
         phone: string;
     };
@@ -340,7 +340,7 @@ export declare const fclSeaLoad: {
     seal_no: string;
     custom_seal_no: string;
     pickup_number: string;
-    packages: any[];
+    packages: never[];
 };
 export declare const Airload: {
     shipment: {
@@ -352,7 +352,7 @@ export declare const Airload: {
     description: string;
     cbm_compute: string;
     weight_unit: string;
-    dimensions: any[];
+    dimensions: never[];
     hazard_details: {
         is_hazardous: boolean;
     };
@@ -613,17 +613,17 @@ export declare const quotationObj: {
     };
     some_random_field: string;
     shipment_type: string;
-    order_ref_no: any[];
+    order_ref_no: never[];
     origin: {};
     destination: {
         location: {};
-        airport_of_destination: any;
-        port_of_destination: any;
+        airport_of_destination: null;
+        port_of_destination: null;
         location_type: string;
         pincode: string;
         drop_address: string;
     };
-    documents: any[];
+    documents: never[];
     cargo_value: {};
     insurance: {
         need_insurance: boolean;
@@ -636,10 +636,10 @@ export declare const quotationObj: {
         comments: string;
     };
     quotation_number: string;
-    lcls: any[];
-    fcls: any[];
-    details: any[];
-    ltls: any[];
+    lcls: never[];
+    fcls: never[];
+    details: never[];
+    ltls: never[];
     shipment_term: {};
     shipment_movement_type: string;
     customer_name: {};
@@ -682,7 +682,7 @@ export declare const customerObj: {
         opening_balance: {};
         account_contact_person: {
             same_as_primary: boolean;
-            additional_emails: any[];
+            additional_emails: never[];
             enable_portal_access: boolean;
         };
         __scp: {};
@@ -695,7 +695,7 @@ export declare const customerObj: {
             fax_no: string;
         };
         primary_contact_person: {
-            additional_emails: any[];
+            additional_emails: never[];
             enable_portal_access: boolean;
             salutation: string;
             first_name: string;
@@ -744,7 +744,7 @@ export declare const customerObj: {
             clearance_job: {};
             documentation_job: {};
         };
-        documents: any[];
+        documents: never[];
         customer_lifecycle: string;
         full_address: string;
         full_address_field_compute: string;
