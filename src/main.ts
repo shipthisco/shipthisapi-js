@@ -28,8 +28,8 @@ import { Quotation } from './collections/quotation.js';
 import { Customer } from './collections/customer.js';
 
 export class ShipthisAPI {
-  serverUrl = 'https://api.shipthis.co';
-  base_api_endpoint = 'https://api.shipthis.co';
+  serverUrl = 'https://ngrok.shipthis.dev';
+  base_api_endpoint = 'https://ngrok.shipthis.dev';
   file_upload_api_endpoint = 'https://upload.shipthis.co/api/v3/file-upload';
   xApiKey?: string | null;
   authorization: string | undefined;
