@@ -17,6 +17,9 @@ const prepareHeaders = async (obj: ShipthisAPI) => {
   if (obj.xApiKey) {
     headers['x-api-key'] = obj.xApiKey || '';
   }
+  if (obj.authorization) {
+    headers['authorization'] = obj.authorization || '';
+  }
   return headers;
 };
 
@@ -38,6 +41,7 @@ const internalRequest = async (
   headers['Access-Control-Allow-Origin'] = '*';
   headers['Access-Control-Allow-Credentials'] = true;
   const query_params = options?.queryParams || null;
+  console.log('headers', headers);
   const config: AxiosRequestConfig = {
     method,
     url:

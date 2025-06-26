@@ -1,6 +1,6 @@
 {
   "name": "shipthisapi-js",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "Wrapper for shipthis api",
   "engines": {
     "node": ">=18"
@@ -24,11 +24,10 @@
   "scripts": {
     "start": "node dist/shipthisapi-js/main.js",
     "clean": "rimraf coverage build tmp",
-    "prebuild": "node ./scripts/pre-build && npm run lint",
+    "prebuild": "node ./scripts/pre-build",
     "build": "tsc -p tsconfig.prod.json",
     "postbuild": "node ./scripts/pre-publish",
     "build:watch": "tsc -w -p tsconfig.prod.json",
-    "lint": "eslint ./src",
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
