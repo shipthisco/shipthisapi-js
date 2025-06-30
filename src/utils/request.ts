@@ -41,7 +41,6 @@ const internalRequest = async (
   headers['Access-Control-Allow-Origin'] = '*';
   headers['Access-Control-Allow-Credentials'] = true;
   const query_params = options?.queryParams || null;
-  console.log('headers', headers);
   const config: AxiosRequestConfig = {
     method,
     url:
