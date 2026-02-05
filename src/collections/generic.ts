@@ -129,6 +129,118 @@ const updateGenericCollectionItem = async (
   );
 };
 
+/**
+ * Patch specific fields of an item (partial update)
+ * @param obj - ShipthisAPI instance
+ * @param collectionName - Name of the collection
+ * @param objectId - Document ID
+ * @param updateFields - Fields to update
+ */
+const patchGenericCollectionItem = async (
+  obj: ShipthisAPI,
+  collectionName: string,
+  objectId: string,
+  updateFields: any,
+) => {
+  return obj.internalRequest(
+    obj,
+    'PATCH',
+    `/incollection/${collectionName}/${objectId}`,
+    { requestData: { update_fields: updateFields } },
+  );
+};
+
+/**
+ * Bulk edit multiple items in a collection
+ * @param obj - ShipthisAPI instance
+ * @param collectionName - Name of the collection
+ * @param ids - List of document IDs to update
+ * @param updateData - Key-value pairs of fields to update
+ * @param externalUpdateData - Extra data for external updates (optional)
+ */
+const bulkEdit = async (
+  obj: ShipthisAPI,
+  collectionName: string,
+  ids: string[],
+  updateData: Record<string, any>,
+  externalUpdateData?: Record<string, any>,
+) => {
+  const payload: any = {
+    data: {
+      ids,
+      update_data: updateData,
+    },
+  };
+  if (externalUpdateData) {
+    payload.data.external_update_data = externalUpdateData;
+  }
+  return obj.internalRequest(
+    obj,
+    'POST',
+    `/incollection_group_edit/${collectionName}`,
+    { requestData: payload },
+  );
+};
+
+/**
+ * Trigger a primary workflow transition (status change on a record)
+ * @param obj - ShipthisAPI instance
+ * @param collection - Target collection (e.g., "pickup_delivery")
+ * @param workflowId - Workflow status key (e.g., "job_status")
+ * @param objectId - Document ID
+ * @param actionIndex - Index of action within the status
+ * @param intendedStateId - Intended resulting state ID
+ * @param startStateId - Current/starting state ID (optional)
+ */
+const primaryWorkflowAction = async (
+  obj: ShipthisAPI,
+  collection: string,
+  workflowId: string,
+  objectId: string,
+  actionIndex: number,
+  intendedStateId: string,
+  startStateId?: string,
+) => {
+  const payload: any = {
+    action_index: actionIndex,
+    intended_state_id: intendedStateId,
+  };
+  if (startStateId) {
+    payload.start_state_id = startStateId;
+  }
+  return obj.internalRequest(
+    obj,
+    'POST',
+    `/workflow/${collection}/${workflowId}/${objectId}`,
+    { requestData: payload },
+  );
+};
+
+/**
+ * Trigger a secondary workflow transition (sub-status change)
+ * @param obj - ShipthisAPI instance
+ * @param collection - Target collection (e.g., "pickup_delivery")
+ * @param workflowId - Secondary status key (e.g., "driver_status")
+ * @param objectId - Document ID
+ * @param targetState - Resulting sub-state (e.g., "to_pick_up")
+ * @param additionalData - Optional additional data to send
+ */
+const secondaryWorkflowAction = async (
+  obj: ShipthisAPI,
+  collection: string,
+  workflowId: string,
+  objectId: string,
+  targetState: string,
+  additionalData?: Record<string, any>,
+) => {
+  return obj.internalRequest(
+    obj,
+    'POST',
+    `/workflow/${collection}/${workflowId}/${objectId}/${targetState}`,
+    { requestData: additionalData || {} },
+  );
+};
+
 const setJobStatus = async (
   obj: { internalRequest: (arg0: any, arg1: string, arg2: string, arg3: { action_index: any; }) => any; },
   collectionName: string,
@@ -178,10 +290,11 @@ const getGenericAutoComplete = async (
   referenceName: string,
   data: any,
 ) => {
+  const location = obj.selectedLocation || 'new_york';
   return obj.internalRequest(
     obj,
     'POST',
-    `autocomplete-reference/${referenceName}?location=new_york`,
+    `autocomplete-reference/${referenceName}?location=${location}`,
     { requestData: data },
   );
 };
@@ -225,6 +338,57 @@ const conversation = async (
   }
   return obj.internalRequest(obj, 'POST', collectionName, data);
 };
+
+/**
+ * Create a conversation/message on a document
+ * @param obj - ShipthisAPI instance
+ * @param viewName - Collection/view name
+ * @param documentId - Document ID
+ * @param conversationData - Conversation data (message, type, etc.)
+ */
+const createConversation = async (
+  obj: ShipthisAPI,
+  viewName: string,
+  documentId: string,
+  conversationData: any,
+) => {
+  const payload = {
+    conversation: conversationData,
+    document_id: documentId,
+    view_name: viewName,
+    message_type: conversationData?.type || '',
+  };
+  return obj.internalRequest(obj, 'POST', 'conversation', { requestData: payload });
+};
+
+/**
+ * Get conversations for a document
+ * @param obj - ShipthisAPI instance
+ * @param viewName - Collection/view name
+ * @param documentId - Document ID
+ * @param messageType - Filter by message type (default: "all")
+ * @param page - Page number (default: 1)
+ * @param count - Items per page (default: 100)
+ */
+const getConversations = async (
+  obj: ShipthisAPI,
+  viewName: string,
+  documentId: string,
+  messageType = 'all',
+  page = 1,
+  count = 100,
+) => {
+  const params = new URLSearchParams({
+    view_name: viewName,
+    document_id: documentId,
+    page: String(page),
+    count: String(count),
+    message_type: messageType,
+    version: '2',
+  });
+  return obj.internalRequest(obj, 'GET', `conversation?${params.toString()}`);
+};
+
 const deleteGenericCollectionItem = async (
   obj: { internalRequest: (arg0: any, arg1: string, arg2: string) => any; },
   collectionName: string,
@@ -260,11 +424,17 @@ export {
   getFullSearchListCollection,
   createGenericCollectionItem,
   updateGenericCollectionItem,
+  patchGenericCollectionItem,
   deleteGenericCollectionItem,
+  bulkEdit,
+  primaryWorkflowAction,
+  secondaryWorkflowAction,
   getExchangeRateForCurrency,
   getGenericAutoComplete,
   getLocation,
   conversation,
+  createConversation,
+  getConversations,
   getReportView,
   selectGoogleLocation,
   getListGeneric,
