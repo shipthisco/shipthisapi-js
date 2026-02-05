@@ -9,14 +9,20 @@ import {
   getGenericAutoComplete,
   getLocation,
   conversation,
+  createConversation,
+  getConversations,
   getReportView,
   updateGenericCollectionItem,
+  patchGenericCollectionItem,
   selectGoogleLocation,
   getListGeneric,
   setJobStatus,
   getJobStatus,
   getWorkflowReport,
   setWorkflowReport,
+  bulkEdit,
+  primaryWorkflowAction,
+  secondaryWorkflowAction,
 } from './collections/generic.js';
 import { ApiOptions } from './interfaces/api.interface.js';
 import { internalRequest, uploadFile } from './utils/request.js';
@@ -53,7 +59,11 @@ export class ShipthisAPI {
   public getOneGenericCollectionItem = getOneGenericCollectionItem;
   public createGenericCollectionItem = createGenericCollectionItem;
   public updateGenericCollectionItem = updateGenericCollectionItem;
+  public patchGenericCollectionItem = patchGenericCollectionItem;
   public deleteGenericCollectionItem = deleteGenericCollectionItem;
+  public bulkEdit = bulkEdit;
+  public primaryWorkflowAction = primaryWorkflowAction;
+  public secondaryWorkflowAction = secondaryWorkflowAction;
   public getExchangeRateForCurrency = getExchangeRateForCurrency;
   public getGenericAutoComplete = getGenericAutoComplete;
   public getLocation = getLocation;
@@ -63,6 +73,8 @@ export class ShipthisAPI {
   public getWorkflowReport = getWorkflowReport;
   public setWorkflowReport = setWorkflowReport;
   public conversation = conversation;
+  public createConversation = createConversation;
+  public getConversations = getConversations;
 
   public getReportView = getReportView;
   /**
