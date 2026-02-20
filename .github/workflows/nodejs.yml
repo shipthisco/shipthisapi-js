@@ -17,5 +17,5 @@ jobs:
       - run: touch ./dist/shipthisapi-js/.npmignore
       - uses: JS-DevTools/npm-publish@v1
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          token: ${{ secrets.NPM_CI_TOKEN }}
           package: "./dist/shipthisapi-js/package.json"
