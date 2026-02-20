@@ -41,9 +41,13 @@ export declare class ShipthisAPI {
             requestData: any;
         }) => any;
     } | ShipthisAPI, collectionName: string, objectId: string, updatedData: any) => Promise<any>;
+    patchGenericCollectionItem: (obj: ShipthisAPI, collectionName: string, objectId: string, updateFields: any) => Promise<any>;
     deleteGenericCollectionItem: (obj: {
         internalRequest: (arg0: any, arg1: string, arg2: string) => any;
     }, collectionName: string, objectId: string) => Promise<any>;
+    bulkEdit: (obj: ShipthisAPI, collectionName: string, ids: string[], updateData: Record<string, any>, externalUpdateData?: Record<string, any>) => Promise<any>;
+    primaryWorkflowAction: (obj: ShipthisAPI, collection: string, workflowId: string, objectId: string, actionIndex: number, intendedStateId: string, startStateId?: string) => Promise<any>;
+    secondaryWorkflowAction: (obj: ShipthisAPI, collection: string, workflowId: string, objectId: string, targetState: string, additionalData?: Record<string, any>) => Promise<any>;
     getExchangeRateForCurrency: (obj: ShipthisAPI, currency: string) => Promise<any>;
     getGenericAutoComplete: (obj: ShipthisAPI, referenceName: string, data: any) => Promise<any>;
     getLocation: (obj: ShipthisAPI, collectionName: string, params?: import("./interfaces/collection-params.interface.js").CollectionParams) => Promise<any>;
@@ -63,6 +67,8 @@ export declare class ShipthisAPI {
         internalRequest: (arg0: any, arg1: string, arg2: string) => any;
     }, objectId: string) => Promise<any>;
     conversation: (obj: ShipthisAPI, collectionName: string, data: any, params?: import("./interfaces/collection-params.interface.js").CollectionParams) => Promise<any>;
+    createConversation: (obj: ShipthisAPI, viewName: string, documentId: string, conversationData: any) => Promise<any>;
+    getConversations: (obj: ShipthisAPI, viewName: string, documentId: string, messageType?: string, page?: number, count?: number) => Promise<any>;
     getReportView: (obj: {
         internalRequest: (arg0: any, arg1: string, arg2: string, arg3: {
             params: {

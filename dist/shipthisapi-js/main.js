@@ -1,4 +1,4 @@
-import { createGenericCollectionItem, deleteGenericCollectionItem, getListGenericCollection, getSearchListCollection, getFullSearchListCollection, getOneGenericCollectionItem, getExchangeRateForCurrency, getGenericAutoComplete, getLocation, conversation, getReportView, updateGenericCollectionItem, selectGoogleLocation, getListGeneric, setJobStatus, getJobStatus, getWorkflowReport, setWorkflowReport, } from './collections/generic.js';
+import { createGenericCollectionItem, deleteGenericCollectionItem, getListGenericCollection, getSearchListCollection, getFullSearchListCollection, getOneGenericCollectionItem, getExchangeRateForCurrency, getGenericAutoComplete, getLocation, conversation, createConversation, getConversations, getReportView, updateGenericCollectionItem, patchGenericCollectionItem, selectGoogleLocation, getListGeneric, setJobStatus, getJobStatus, getWorkflowReport, setWorkflowReport, bulkEdit, primaryWorkflowAction, secondaryWorkflowAction, } from './collections/generic.js';
 import { internalRequest, uploadFile } from './utils/request.js';
 import { Shipment } from './collections/shipment.js';
 import { Setup } from './collections/setup.js';
@@ -27,7 +27,11 @@ export class ShipthisAPI {
     getOneGenericCollectionItem = getOneGenericCollectionItem;
     createGenericCollectionItem = createGenericCollectionItem;
     updateGenericCollectionItem = updateGenericCollectionItem;
+    patchGenericCollectionItem = patchGenericCollectionItem;
     deleteGenericCollectionItem = deleteGenericCollectionItem;
+    bulkEdit = bulkEdit;
+    primaryWorkflowAction = primaryWorkflowAction;
+    secondaryWorkflowAction = secondaryWorkflowAction;
     getExchangeRateForCurrency = getExchangeRateForCurrency;
     getGenericAutoComplete = getGenericAutoComplete;
     getLocation = getLocation;
@@ -37,6 +41,8 @@ export class ShipthisAPI {
     getWorkflowReport = getWorkflowReport;
     setWorkflowReport = setWorkflowReport;
     conversation = conversation;
+    createConversation = createConversation;
+    getConversations = getConversations;
     getReportView = getReportView;
     /**
      * Collection Definition
