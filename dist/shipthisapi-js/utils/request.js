@@ -9,6 +9,9 @@ const prepareHeaders = async (obj) => {
     if (obj.xApiKey) {
         headers['x-api-key'] = obj.xApiKey || '';
     }
+    if (obj.authorization) {
+        headers['authorization'] = obj.authorization || '';
+    }
     return headers;
 };
 const internalRequest = async (obj, method, path, options) => {
