@@ -292,8 +292,23 @@ export class ShipthisAPI {
   }
 
   public setRegionAndLocation(regionId: string, locationId: string) {
-    this.selectedRegion = regionId;
-    this.selectedLocation = locationId;
+    return new Promise((resolve, reject) => {
+      const region = this.organisation?.regions?.find(
+        (r) => r.region_id === regionId,
+      );
+      if (!region) {
+        return reject({ message: 'Region Not Found' });
+      }
+      const location = region.locations?.find(
+        (l: ShipthisLocation) => l.location_id === locationId,
+      );
+      if (!location) {
+        return reject({ message: 'Location Not Found' });
+      }
+      this.selectedRegion = regionId;
+      this.selectedLocation = locationId;
+      resolve({ region: this.selectedRegion, selectedLocation: this.selectedLocation });
+    });
   }
 
   setObjectReferences() {
