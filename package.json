@@ -34,12 +34,27 @@
   "author": "Mayur Rawte",
   "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^1.9.0",
+    "axios": "^1.17.0",
     "tslib": "~2.8.1"
   },
   "overrides": {
     "ajv": "^8.18.0",
-    "minimatch": "^10.2.2"
+    "minimatch": "^10.2.5",
+    "handlebars": "^4.7.9",
+    "flatted": "^3.4.2",
+    "fast-uri": "^3.1.2",
+    "tinyglobby": {
+      "picomatch": "^4.0.4"
+    },
+    "anymatch": {
+      "picomatch": "^2.3.2"
+    },
+    "micromatch": {
+      "picomatch": "^2.3.2"
+    },
+    "jest-util": {
+      "picomatch": "^2.3.2"
+    }
   },
   "volta": {
     "node": "20.11.1"
