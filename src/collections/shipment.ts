@@ -20,8 +20,10 @@ import {
   RequestlclSeaLoad,
   RequestltlLandLoad,
   RequestRoroSeaLoad,
+  RequestShipmentItem,
 } from '../interfaces/load.interface.js';
 import { ConversationPayload } from '../interfaces/conversation.interface.js';
+import { CollectionParams } from '../interfaces/collection-params.interface.js';
 import {
   AirShipment,
   LandShipment,
@@ -617,5 +619,62 @@ export class Shipment {
   // Land fcl load
   public createLandFclLoad(data: RequestftlLandLoad) {
     return this.obj.createGenericCollectionItem(this.obj, 'fcl_load', data);
+  }
+
+  // Shipment Item
+  public createShipmentItem(data: RequestShipmentItem) {
+    return this.obj.createGenericCollectionItem(
+      this.obj,
+      'shipment_item',
+      data,
+    );
+  }
+
+  public getShipmentItemList(params?: CollectionParams) {
+    return this.obj.getListGenericCollection(
+      this.obj,
+      'shipment_item',
+      params,
+    );
+  }
+
+  public getShipmentItem(objectId: string) {
+    return this.obj.getOneGenericCollectionItem(
+      this.obj,
+      'shipment_item',
+      objectId,
+    );
+  }
+
+  public updateShipmentItem(
+    objectId: string,
+    updatedData: Partial<RequestShipmentItem>,
+  ) {
+    return this.obj.updateGenericCollectionItem(
+      this.obj,
+      'shipment_item',
+      objectId,
+      updatedData,
+    );
+  }
+
+  public patchShipmentItem(
+    objectId: string,
+    updateFields: Partial<RequestShipmentItem>,
+  ) {
+    return this.obj.patchGenericCollectionItem(
+      this.obj,
+      'shipment_item',
+      objectId,
+      updateFields,
+    );
+  }
+
+  public deleteShipmentItem(objectId: string) {
+    return this.obj.deleteGenericCollectionItem(
+      this.obj as any,
+      'shipment_item',
+      objectId,
+    );
   }
 }
