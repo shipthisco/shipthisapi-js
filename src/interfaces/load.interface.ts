@@ -299,6 +299,159 @@ export interface fclLandLoad {
   ];
 }
 
+export enum ShipmentItemCategory {
+  Package = 'package',
+  Container = 'container',
+  Trailer = 'trailer',
+  BulkCargo = 'bulk_cargo',
+  Roro = 'roro',
+}
+
+export enum ShipmentItemStackable {
+  Stackable = 'stackable',
+  NotStackable = 'not_stackable',
+}
+
+export enum ShipmentItemWeightUnit {
+  Kg = 'kg',
+  Lb = 'lb',
+  Mt = 'mt',
+}
+
+export enum ShipmentItemLengthUnit {
+  Cm = 'cm',
+  Mtr = 'mtr',
+  In = 'in',
+  Ft = 'ft',
+}
+
+export enum ShipmentItemBulkCargoType {
+  BreakBulk = 'break_bulk',
+  BulkCargo = 'bulk_cargo',
+  LiquidCargo = 'liquid_cargo',
+  WheeledCargo = 'wheeled_cargo',
+}
+
+export enum ShipmentItemMode {
+  SeaShipment = 'sea_shipment',
+  AirShipment = 'air_shipment',
+  LandShipment = 'land_shipment',
+  PickupDelivery = 'pickup_delivery',
+  RailShipment = 'rail_shipment',
+  ClearanceJob = 'clearance_job',
+  DocumentationJob = 'documentation_job',
+}
+
+export interface RequestShipmentItem {
+  // General
+  category: ShipmentItemCategory;
+  product_type?: ShipMethod;
+  parent_item?: ShipthisBasic;
+  warehouse_item?: ShipthisBasic;
+  is_opening_stock?: boolean;
+  shipment: TypeShipment[];
+  linked_shipment?: TypeShipment[];
+  customer?: ShipthisBasic;
+  linked_loads?: ShipthisBasic[];
+  is_master_package?: boolean;
+  print_multiple_labels_per_quantity?: boolean;
+  package_item?: ShipthisBasic;
+  package_type?: LoadType;
+  package_quantity?: number;
+  stackable?: ShipmentItemStackable;
+  description?: string;
+
+  // Container Details
+  container_type?: ShipthisBasic;
+  container_no?: string;
+  hs_code?: string;
+  marks_and_no?: string;
+  description_bl_override?: string;
+  number_and_kind_of_package_override?: string;
+  shipping_bill_number?: string;
+  seal_no?: string;
+  shipper_seal_no?: string;
+  custom_seal_no?: string;
+  carrier_seal_no?: string;
+  pickup_number?: string;
+  slac?: number;
+
+  // Metrics & Dimension
+  po_item?: ShipthisBasic;
+  pieces_type?: ShipthisBasic;
+  total_units?: number;
+  automatically_palletize?: boolean;
+  weight_unit?: ShipmentItemWeightUnit;
+  length_unit?: ShipmentItemLengthUnit;
+  gross_wt?: number;
+  net_wt?: number;
+  tare_wt?: number;
+  volumetric_wt?: number;
+  chargeable_wt?: number;
+  chargeable_cbm?: number;
+  cbm?: number;
+  cft?: number;
+  ldm?: number;
+  override_chargeable_wt?: boolean;
+  dimensions?: Dimensions[];
+  package_labels?: string[];
+  old_labels?: string[];
+  validated_package_labels?: string[];
+  actual_package_quantity?: number;
+  notes?: string;
+  gross_wt_kg?: number;
+  gross_wt_lb?: number;
+  per_unit_weight?: number;
+  length?: number;
+  width?: number;
+  height?: number;
+
+  // Trailer/Vehicle Detail
+  vehicle_type?: ShipMethod;
+  vehicle_no?: string;
+  last_free_date?: { $date: number };
+  chassis_out?: { $date: number };
+  empty_container_return_date?: { $date: number };
+  empty_container_return_location?: string;
+  chassis_used_days?: number;
+
+  // Roro
+  vin_no?: string;
+  make?: string;
+  model?: string;
+  year?: string;
+
+  // Bulk Cargo
+  bulk_cargo_type?: ShipmentItemBulkCargoType;
+  weight_mt?: number;
+  loading_rate?: number;
+  discharging_rate?: number;
+  additional_information?: string;
+
+  // Additional Detail
+  batch_no?: string;
+  expiry_date?: { $date: number };
+  remark?: string;
+
+  // Items (nested packages, used for container/trailer/roro/bulk breakdowns)
+  packages?: fclPackage[];
+
+  // Hazardous
+  hazard_details?: {
+    is_hazardous?: boolean;
+    un_number?: HazardUnNumber;
+    hazard_class?: HazardClass;
+    hazardouse_level?: HazardousLevelType;
+    temp_unit?: Temp;
+    flash_point?: number;
+    emergency_contact?: string;
+    hazard_special_instruction?: string;
+  };
+
+  // Mode (basic)
+  mode?: ShipmentItemMode[];
+}
+
 export interface AddNewCustomerData {
   opening_balance?: any;
   account_contact_person?: {
