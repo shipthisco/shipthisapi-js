@@ -1,6 +1,7 @@
 import { ShipthisAPI } from '../main.js';
-import { AddNewCustomerData, AddNewShipper, LoadType, RequestAirLoad, RequestBulkSeaLoad, RequestfclSeaLoad, RequestftlLandLoad, RequestlclSeaLoad, RequestltlLandLoad, RequestRoroSeaLoad } from '../interfaces/load.interface.js';
+import { AddNewCustomerData, AddNewShipper, LoadType, RequestAirLoad, RequestBulkSeaLoad, RequestfclSeaLoad, RequestftlLandLoad, RequestlclSeaLoad, RequestltlLandLoad, RequestRoroSeaLoad, RequestShipmentItem } from '../interfaces/load.interface.js';
 import { ConversationPayload } from '../interfaces/conversation.interface.js';
+import { CollectionParams } from '../interfaces/collection-params.interface.js';
 import { AirShipment, LandShipment, SeaShipment } from '../interfaces/collection.interface.js';
 export declare class Shipment {
     obj: ShipthisAPI;
@@ -70,4 +71,10 @@ export declare class Shipment {
     createLandFtlLoad(data: RequestftlLandLoad): Promise<any>;
     createLandltlLoad(data: RequestltlLandLoad): Promise<any>;
     createLandFclLoad(data: RequestftlLandLoad): Promise<any>;
+    createShipmentItem(data: RequestShipmentItem): Promise<any>;
+    getShipmentItemList(params?: CollectionParams): Promise<any>;
+    getShipmentItem(objectId: string): Promise<any>;
+    updateShipmentItem(objectId: string, updatedData: Partial<RequestShipmentItem>): Promise<any>;
+    patchShipmentItem(objectId: string, updateFields: Partial<RequestShipmentItem>): Promise<any>;
+    deleteShipmentItem(objectId: string): Promise<any>;
 }
