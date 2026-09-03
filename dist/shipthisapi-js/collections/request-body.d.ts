@@ -162,7 +162,6 @@ export declare const requestLandShipment: {
     customer_name: {};
     shipment_type: string;
     movement_type: string;
-    master_reference: {};
     shipment_term: {};
     shipment_name: string;
 };

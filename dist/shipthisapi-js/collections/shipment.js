@@ -372,4 +372,23 @@ export class Shipment {
     createLandFclLoad(data) {
         return this.obj.createGenericCollectionItem(this.obj, 'fcl_load', data);
     }
+    // Shipment Item
+    createShipmentItem(data) {
+        return this.obj.createGenericCollectionItem(this.obj, 'shipment_item', data);
+    }
+    getShipmentItemList(params) {
+        return this.obj.getListGenericCollection(this.obj, 'shipment_item', params);
+    }
+    getShipmentItem(objectId) {
+        return this.obj.getOneGenericCollectionItem(this.obj, 'shipment_item', objectId);
+    }
+    updateShipmentItem(objectId, updatedData) {
+        return this.obj.updateGenericCollectionItem(this.obj, 'shipment_item', objectId, updatedData);
+    }
+    patchShipmentItem(objectId, updateFields) {
+        return this.obj.patchGenericCollectionItem(this.obj, 'shipment_item', objectId, updateFields);
+    }
+    deleteShipmentItem(objectId) {
+        return this.obj.deleteGenericCollectionItem(this.obj, 'shipment_item', objectId);
+    }
 }

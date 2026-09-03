@@ -183,7 +183,6 @@ export const requestLandShipment = {
   customer_name: {},
   shipment_type: '',
   movement_type: '',
-  master_reference: {},
   shipment_term: {},
   shipment_name: '',
 };
