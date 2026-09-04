@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: volta-cli/action@v1
+      - uses: actions/checkout@v7
+      - uses: volta-cli/action@v5
       - run: npm install
       - run: npm run build
         env:
           CI: true
       - run: touch ./dist/shipthisapi-js/.npmignore
-      - uses: JS-DevTools/npm-publish@v1
+      - uses: JS-DevTools/npm-publish@v4
         with:
           token: ${{ secrets.NPM_CI_TOKEN }}
           package: "./dist/shipthisapi-js/package.json"
