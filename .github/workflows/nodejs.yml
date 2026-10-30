@@ -9,9 +9,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v4
       - uses: volta-cli/action@v1
-      - run: npm install
-      - run: npm run build
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
         env:
           CI: true
       - run: touch ./dist/shipthisapi-js/.npmignore
