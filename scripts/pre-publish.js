@@ -16,6 +16,8 @@ const PROJECT_NAME = 'shipthisapi-js';
     'dependencies',
     'devDependencies',
     'volta',
+    'pnpm',
+    'packageManager',
   ];
   for (const property in libraryPackageObj) {
     if (deleteList.includes(property)) {
